@@ -6,7 +6,17 @@ try:
     # Connecting to Waapi using default URL
     with WaapiClient() as client:
         
-        result = client.call("ak.wwise.core.remote.connect", {"host":"127.0.0.1"})
+        print("✅ Erfolgreich verbunden mit WAAPI!")
+
+        # Beispiel 1: Projektinfo abrufen
+        project_info = client.call("ak.wwise.core.getInfo")
+        print("\n=== Projektinfo ===")
+        pprint(project_info)
+
+        # Beispiel 2: Alle Soundbanks abrufen
+        soundbanks = client.call("ak.wwise.core.soundbank.getList")
+        print("\n=== Soundbanks im Projekt ===")
+        pprint(soundbanks)
 
 except CannotConnectToWaapiException:
 
