@@ -6,8 +6,6 @@ try:
     # Connecting to Waapi using default URL
     with WaapiClient() as client:
         
-        print("✅ Erfolgreich verbunden mit WAAPI!")
-
         # Beispiel 1: Projektinfo abrufen
         project_info = client.call("ak.wwise.core.getInfo")
         print("\n=== Projektinfo ===")
