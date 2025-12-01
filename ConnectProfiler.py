@@ -1,21 +1,31 @@
 #!/usr/bin/env python3
 from waapi import WaapiClient, CannotConnectToWaapiException
-from pprint import pprint
+
+EVENT_ID = "{58EBC223-7952-48FA-A2E7-505C6FDD6E35}"
+GAME_OBJECT_ID = 1000  # any integer is fine
 
 try:
-    # Connecting to Waapi using default URL
     with WaapiClient() as client:
-        
-        # Beispiel 1: Projektinfo abrufen
-        project_info = client.call("ak.wwise.core.getInfo")
-        print("\n=== Projektinfo ===")
-        pprint(project_info)
 
-        # Beispiel 2: Alle Soundbanks abrufen
-        soundbanks = client.call("ak.wwise.core.soundbank.getList")
-        print("\n=== Soundbanks im Projekt ===")
-        pprint(soundbanks)
+        # Register a game object
+        client.call("ak.wwise.core.audio.registerGameObj", {
+            "gameObject": GAME_OBJECT_ID,
+            "name": "PythonObj"
+        })
+
+        # Post the event
+        result = client.call("ak.wwise.core.audio.postEvent", {
+            "event": EVENT_ID,
+            "gameObject": GAME_OBJECT_ID,
+            "wait": True
+        })
+
+        print("Event posted:", result)
+
+        # Unregister
+        client.call("ak.wwise.core.audio.unregisterGameObj", {
+            "gameObject": GAME_OBJECT_ID
+        })
 
 except CannotConnectToWaapiException:
-
-    print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+    print("Could not connect to WAAPI. Is Wwise running and WAAPI enabled?")
