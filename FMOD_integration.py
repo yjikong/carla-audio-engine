@@ -1,8 +1,8 @@
 import os
 import time
 
-os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Universal Windows Platform\api\core\lib\x64\fmod.dll"
-os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Universal Windows Platform\api\studio\lib\x64\fmodstudio.dll"
+os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
+os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"
 
 import pyfmodex
 
@@ -28,14 +28,15 @@ studio_system.initialize()
 BANK_PATH = r"C:\Users\ozanm\1_Code\Projekt_Carla_Sound_Semester_6\FMOD\CARLA_Sound\Build\Desktop"
 
 # Use 'studio_system' instead of 'system'
+print("Loading Sound bank")
 studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.bank"))
 studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.strings.bank"))
-studio_system.load_bank_file(os.path.join(BANK_PATH, "SFX.bank"))
 studio_system.load_bank_file(os.path.join(BANK_PATH, "Test.bank"))
 
 # -------------------------------
 # 4. Get event and create instance
 # -------------------------------
+print("Also hier sollten jetzt die Events kommen")
 EVENT_PATH = "event:/Ignition"
 # Use 'studio_system' here too
 event_desc = studio_system.get_event(EVENT_PATH)
