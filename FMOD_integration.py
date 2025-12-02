@@ -15,6 +15,7 @@ from pyfmodex.exceptions import FmodError
 BANK_PATH = r"C:\Users\ozanm\1_Code\Projekt_Carla_Sound_Semester_6\FMOD\CARLA_Sound\Build\Desktop"
 EVENT_PATH = "event:/Ignition" # The event to control
 Background_music_Event_path = "event:/Background"
+Honk_path = "event:/Honk"
 
 # --- FMOD Initialization ---
 studio_system = None
@@ -46,6 +47,9 @@ try:
     #Background event
     background_music = studio_system.get_event(Background_music_Event_path)
     background_music_inst = background_music.create_instance()
+
+    honk = studio_system.get_event(Honk_path)
+    honk_inst = honk.create_instance()
     
     print("\n--- CONTROL READY ---")
     print(f"Press [SPACE] to PLAY '{EVENT_PATH}'")
@@ -54,6 +58,10 @@ try:
     
     # 4. Main Update Loop (The heartbeat of FMOD)
     while is_running:
+
+        if keyboard.is_pressed('h'):
+            honk_inst.start()
+
         if keyboard.is_pressed('b'):
             background_music_inst.start()
 
