@@ -61,9 +61,11 @@ try:
 
         if keyboard.is_pressed('h'):
             honk_inst.start()
+            time.sleep(0.2)
 
         if keyboard.is_pressed('b'):
             background_music_inst.start()
+            time.sleep(0.2)
 
         # --- Check for Play Command ---
         if keyboard.is_pressed('space'):
