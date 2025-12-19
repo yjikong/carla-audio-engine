@@ -12,7 +12,7 @@ from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
 # FMOD Soundbank Path (Location of your built banks)
-BANK_PATH = r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Banks\Test\Build\Desktop"
+BANK_PATH = r"..\Banks\Test\Build\Desktop"
 EVENT_PATH = "event:/Wetter" # The event to control
 
 # --- FMOD Initialization ---
