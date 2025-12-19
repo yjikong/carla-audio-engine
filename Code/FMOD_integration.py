@@ -51,6 +51,7 @@ try:
     
     # 4. Main Update Loop (The heartbeat of FMOD
     eins = True
+    param_wert = 0
     while is_running:
         with open("..\weather_data.txt", "r") as f:
             rain, wind = map(float, f.read().split(","))
@@ -69,15 +70,17 @@ try:
             eins = False
             event_inst.start()
 
-        if current_wind > 0:
+        if current_wind > 0 & param_wert != 0:
+            param_wert = 0
             event_inst.set_parameter_by_name("Wetterwechsel",0)
             # Check if the event is stopped before starting it
             print(f"[PLAY] Event started.")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
         
-        if current_rain > 0:
-            event_inst.set_parameter_by_name("Wetterwechsel",1)
+        if current_rain > 0 and param_wert != 1:
+            param_wert = 1
+            event_inst.set_parameter_by_name("Wetterwechsel",param_wert)
             #event_inst.start()
             print(f"[PLAY] Event started.")
             # Debounce: wait a moment so it doesn't try to restart immediately
