@@ -49,7 +49,7 @@ try:
     print("Press [X] to STOP the event.")
     print("Press [Q] to QUIT the program.")
     
-    # 4. Main Update Loop (The heartbeat of FMOD)
+    # 4. Main Update Loop (The heartbeat of FMOD
     eins = True
     while is_running:
         # --- Check for Play Command ---
