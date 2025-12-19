@@ -52,20 +52,31 @@ try:
     # 4. Main Update Loop (The heartbeat of FMOD
     eins = True
     while is_running:
+        with open("..\weather_data.txt", "r") as f:
+            rain, wind = map(float, f.read().split(","))
+
+        # These variables are ALWAYS the latest values
+        current_rain = rain
+        current_wind = wind
+
+        print("Current rain:", current_rain)
+        print("Current wind:", current_wind)
+
+        time.sleep(1)
+
         # --- Check for Play Command ---
         if eins:
             eins = False
             event_inst.start()
 
-        if keyboard.is_pressed('0'):
+        if current_wind > 0:
+            event_inst.set_parameter_by_name("Wetterwechsel",0)
             # Check if the event is stopped before starting it
             print(f"[PLAY] Event started.")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
         
-        if keyboard.is_pressed('1'):
-            # Check if the event is stopped before starting it
-            
+        if current_rain > 0:
             event_inst.set_parameter_by_name("Wetterwechsel",1)
             #event_inst.start()
             print(f"[PLAY] Event started.")
