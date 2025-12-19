@@ -50,11 +50,15 @@ try:
     print("Press [Q] to QUIT the program.")
     
     # 4. Main Update Loop (The heartbeat of FMOD)
+    eins = True
     while is_running:
         # --- Check for Play Command ---
+        if eins:
+            eins = False
+            event_inst.start()
+
         if keyboard.is_pressed('0'):
             # Check if the event is stopped before starting it
-            event_inst.start()
             print(f"[PLAY] Event started.")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
@@ -63,7 +67,7 @@ try:
             # Check if the event is stopped before starting it
             
             event_inst.set_parameter_by_name("Wetterwechsel",1)
-            event_inst.start()
+            #event_inst.start()
             print(f"[PLAY] Event started.")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
