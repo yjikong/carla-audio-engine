@@ -17,12 +17,13 @@ try:
         # JSON-String wieder in ein Dictionary umwandeln
         data_packet = json.loads(data.decode())
         
-        # Jetzt kannst du auf die einzelnen Werte zugreifen
+         #Print data
         speed = data_packet["speed"]
+        speed_limit = data_packet["speed_limit"]
         throttle = data_packet["throttle"]
         brake = data_packet["brake"]
-        
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f}", end='\r')
+
+        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f}", end='\r')
 
 except KeyboardInterrupt:
     print("\nEmpfänger gestoppt.")
