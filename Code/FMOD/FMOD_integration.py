@@ -55,6 +55,7 @@ try:
     while is_running:
         # --- Check for Play Command ---
         if keyboard.is_pressed('0'):
+            print(f"0: looped Sound started")
             eins = False
             event_inst.start()
 
@@ -62,7 +63,7 @@ try:
             param_wert = 0
             event_inst.set_parameter_by_name("Wetterwechsel",0)
             # Check if the event is stopped before starting it
-            print(f"[PLAY] Event started.")
+            print(f"1: Parameter 0")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
         
@@ -70,7 +71,7 @@ try:
             param_wert = 1
             event_inst.set_parameter_by_name("Wetterwechsel",param_wert)
             #event_inst.start()
-            print(f"[PLAY] Event started.")
+            print(f"2: Parameter 1")
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
             
