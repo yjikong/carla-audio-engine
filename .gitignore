@@ -2,4 +2,4 @@
 .venv38/
 __pycache__/
 *.pyc
-.Banks/
+Banks/
