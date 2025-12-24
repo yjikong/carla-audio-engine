@@ -12,7 +12,7 @@ from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
 # FMOD Soundbank Path (Location of your built banks)
-BANK_PATH = r"..\Banks\Test\Build\Desktop"
+BANK_PATH = r"..\..\Banks\Test\Build\Desktop"
 EVENT_PATH = "event:/Wetter" # The event to control
 
 # --- FMOD Initialization ---
@@ -54,11 +54,11 @@ try:
     param_wert = 0
     while is_running:
         # --- Check for Play Command ---
-        if keyboard('0'):
+        if keyboard.is_pressed('0'):
             eins = False
             event_inst.start()
 
-        if keyboard('1'):
+        if keyboard.is_pressed('1'):
             param_wert = 0
             event_inst.set_parameter_by_name("Wetterwechsel",0)
             # Check if the event is stopped before starting it
@@ -66,7 +66,7 @@ try:
             # Debounce: wait a moment so it doesn't try to restart immediately
             time.sleep(0.2) 
         
-        if keyboard('2'):
+        if keyboard.is_pressed('2'):
             param_wert = 1
             event_inst.set_parameter_by_name("Wetterwechsel",param_wert)
             #event_inst.start()
