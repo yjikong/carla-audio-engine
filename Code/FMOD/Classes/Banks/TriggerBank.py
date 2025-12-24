@@ -1,6 +1,7 @@
 #set environment
 import os
 import time
+from pathlib import Path
 os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
 os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"
 
@@ -9,8 +10,14 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-BANK_PATH = r"..\..\..\..\Banks\Trigger_Bank"
 EVENT_PATH = "event:/Warning"
+
+# Resolve a sensible default bank path relative to this file so the code
+# works regardless of the current working directory when the script runs.
+FILE_DIR = Path(__file__).resolve().parent
+# parents[3] should point to the repository root (SoundCARLA) from
+# Code/FMOD/Classes/Banks -> .. (Classes) -> .. (FMOD) -> .. (Code) -> .. (SoundCARLA)
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[3] / 'Banks' / 'Trigger_Bank').resolve())
 
 class TriggerBank:
     studio_system = None
@@ -22,12 +29,39 @@ class TriggerBank:
         temp_core_system.release() 
         TriggerBank.studio_system = StudioSystem()
         TriggerBank.studio_system.initialize(max_channels=512)
-    def load():
-        #load Banks
-        TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.bank"))
-        TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.strings.bank"))
-        TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Trigger_Bank.bank"))
-        TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Trigger_Bank.strings.bank"))
+    def load(bank_path=None):
+        # Use resolved default if none provided
+        if bank_path is None:
+            bank_path = DEFAULT_BANK_PATH
+        bank_path = os.path.normpath(bank_path)
+        print(f"[TriggerBank] Resolved bank path: {bank_path}")
+
+        # Check that directory exists and that expected files are present
+        if not os.path.isdir(bank_path):
+            raise FileNotFoundError(f"Bank directory not found: {bank_path}")
+
+        expected_files = [
+            "Master.bank",
+            "Master.strings.bank",
+            "Trigger_Bank.bank",
+            "Trigger_Bank.strings.bank",
+        ]
+
+        for f in expected_files:
+            full = os.path.join(bank_path, f)
+            if not os.path.exists(full):
+                print(f"[TriggerBank] Warning: expected bank file missing: {full}")
+
+        # load Banks
+        TriggerBank.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
+        TriggerBank.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
+        # Try to load trigger-specific banks if they exist
+        trigger_bank = os.path.join(bank_path, "Trigger_Bank.bank")
+        if os.path.exists(trigger_bank):
+            TriggerBank.studio_system.load_bank_file(trigger_bank)
+        trigger_strings = os.path.join(bank_path, "Trigger_Bank.strings.bank")
+        if os.path.exists(trigger_strings):
+            TriggerBank.studio_system.load_bank_file(trigger_strings)
     def prepare_event():
         event_desc = TriggerBank.studio_system.get_event(EVENT_PATH)
         TriggerBank.event_inst = event_desc.create_instance()
@@ -39,9 +73,15 @@ class TriggerBank:
 
 if __name__ == '__main__':
     TriggerBank.TriggerBank()
-    TriggerBank.load()
-    TriggerBank.prepare_event()
-    TriggerBank.event_inst.start()
-    TriggerBank.update_studio_system()
-    time.sleep(5)
+    # Use default resolved bank path (robust to working directory)
+    try:
+        TriggerBank.load()
+        TriggerBank.prepare_event()
+        TriggerBank.event_inst.start()
+        TriggerBank.update_studio_system()
+        time.sleep(5)
+    except FileNotFoundError as e:
+        print(f"[TriggerBank] Error: {e}")
+    except FmodError as e:
+        print(f"[TriggerBank] FMOD error: {e}")
 
