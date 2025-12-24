@@ -1,5 +1,6 @@
 #set environment
 import os
+import time
 os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
 os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"
 
@@ -26,11 +27,21 @@ class TriggerBank:
         TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.bank"))
         TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Master.strings.bank"))
         TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Trigger_Bank.bank"))
+        TriggerBank.studio_system.load_bank_file(os.path.join(BANK_PATH, "Trigger_Bank.strings.bank"))
     def prepare_event():
         event_desc = TriggerBank.studio_system.get_event(EVENT_PATH)
         TriggerBank.event_inst = event_desc.create_instance()
         return TriggerBank.event_inst
+    def update_studio_system():
+        TriggerBank.studio_system.update()
     def set_parameter():
         pass
 
 if __name__ == '__main__':
+    TriggerBank.TriggerBank()
+    TriggerBank.load()
+    TriggerBank.prepare_event()
+    TriggerBank.event_inst.start()
+    TriggerBank.update_studio_system()
+    time.sleep(5)
+
