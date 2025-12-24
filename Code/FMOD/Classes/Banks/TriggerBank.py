@@ -8,7 +8,7 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-BANK_PATH = r"..\..\..\Banks\Trigger_Bank"
+BANK_PATH = r"..\..\..\..\Banks\Trigger_Bank"
 EVENT_PATH = "event:/Warning"
 
 class TriggerBank:
@@ -32,3 +32,5 @@ class TriggerBank:
         return TriggerBank.event_inst
     def set_parameter():
         pass
+
+if __name__ == '__main__':
