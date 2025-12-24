@@ -21,3 +21,10 @@ class Data:
     def get_speed_limit():
         speed_limit = Data.data_packet["speed_limit"]
         return speed_limit
+    def print_all():
+        speed = Data.data_packet["speed"]
+        speed_limit = Data.data_packet["speed_limit"]
+        throttle = Data.data_packet["throttle"]
+        brake = Data.data_packet["brake"]
+
+        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f}", end='\r')

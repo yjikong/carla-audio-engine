@@ -14,11 +14,11 @@ if __name__ == '__main__':
     Trigger = False
 
     while True:
-        # if Data.get_speed() > Data.get_speed_limit() & Trigger == False:
-        #     TriggerBank.event_inst.start()
-        #     Trigger = True
-        # if TriggerBank.event_inst.playback_state == PLAYBACK_STATE.STOPPED:
-        #     Trigger = False
-        TriggerBank.event_inst.start()
+        Data.decode()
+        Data.print_all()
+        if Data.get_speed() > Data.get_speed_limit() and Trigger == False:
+            TriggerBank.event_inst.start()
+            Trigger = True
+        if TriggerBank.event_inst.playback_state == PLAYBACK_STATE.STOPPED:
+            Trigger = False
         TriggerBank.update_studio_system()
-        time.sleep(5)
