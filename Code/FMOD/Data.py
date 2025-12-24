@@ -1,9 +1,6 @@
 import socket
 import json
 
-import socket
-import json
-
 # Socket Setup
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5005
