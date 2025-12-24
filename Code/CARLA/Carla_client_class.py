@@ -27,6 +27,7 @@ class CarlaClient:
             #2. Variable setzen:
             CarlaClient.vehicle_found = True
         #3. Daten auslesen:
+        speed_limit = CarlaClient.vehicle.get_speed_limit()
         v = CarlaClient.vehicle.get_velocity()
         kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
         control = CarlaClient.vehicle.get_control()
@@ -36,6 +37,7 @@ class CarlaClient:
                 "speed": round(kmh, 2),
                 "throttle": round(control.throttle, 2),
                 "brake": round(control.brake, 2),
+                "speed_limit": speed_limit,
                 "timestamp": time.time()
             }
         return data_packet
@@ -50,7 +52,8 @@ if __name__ == '__main__':
         
         #Print data
         speed = data_packet["speed"]
+        speed_limit = data_packet["speed_limit"]
         throttle = data_packet["throttle"]
         brake = data_packet["brake"]
-        
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f}", end='\r')
+
+        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f}", end='\r')
