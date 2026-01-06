@@ -18,6 +18,9 @@ if __name__ == '__main__':
     #connect and get data
     CarlaClient.CarlaClient('localhost', 2000, 10.0)
     CarlaClient.connect()
+
+    sock = socket.socket()
+
     while True:
         data_packet = CarlaClient.retrieve_data()
-        socket.publish_data(socket.socket(), data_packet)
+        socket.publish_data(sock, data_packet)
