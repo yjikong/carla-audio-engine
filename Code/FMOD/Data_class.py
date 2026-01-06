@@ -22,9 +22,12 @@ class Data:
         speed_limit = Data.data_packet["speed_limit"]
         return speed_limit
     def print_all():
-        speed = Data.data_packet["speed"]
-        speed_limit = Data.data_packet["speed_limit"]
-        throttle = Data.data_packet["throttle"]
-        brake = Data.data_packet["brake"]
+        # .get(key, default_wert) verhindert den KeyError
+        speed = Data.data_packet.get("speed", 0.0)
+        speed_limit = Data.data_packet.get("speed_limit", 0.0)
+        throttle = Data.data_packet.get("throttle", 0.0)
+        brake = Data.data_packet.get("brake", 0.0)
+        timestamp = Data.data_packet.get("timestamp", 0.0)
+        message = Data.data_packet.get("m", "No Data")
 
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f}", end='\r')
+        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | T:{timestamp} | M: {message}", end='\r')

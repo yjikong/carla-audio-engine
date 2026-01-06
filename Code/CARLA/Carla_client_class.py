@@ -25,22 +25,36 @@ class CarlaClient:
             #1. Fahrzeug finden:
             CarlaClient.vehicle = finder.get_vehicle(CarlaClient.world)
             #2. Variable setzen:
-            CarlaClient.vehicle_found = True
+            if CarlaClient.vehicle is not None:
+                CarlaClient.vehicle_found = True
         #3. Daten auslesen:
-        speed_limit = CarlaClient.vehicle.get_speed_limit()
-        v = CarlaClient.vehicle.get_velocity()
-        kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
-        control = CarlaClient.vehicle.get_control()
+        if CarlaClient.vehicle_found == True:
 
-        #4. Daten in JSON Packet umwandeln:
-        data_packet = {
-                "speed": round(kmh, 2),
-                "throttle": round(control.throttle, 2),
-                "brake": round(control.brake, 2),
-                "speed_limit": speed_limit,
-                "timestamp": time.time()
+            speed_limit = CarlaClient.vehicle.get_speed_limit()
+            v = CarlaClient.vehicle.get_velocity()
+            kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
+            control = CarlaClient.vehicle.get_control()
+
+            #4. Daten in JSON Packet umwandeln:
+            data_packet = {
+                    "speed": round(kmh, 2),
+                    "throttle": round(control.throttle, 2),
+                    "brake": round(control.brake, 2),
+                    "speed_limit": speed_limit,
+                    "timestamp": time.time(),
+                    "m": "Hallo"
+                }
+            return data_packet
+        else:
+            data_packet = {
+                "speed": 0.0,
+                "throttle": 0.0,
+                "brake": 0.0,
+                "speed_limit": 0.0,
+                "timestamp": time.time(),
+                "m": "Hallo"
             }
-        return data_packet
+            return data_packet
         
 
 if __name__ == '__main__':
