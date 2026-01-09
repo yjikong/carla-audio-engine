@@ -1,4 +1,5 @@
 from .Classes.Banks.TriggerBank import * 
+from .Classes.Sounds.Reverse_Beep import *
 from .Data_class import *
 import keyboard
 import sys
@@ -9,6 +10,8 @@ class SoundModel:
         TriggerBank.TriggerBank()
         TriggerBank.load()
         TriggerBank.prepare_event()
+        reverse_beep.init()
+        reverse_beep.dynamisch_Beep_erstellen()
         Data.Data()
     
     def run():
@@ -24,12 +27,16 @@ class SoundModel:
             if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 Trigger = False
 
-            #   --Platz für Sound Engine Fälle--
+            if Data.get_gear() == -1 or keyboard.is_pressed('r'):
+                reverse_beep.play_reverse_beep()
 
+            #   --Platz für Sound Engine Fälle--
+            reverse_beep.update()
             TriggerBank.update_studio_system()
             if keyboard.is_pressed('q'):
                 SoundModel.exit()
                 break
 
     def exit():
+        reverse_beep.shutdown()
         TriggerBank.shutdown()
