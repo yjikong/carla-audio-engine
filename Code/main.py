@@ -6,5 +6,6 @@ import sys
 if __name__ == '__main__':
     SoundModel.init()
     SoundModel.run()
-    
+    sys.exit(0)
+
     
