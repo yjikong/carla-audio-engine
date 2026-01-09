@@ -23,6 +23,9 @@ class SoundModel:
                 Trigger = True
             if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 Trigger = False
+
+            #   --Platz für Sound Engine Fälle--
+
             TriggerBank.update_studio_system()
             if keyboard.is_pressed('q'):
                 SoundModel.exit()
