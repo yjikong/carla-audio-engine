@@ -23,13 +23,14 @@ class SoundModel:
             #     Trigger = True
             #Zum Test Speedlimit runter gesetzt:
             if Data.get_speed() > 15 and Trigger == False:
-                TriggerBank.event_inst.start()
+                TriggerBank.warning_sound.start()
                 Trigger = True
-            if TriggerBank.event_inst.playback_state == PLAYBACK_STATE.STOPPED:
+            if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 Trigger = False
             TriggerBank.update_studio_system()
             if keyboard.is_pressed('q'):
                 SoundModel.exit()
+                break
 
     def exit():
         TriggerBank.shutdown()

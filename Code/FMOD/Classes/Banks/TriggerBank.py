@@ -21,7 +21,7 @@ DEFAULT_BANK_PATH = str((FILE_DIR.parents[3] / 'Banks' / 'Trigger_Bank').resolve
 
 class TriggerBank:
     studio_system = None
-    event_inst = None
+    warning_sound = None
     def TriggerBank():
         #Initialize
         temp_core_system = pyfmodex.System()
@@ -64,12 +64,22 @@ class TriggerBank:
             TriggerBank.studio_system.load_bank_file(trigger_strings)
     def prepare_event():
         event_desc = TriggerBank.studio_system.get_event(EVENT_PATH)
-        TriggerBank.event_inst = event_desc.create_instance()
-        return TriggerBank.event_inst
+        TriggerBank.warning_sound = event_desc.create_instance()
+        return TriggerBank.warning_sound
     def update_studio_system():
         TriggerBank.studio_system.update()
     def set_parameter():
         pass
+    def shutdown():
+        try:
+            print(f'Releasing Studio System')
+            TriggerBank.studio_system.release()
+        except AttributeError as e:
+            e.add_note("Fehlerquelle: Die Instanz existiert nicht mehr")
+            print(f"Fehler abgefangen {e}")
+        else: 
+            print("Fahre herunter")
+
 
 if __name__ == '__main__':
     TriggerBank.TriggerBank()
@@ -77,7 +87,7 @@ if __name__ == '__main__':
     try:
         TriggerBank.load()
         TriggerBank.prepare_event()
-        TriggerBank.event_inst.start()
+        TriggerBank.warning_sound.start()
         TriggerBank.update_studio_system()
         time.sleep(5)
     except FileNotFoundError as e:
