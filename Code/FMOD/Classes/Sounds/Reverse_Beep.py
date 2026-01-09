@@ -24,11 +24,11 @@ class reverse_beep:
         if reverse_beep.grundton is None:
             reverse_beep.grundton = reverse_beep.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR)
             reverse_beep.grundton.set_parameter_int(0, 0)
-            reverse_beep.grundton.set_parameter_float(1, 1500.0) # Deine Frequenz
+            reverse_beep.grundton.set_parameter_float(1, 1500.0)
             
         if reverse_beep.verzerrung is None:
             reverse_beep.verzerrung = reverse_beep.system.create_dsp_by_type(DSP_TYPE.DISTORTION)
-            reverse_beep.verzerrung.set_parameter_float(0, 1.0) # Dein Verzerrungswert
+            reverse_beep.verzerrung.set_parameter_float(0, 1.0)
 
     @staticmethod
     def play_reverse_beep():
@@ -39,19 +39,16 @@ class reverse_beep:
         if not reverse_beep.is_playing:
             reverse_beep.channel = reverse_beep.system.play_dsp(reverse_beep.grundton)
             reverse_beep.channel.add_dsp(0, reverse_beep.verzerrung)
-            reverse_beep.start_time = time.time() # Aktuelle Zeit speichern
+            reverse_beep.start_time = time.time()
             reverse_beep.is_playing = True
 
     @staticmethod
     def update():
-        """Diese Methode muss in deinem Game-Loop ständig aufgerufen werden."""
         if reverse_beep.is_playing and reverse_beep.channel:
-            # Prüfen, ob 0.4 Sekunden vergangen sind
             if time.time() - reverse_beep.start_time >= 0.4:
                 reverse_beep.channel.stop()
                 reverse_beep.is_playing = False
         
-        # Wichtig für FMOD: System-Update pro Frame
         if reverse_beep.system:
             reverse_beep.system.update()
 
