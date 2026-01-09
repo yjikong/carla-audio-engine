@@ -10,7 +10,7 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-EVENT_PATH = "event:/Warning"
+WARNING_EVNET_PATH = "event:/Warning"
 
 # Resolve a sensible default bank path relative to this file so the code
 # works regardless of the current working directory when the script runs.
@@ -63,7 +63,7 @@ class TriggerBank:
         if os.path.exists(trigger_strings):
             TriggerBank.studio_system.load_bank_file(trigger_strings)
     def prepare_event():
-        event_desc = TriggerBank.studio_system.get_event(EVENT_PATH)
+        event_desc = TriggerBank.studio_system.get_event(WARNING_EVNET_PATH)
         TriggerBank.warning_sound = event_desc.create_instance()
         return TriggerBank.warning_sound
     def update_studio_system():
@@ -75,10 +75,10 @@ class TriggerBank:
             print(f'Releasing Studio System')
             TriggerBank.studio_system.release()
         except AttributeError as e:
-            e.add_note("Fehlerquelle: Die Instanz existiert nicht mehr")
+            e.add_note(f"Fehlerquelle: Die Instanz existiert nicht mehr")
             print(f"Fehler abgefangen {e}")
         else: 
-            print("Fahre herunter")
+            print(f"Fahre herunter")
 
 
 if __name__ == '__main__':
