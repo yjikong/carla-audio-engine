@@ -18,13 +18,7 @@ class SoundModel:
         while True:
             Data.decode()
             Data.print_all()
-            #richtige Funktion für späteren Gebrauch!
-            # if Data.get_speed() > Data.get_speed_limit() and Trigger == False:
-            #     TriggerBank.event_inst.start()
-            #     Trigger = True
-            #Zum Test Speedlimit runter gesetzt:
-            #Testfunktion um etwas zu hören
-            if Data.get_speed() > 15 and Trigger == False:
+            if ((Data.get_speed() > 20) or (Data.get_speed() > Data.get_speed_limit())) and Trigger == False:
                 TriggerBank.warning_sound.start()
                 Trigger = True
             if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
