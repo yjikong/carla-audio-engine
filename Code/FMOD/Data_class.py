@@ -27,7 +27,8 @@ class Data:
         speed_limit = Data.data_packet.get("speed_limit", 0.0)
         throttle = Data.data_packet.get("throttle", 0.0)
         brake = Data.data_packet.get("brake", 0.0)
+        gear = Data.data_packet.get("gear", "N")
         #message = Data.data_packet.get("message", "No Data")
         message = Data.data_packet["message"]
 
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message}", end='\r')
+        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message} | G: {gear}", end='\r')

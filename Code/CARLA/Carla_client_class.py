@@ -34,6 +34,7 @@ class CarlaClient:
             v = CarlaClient.vehicle.get_velocity()
             kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
             control = CarlaClient.vehicle.get_control()
+            gear = control.gear
 
             #4. Daten in JSON Packet umwandeln:
             data_packet = {
@@ -42,6 +43,7 @@ class CarlaClient:
                     "brake": round(control.brake, 2),
                     "speed_limit": speed_limit,
                     "message": "GREEN",
+                    "gear" : gear
                 }
         else:
             data_packet = {
@@ -50,6 +52,7 @@ class CarlaClient:
                 "brake": 0.0,
                 "speed_limit": 0.0,
                 "message": "keine Daten verfügbar.",
+                "gear" : "N"
             }
         return data_packet
         
