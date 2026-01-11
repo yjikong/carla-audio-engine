@@ -22,7 +22,7 @@ class SoundModel:
         while True:
             Data.decode()
             Data.print_all()
-            if ((Data.get_speed() > 20) or (Data.get_speed() > Data.get_speed_limit())) and Trigger == False:
+            if (Data.get_speed() > 70) and Trigger == False:
                 TriggerBank.warning_sound.start()
                 Trigger = True
             if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
