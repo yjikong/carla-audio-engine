@@ -17,6 +17,7 @@ class SoundModel:
     def run():
         #prevent constant restart of warning sound:
         Trigger = False
+        reversetrigger = False
 
         while True:
             Data.decode()
@@ -27,13 +28,14 @@ class SoundModel:
             if TriggerBank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 Trigger = False
 
-            if Data.get_gear() == -1 or keyboard.is_pressed('r'):
+            if (Data.get_gear() == -1 and reversetrigger == False) or keyboard.is_pressed('r'):
                 reverse_beep.play_reverse_beep()
+                reversetrigger = True
 
             #   --Platz für Sound Engine Fälle--
             reverse_beep.update()
             TriggerBank.update_studio_system()
-            if keyboard.is_pressed('q'):
+            if keyboard.is_pressed('ESC'):
                 SoundModel.exit()
                 break
 
