@@ -20,7 +20,7 @@ class reverse_beep:
             reverse_beep.system = pyfmodex.System()
             reverse_beep.system.init()
             lautstaerke_regler = reverse_beep.system.master_channel_group
-            lautstaerke_regler.volume = 0.1
+            lautstaerke_regler.volume = 0.05
 
     @staticmethod
     def dynamisch_Beep_erstellen():
@@ -36,7 +36,7 @@ class reverse_beep:
 
             # 3. Fader erstellen
             reverse_beep.fader = reverse_beep.system.create_dsp_by_type(DSP_TYPE.FADER)
-            reverse_beep.fader.set_parameter_float(0, 1)#Lautstärke
+            reverse_beep.fader.set_parameter_float(0, 1)
 
             # 4. Kette erstellen
             reverse_beep.verzerrung.add_input(reverse_beep.grundton)
