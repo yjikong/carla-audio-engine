@@ -1,7 +1,8 @@
 import carla
 import time
 import math
-from finder import *
+#funktioniert nur wenn Socket.py ausgeführt wird!!!
+from utils.finder import *
 
 class CarlaClient:
     #Die Simulatorwelt muss von anderen Klassen zugänglich sein:
@@ -43,7 +44,7 @@ class CarlaClient:
                     "brake": round(control.brake, 2),
                     "speed_limit": speed_limit,
                     "message": "GREEN",
-                    "gear" : gear
+                    "gear" : gear,
                 }
         else:
             data_packet = {
@@ -70,5 +71,6 @@ if __name__ == '__main__':
         throttle = data_packet["throttle"]
         brake = data_packet["brake"]
         message = data_packet["message"]
+        collision_event = data_packet.get("collision_event" "None")
 
         print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message}", end='\r')
