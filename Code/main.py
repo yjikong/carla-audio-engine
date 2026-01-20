@@ -1,4 +1,4 @@
-from FMOD.SoundModel import *
+from Code.FMOD.Classes.Model.SoundModel import *
 
 import keyboard
 import sys

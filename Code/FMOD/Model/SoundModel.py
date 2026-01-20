@@ -1,7 +1,7 @@
-from .Classes.Banks.TriggerBank import * 
-from .Classes.Sounds.Reverse_Beep import *
-from .Data_class import *
-from .utils.reverse_update import *
+from ..Banks.TriggerBank import * 
+from ..Sounds.Reverse_Beep import *
+from .Data import *
+from ..utils.reverse_update import *
 import keyboard
 import sys
 
