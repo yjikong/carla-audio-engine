@@ -10,3 +10,8 @@ class EnvironmentAdapter(Subscriber):
 
     def receive(self, message):
         print(f"{self.name} received message: {message}")
+
+    def evaluateWeatherChange():
+        change= None
+        parameter= 0
+        return
