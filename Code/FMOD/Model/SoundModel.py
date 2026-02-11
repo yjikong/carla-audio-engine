@@ -63,20 +63,20 @@ class SoundModel:
         reverse_beep.init()
         reverse_beep.dynamisch_Beep_erstellen()
 
-        self.speed_pub = Publisher()
-        self.speed_limit_pub = Publisher()
-        self.gear_pub = Publisher()
-        self.collision_pub = Publisher()
-        self.rain_int_pub = Publisher()
-        self.wind = Publisher()
-        self.acceleration_pub = Publisher()
-        self.throttle_pub = Publisher()
+        self.speed_pub:Publisher = Publisher()
+        self.speed_limit_pub:Publisher = Publisher()
+        self.gear_pub:Publisher = Publisher()
+        self.collision_pub:Publisher = Publisher()
+        self.rain_int_pub:Publisher = Publisher()
+        self.wind_int_pub:Publisher = Publisher()
+        self.acceleration_pub:Publisher = Publisher()
+        self.throttle_pub:Publisher = Publisher()
+        self.brake_pub:Publisher = Publisher()
+        self.message_pub:Publisher = Publisher()  
 
     def run(self):
-        #prevent constant restart of warning sound:
-        Trigger = False
-        Trigger2 = False
         
+            
 
         while True:
             old_vals:dict = self.client_values
@@ -85,19 +85,25 @@ class SoundModel:
 
             common_keys = old_vals.keys() & self.client_values.keys()
 
-            diff = {
-                k: (old_vals[k], self.client_values[k])
-                for k in common_keys
-                if old_vals[k] != self.client_values[k]
-            }
+            diff = {k: v for k, v in self.client_values.items()
+                if old_vals.get(k) != v}
 
             actions = {
                 "speed": self.speed_pub,
-                "gear": self.gear_pub
+                "speed_limit": self.speed_limit_pub,
+                "throttle": self.throttle_pub,
+                "brake": self.brake_pub,
+                "gear": self.gear_pub,
+                "message": self.message_pub,
+                "collision_event": self.collision_pub,
+                "rain_intensity": self.rain_int_pub,
+                "wind_intensity": self.wind_int_pub
             }
 
-            for k in diff.keys():
-                actions[k].submit(diff.get(k))
+            for key, value in diff.items():
+                publisher = actions.get(key)
+                if publisher:
+                    publisher.submit(value)
             
 
     def exit():
