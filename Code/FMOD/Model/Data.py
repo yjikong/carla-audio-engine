@@ -1,35 +1,16 @@
-import socket
-import json
+class Data():
+    def __init__(self, param: String, value):
+        self.param = param
+        self.value = value
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 5005
+    def get_param(self):
+        return self.param
+    
+    def set_param(self, param):
+        self.param = param
 
-class Data:
-    data_packet = None
-    sock = None
-    def Data():
-        #Init Socket
-        Data.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        Data.sock.bind((UDP_IP, UDP_PORT))
-    def decode():
-        data, addr = Data.sock.recvfrom(2048)
-        # JSON-String to dictionary
-        Data.data_packet = json.loads(data.decode())
-    def get_speed():
-        speed = Data.data_packet["speed"]
-        return speed
-    def get_speed_limit():
-        speed_limit = Data.data_packet["speed_limit"]
-        return speed_limit
-    def get_gear():
-        return Data.data_packet["gear"]
-    def print_all():
-        # .get(key, default_wert) verhindert den KeyError
-        speed = Data.data_packet.get("speed", 0.0)
-        speed_limit = Data.data_packet.get("speed_limit", 0.0)
-        throttle = Data.data_packet.get("throttle", 0.0)
-        brake = Data.data_packet.get("brake", 0.0)
-        gear = Data.data_packet.get("gear", "N")
-        message = Data.data_packet.get("message", "No Data")
+    def get_value(self):
+        return self.value
 
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message} | G: {gear}", end='\r')
+    def set_value(self, value):
+        self.value = value    
