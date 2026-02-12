@@ -55,55 +55,53 @@ class SoundModel:
         print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message} | G: {gear} | CE: {collision_event} | R: {rain_intensity} | W: {wind_intensity}", end='\r')
 
 
-    #@staticmethod
     def __init__(self):
         SoundModel.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         SoundModel.sock.bind((UDP_IP, UDP_PORT))
 
-        reverse_beep.init()
-        reverse_beep.dynamisch_Beep_erstellen()
-
+        self.acceleration_pub:Publisher = Publisher()
+        self.brake_pub:Publisher = Publisher()
+        self.collision_pub:Publisher = Publisher()
+        self.gear_pub:Publisher = Publisher()
+        self.message_pub:Publisher = Publisher()  
+        self.rain_int_pub:Publisher = Publisher()
         self.speed_pub:Publisher = Publisher()
         self.speed_limit_pub:Publisher = Publisher()
-        self.gear_pub:Publisher = Publisher()
-        self.collision_pub:Publisher = Publisher()
-        self.rain_int_pub:Publisher = Publisher()
-        self.wind_int_pub:Publisher = Publisher()
-        self.acceleration_pub:Publisher = Publisher()
         self.throttle_pub:Publisher = Publisher()
-        self.brake_pub:Publisher = Publisher()
-        self.message_pub:Publisher = Publisher()  
+        self.wind_int_pub:Publisher = Publisher()
+
+        self.actions = {
+            "acceleration": self.acceleration_pub,
+            "brake": self.brake_pub,
+            "collision_event": self.collision_pub,
+            "gear": self.gear_pub,
+            "message": self.message_pub,
+            "rain_intensity": self.rain_int_pub,
+            "speed": self.speed_pub,
+            "speed_limit": self.speed_limit_pub,
+            "throttle": self.throttle_pub,
+            "wind_intensity": self.wind_int_pub
+        }
 
     def run(self):
         
-            
-
         while True:
             old_vals:dict = self.client_values
             SoundModel.decode()
             SoundModel.print_all()
 
-            common_keys = old_vals.keys() & self.client_values.keys()
-
             diff = {k: v for k, v in self.client_values.items()
                 if old_vals.get(k) != v}
 
-            actions = {
-                "speed": self.speed_pub,
-                "speed_limit": self.speed_limit_pub,
-                "throttle": self.throttle_pub,
-                "brake": self.brake_pub,
-                "gear": self.gear_pub,
-                "message": self.message_pub,
-                "collision_event": self.collision_pub,
-                "rain_intensity": self.rain_int_pub,
-                "wind_intensity": self.wind_int_pub
-            }
-
             for key, value in diff.items():
-                publisher = actions.get(key)
+                publisher = self.actions.get(key)
                 if publisher:
                     publisher.submit(value)
+                else:
+                    print("No Publisher exists for this key")
+
+            time.sleep(1)
+
             
 
     def exit():
