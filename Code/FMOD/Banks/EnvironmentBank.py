@@ -27,19 +27,48 @@ Idee: Alle Banks in eine Klasse Bank
 - Alles was geladen werden muss wird in einer Datei oder so definiert
 - Durch diese durch iterieren um alle zu laden 
 - Dann vllt static
+
+Bei dieser Idee müsste man also globale Parameter und instanzparam beachten
+ich bräuchte damit eine Liste der zuordnung welcher Parameter zu welcher Instanz
+gehört bzw. ob er global ist.
+Wenn die funktion set param(name, value) aufgerufen wird, muss erstens sicher sein,
+dass es keine zwei parameter mit dem gleichen namen gibt, das wäre SEHR problematisch
+der name müsste dann mit der liste abgeglichen werden und je nach parametername würde dann
+entweder studio_system.set_parameter_by_name oder event_instance.set...
+
+Aus den Bank dateien könnten die entsprechenden Parameter rausgelesen werden und überprüft
+werden ob sie global oder zum event gehören.
+
+Diese Idee würde den Vorteil bringen, dass die Bank Klasse praktisch nicht mehr
+"gepflegt" werden müsste, sondern alles automatisiert abläuft, durch skripte, die man bspw.
+in der main aufgerufen werden.
+Die Bank klasse könnte eine Methode haben wie "set_banks" und "receive_param" um alles nötige
+zu erhalten.
+
+Erstmal mit verschiedenen Bank klassen probieren und dann mal refactorn und schauen
 '''
 
+'''
+Es könnte interessant sein, folgende Werte zu publishen
+| Event                     | Wert                 | Beschreibung                                                             |
+| ------------------------- | -------------------- | ------------------------------------------------------------------------ |
+| `event_started`           | Event-Name oder ID   | Signalisiert, dass ein Sound-Event gestartet wurde                       |
+| `event_stopped`           | Event-Name oder ID   | Signalisiert, dass ein Event gestoppt wurde                              |
+| `event_error`             | Fehlermeldung        | Wenn FMOD einen Fehler wirft                                             |
+| `event_parameter_changed` | Parametername + Wert | Falls du dynamische Parameter im Event setzt                             |
+| `bank_loaded`             | Bankname             | Optional, falls Monitoring benötigt                                      |
+| `studio_updated`          | Timestamp / Counter  | Optional, falls Subscriber wissen wollen, dass Studio aktualisiert wurde |
+'''
 class EnvironmentBank:
     def __init__(self):
         self.studio_system = None
         self.warning_sound = None
         self._init_studio_system()
 
-    def initaliaze(self):
-        self.temp_core_system = pyfmodex.System()
-        self.temp_core_system.init()
-        self.temp_core_system.release()
-
+    def _init_studio_system(self):
+        core_system = pyfmodex.System()
+        core_system.init()
+        core_system.release()
         self.studio_system = StudioSystem()
         self.studio_system.initialize(max_channels=512)
 
@@ -84,3 +113,39 @@ class EnvironmentBank:
         event_desc = self.studio_system.get_event(WARNING_EVENT_PATH)
         self.warning_sound = event_desc.create_instance()
         return self.warning_sound
+    
+    def update_studio_system(self):
+        self.studio_system.update()
+
+    def set_param(self, name, value):
+        '''
+        Docstring for set_param
+        
+        :param name: Description
+        :param value: Description
+        '''
+    
+    def shutdown(self):
+        try:
+            print(f'Releasing Studio System')
+            self.studio_system.release()
+        except AttributeError as e:
+            e.add_note(f"Fehlerquelle: Die Instanz existiert nicht mehr")
+            print(f"Fehler abgefangen {e}")
+        else: 
+            print(f"Fahre herunter")
+
+if __name__ == "__main__":
+    tb = EnvironmentBank()
+    try:
+        tb.load()
+        tb.prepare_event()
+        tb.warning_sound.start()
+        tb.update_studio_system()
+        time.sleep(5)
+    except FileNotFoundError as e:
+        print(f"[TriggerBank] Error: {e}")
+    except FmodError as e:
+        print(f"[TriggerBank] FMOD error: {e}")
+    finally:
+        tb.shutdown()
