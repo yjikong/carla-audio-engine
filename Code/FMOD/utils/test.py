@@ -12,11 +12,8 @@ new_vals:dict = {"name": "JJ", "alter": 21, "wohnort": "Nürne"}
 
 common_keys = old_vals.keys() & new_vals.keys()
 
-diff = {
-    k: (k, new_vals[k])
-    for k in common_keys
-    if old_vals[k] != new_vals[k]
-}
+diff = {k: (k, v) for k, v in new_vals.items()
+    if old_vals.get(k) != v}
 
 actions = {
     "name": nombre,

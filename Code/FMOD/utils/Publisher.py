@@ -5,9 +5,9 @@ from Code.FMOD.utils import Subscriber
 class Publisher:
     def __init__(self):
         self.message_queue = queue.Queue()
-        self.subscribers:Subscriber = []
+        self.subscribers: Subscriber = []
 
-    def subscribe(self, subscriber):
+    def subscribe(self, subscriber: Subscriber):
         self.subscribers.append(subscriber)
 
     def publish(self, message:tuple):

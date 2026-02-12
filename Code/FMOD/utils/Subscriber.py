@@ -5,5 +5,5 @@ class Subscriber(ABC):
         self.name = name
 
     @abstractmethod
-    def receive(self, message):
+    def receive(self, message: tuple):
         pass
