@@ -7,7 +7,7 @@ import pyfmodex
 from pyfmodex.studio import StudioSystem 
 
 
-class EnvironmentAdapter():
+class EnvironmentAdapter:
     def __init__(self, event_bus: EventBus, event):
         self.event = event
 

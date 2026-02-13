@@ -13,7 +13,7 @@ from pyfmodex.exceptions import FmodError
 
 WETTER_EVENT_PATH = "event:/Wetter"
 FILE_DIR = Path(__file__).resolve().parent
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Test').resolve()) # Auf drei referenzieren gefährlich -> gebundene Ordnerstruktur
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Environment_Bank').resolve()) # Auf drei referenzieren gefährlich -> gebundene Ordnerstruktur
 
 '''
 Idee: Alle Banks in eine Klasse Bank

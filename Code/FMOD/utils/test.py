@@ -5,7 +5,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]  # je nachdem wie tief du bist
 sys.path.append(str(PROJECT_ROOT))
 
-from Code.FMOD.Banks.EnvironmentBank import EnvironmentBank
+from Code.FMOD.Banks import EnvironmentBank
 from Code.FMOD.Model.SoundModel import SoundModel
 from Code.FMOD.utils.EventBus import EventBus
 from Code.FMOD.Adapters.EnvironmentAdapter import *
