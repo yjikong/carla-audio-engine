@@ -22,7 +22,7 @@ class EnvironmentAdapter:
             value = 0
         else:
             return
-        self.event.set_parameter_by_name(DataKey.RAIN_INTENSITY, value)
+        self.event.set_parameter_by_name("Wetterwechsel", value)
 
     def on_wind(self, intensity: float):    
         value = 0
@@ -32,6 +32,6 @@ class EnvironmentAdapter:
             value = 0
         else:
             return
-        self.event.set_parameter_by_name(DataKey.WIND_INTENSITY, value)
+        self.event.set_parameter_by_name("Wetterwechsel", value)
 
         

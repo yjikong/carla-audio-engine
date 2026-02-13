@@ -19,6 +19,8 @@ if __name__ == "__main__":
     env_bank = EnvironmentBank()
     env_bank.load()
     inst = env_bank.prepare_event()
+    inst.start()
+    env_bank.update_studio_system()
 
     adapter = EnvironmentAdapter(bus, inst)
 
