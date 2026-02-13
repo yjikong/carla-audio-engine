@@ -1,30 +1,37 @@
 from Code.FMOD.Banks import EnvironmentBank
-from Code.FMOD.Model.SoundModel import SoundModel
-from Code.FMOD.utils import DataKey, Subscriber  
+from Code.FMOD.utils import DataKey  
 from Code.FMOD.utils.DataKey import DataKey
+from ..utils.EventBus import EventBus
 
-class EnvironmentAdapter(Subscriber):
-    def __init__(self, model: SoundModel, bank: EnvironmentBank):
-        self.model = model
+import pyfmodex
+from pyfmodex.studio import StudioSystem 
 
 
-    def receive(self, message: tuple):
-        print(f"received message: {message}")
-        if message:
-            pass
-        
+class EnvironmentAdapter():
+    def __init__(self, event_bus: EventBus, event):
+        self.event = event
 
-    def registerSubscriptions(self):
-        self.model.addSubscriber(DataKey.RAIN_INTENSITY)
-        self.model.addSubscriber(DataKey.WIND_INTENSITY)
+        event_bus.subscribe(DataKey.RAIN_INTENSITY, self.on_rain)
+        event_bus.subscribe(DataKey.WIND_INTENSITY, self.on_wind)
 
-    def evaluateWeatherChange():
-        change= None
-        parameter= 0
-        return
-    
-    def param():
-        #precipitation
-        #wind_intesity
-        pass
+    def on_rain(self, intensity: float):
+        value = 0
+        if (intensity > 50) and intensity <= 100:
+            value = 1
+        elif ((intensity <= 50) and (intensity >= 0)):
+            value = 0
+        else:
+            return
+        self.event.set_parameter_by_name(DataKey.RAIN_INTENSITY, value)
+
+    def on_wind(self, intensity: float):    
+        value = 0
+        if (intensity > 50) and intensity <= 100:
+            value = 1
+        elif ((intensity <= 50) and (intensity >= 0)):
+            value = 0
+        else:
+            return
+        self.event.set_parameter_by_name(DataKey.WIND_INTENSITY, value)
+
         

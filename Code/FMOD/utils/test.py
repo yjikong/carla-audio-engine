@@ -1,25 +1,29 @@
-class Tmp:
-    def submit(self, wert):
-        print(wert)
+import sys
+from pathlib import Path
+
+# Füge das Projekt-Root hinzu
+PROJECT_ROOT = Path(__file__).resolve().parents[3]  # je nachdem wie tief du bist
+sys.path.append(str(PROJECT_ROOT))
+
+from Code.FMOD.Banks.EnvironmentBank import EnvironmentBank
+from Code.FMOD.Model.SoundModel import SoundModel
+from Code.FMOD.utils.EventBus import EventBus
+from Code.FMOD.Adapters.EnvironmentAdapter import *
+import pyfmodex
 
 
-nombre: Tmp = Tmp()
-alter: Tmp = Tmp()
-wohnort: Tmp = Tmp()
 
-old_vals:dict = {"name": "JJ", "alter": 13, "wohnort": "Mecktwn"}
-new_vals:dict = {"name": "JJ", "alter": 21, "wohnort": "Nürne"}
+if __name__ == "__main__":
+    bus = EventBus()
 
-common_keys = old_vals.keys() & new_vals.keys()
+    env_bank = EnvironmentBank()
+    env_bank.load()
+    inst = env_bank.prepare_event()
 
-diff = {k: (k, v) for k, v in new_vals.items()
-    if old_vals.get(k) != v}
+    adapter = EnvironmentAdapter(bus, inst)
 
-actions = {
-    "name": nombre,
-    "alter": alter,
-    "wohnort": wohnort
-}
+    # Model starten
+    model = SoundModel(bus)
+    model.run()
 
-for k in diff.keys():
-    actions[k].submit(diff[k])
+    

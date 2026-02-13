@@ -11,16 +11,9 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-WARNING_EVENT_PATH = "event:/Warning"
-FILE_DIR = Path(__file__).resolve().parent # Was macht das
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[3] / 'Banks' / 'Test').resolve()) # Auf drei referenzieren gefährlich -> gebundene Ordnerstruktur
-
-logging.basicConfig(
-    filename='loagfile.log',
-    filemode='a',
-    level=logging.INFO,
-    foarmat='%(asctime)s - %(levelname)s - %(message)s'
-    )
+WETTER_EVENT_PATH = "event:/Wetter"
+FILE_DIR = Path(__file__).resolve().parent
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Test').resolve()) # Auf drei referenzieren gefährlich -> gebundene Ordnerstruktur
 
 '''
 Idee: Alle Banks in eine Klasse Bank
@@ -62,7 +55,7 @@ Es könnte interessant sein, folgende Werte zu publishen
 class EnvironmentBank:
     def __init__(self):
         self.studio_system = None
-        self.warning_sound = None
+        self.wetter_inst = None
         self._init_studio_system()
 
     def _init_studio_system(self):
@@ -87,8 +80,8 @@ class EnvironmentBank:
         expected_files = [
             "Master.bank",
             "Master.strings.bank",
-            "Test.bank",
-            "Test.strings.bank"
+            "Motor.bank",
+            "Motor.strings.bank"
         ]
 
         for f in expected_files:
@@ -102,28 +95,20 @@ class EnvironmentBank:
         self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
 
         # Try to load specific bank if they exist
-        trigger_bank = os.path.join(bank_path, "Trigger_Bank.bank")
-        if os.path.exists(trigger_bank):
-            self.studio_system.load_bank_file(trigger_bank)
-        trigger_strings = os.path.join(bank_path, "Trigger_Bank.strings.bank")
-        if os.path.exists(trigger_strings):
-            self.studio_system.load_bank_file(trigger_strings)
+        test_bank = os.path.join(bank_path, "Motor.bank")
+        if os.path.exists(test_bank):
+            self.studio_system.load_bank_file(test_bank)
+        test_strings = os.path.join(bank_path, "Motor.strings.bank")
+        if os.path.exists(test_strings):
+            self.studio_system.load_bank_file(test_strings)
 
     def prepare_event(self):
-        event_desc = self.studio_system.get_event(WARNING_EVENT_PATH)
-        self.warning_sound = event_desc.create_instance()
-        return self.warning_sound
+        event_desc = self.studio_system.get_event(WETTER_EVENT_PATH)
+        self.wetter_inst = event_desc.create_instance()
+        return self.wetter_inst
     
     def update_studio_system(self):
         self.studio_system.update()
-
-    def set_param(self, name, value):
-        '''
-        Docstring for set_param
-        
-        :param name: Description
-        :param value: Description
-        '''
     
     def shutdown(self):
         try:
