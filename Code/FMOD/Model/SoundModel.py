@@ -40,6 +40,8 @@ class SoundModel:
 
             diff = self._calculate_diff(self.client_data, old_data)
 
+            self.bus.publish(DataKey.TICK,1)
+
             for key, value in diff.items():
                 self.bus.publish(key, value)
 
