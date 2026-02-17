@@ -1,11 +1,24 @@
 from ..Sounds.EV_Sound import *
+from ..utils.EventBus import *
+from Code.FMOD.Banks import TriggerBank
+from Code.FMOD.utils import DataKey  
+from Code.FMOD.utils.DataKey import DataKey
+from ..utils.EventBus import EventBus
 
 class MotorAdapter:
-    def speed_to_freq(current_velocity):
-        pass
-
-    def set_EV_sound_freq(current_velocity):
-        pass
+    def __init__(self, bus : EventBus, ev: EVSoundEngine):
+          self.ev = ev
+          self.speed = None
+          self.throttle = None
+          bus.subscribe(DataKey.SPEED, self.on_speed)
+          bus.subscribe(DataKey.THROTTLE, self.on_throttle)
+    def on_speed(self, speed):
+        self.speed = speed
+        self.update()
+    
+    def on_throttle(self, throttle):
+        self.throttle = throttle
+        self.update()
 
     def calculate_torque(speed, throttle):
         #Wenn Throttle 0 -> Torque 0
@@ -18,3 +31,8 @@ class MotorAdapter:
         else:
             return 0
         
+    def update(self):
+        if self.ev.is_running is False:
+            self.ev.start()
+        self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
+        self.ev.system.update()

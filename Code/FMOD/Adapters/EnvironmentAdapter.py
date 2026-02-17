@@ -54,6 +54,3 @@ class EnvironmentAdapter:
         #self.wind_event.set_paused(pause)
         self.wind_event.set_parameter_by_name("Windstaerke", value)
         self.bank.update_studio_system()
-
-
-        
