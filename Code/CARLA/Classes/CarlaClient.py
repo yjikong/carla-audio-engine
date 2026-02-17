@@ -2,7 +2,7 @@ import carla
 import time
 import math
 #funktioniert nur wenn Socket.py ausgeführt wird!!!
-from Classes.Collision_sensor import *
+from Code.CARLA.Classes.CollisionSensor import *
 
 class CarlaClient:
     #Die Simulatorwelt muss von anderen Klassen zugänglich sein:
@@ -93,20 +93,3 @@ class CarlaClient:
             }
         self.crash_impulse = False
         return data_packet
-
-if __name__ == '__main__':
-    #connect and get data
-    client = CarlaClient('localhost', 2000, 10.0)
-    client.connect()
-    while True:
-        data_packet = client.retrieve_data()
-        
-        #Print data
-        speed = data_packet["speed"]
-        speed_limit = data_packet["speed_limit"]
-        throttle = data_packet["throttle"]
-        brake = data_packet["brake"]
-        message = data_packet["message"]
-        collision_event = data_packet.get("collision_event" "None")
-
-        print(f"S: {speed:6.2f} km/h | T: {throttle:.2f} | B: {brake:.2f} | L: {speed_limit:3f} | M: {message} | M: {collision_event}", end='\r')
