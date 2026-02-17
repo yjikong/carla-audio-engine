@@ -6,15 +6,6 @@ import keyboard
 from Code.CARLA.Classes.CollisionSensor import *
 
 class CarlaClient:
-    #Die Simulatorwelt muss von anderen Klassen zugänglich sein:
-    world = None
-    client = None
-    vehicle_found = False
-    vehicle = None
-    collision_sensor = None
-    crash_counter = 0
-    crash_impulse = False
-
     def __init__(self, ip,port,timeout):
         try:
             self.client = carla.Client(ip, port)
@@ -22,7 +13,6 @@ class CarlaClient:
         except Exception as e:
             print(f"Carla_client.py konnte sich nicht mit Carla Server verbinden.\nSicherstellen, dass Carla Simulator läuft.")
         self.world = None
-        self.client = None
         self.vehicle_found = False
         self.vehicle = None
         self.collision_sensor = None
@@ -39,7 +29,6 @@ class CarlaClient:
         vehicles = self.world.get_actors().filter('vehicle.*')
 
         if vehicles:
-            #vehicle = vehicles[0]
             for vehicle in vehicles:
                 if vehicle.attributes.get('role_name') == "hero":
                     print(f"Verbunden mit vorhandenem Fahrzeug: {vehicle.type_id}")
@@ -56,6 +45,8 @@ class CarlaClient:
         #Hupen
         if keyboard.is_pressed('h'):
             honk = True
+        else:
+            honk = False
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
