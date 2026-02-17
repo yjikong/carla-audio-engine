@@ -74,7 +74,7 @@ if __name__ == "__main__":
         process_fmod = subprocess.Popen([str(FMOD_VENV), str(FMOD_SKRIPT),], env=env)
 
         print("\n[INFO] Beide Skripte laufen parallel.")
-        print("Druecke Strg+C in CARLA oder beende diesen Prozess, um aufzuhaeren.")
+        print("Druecke Strg+C in CARLA oder beende diesen Prozess, um aufzuhoeren.")
         
         # Haelt das Hauptskript am Leben, solange die Unterprozesse laufen
         try: # Das hier kostet viel performance evtl. Hauptskirpt beenden, nachdem alle Prozesse gestartet wurden
