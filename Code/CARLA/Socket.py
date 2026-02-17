@@ -22,7 +22,6 @@ class Socket:
 
 if __name__ == '__main__':
     client = CarlaClient('localhost', 2000, 10.0)
-    client.connect()
 
     sock = Socket()
 

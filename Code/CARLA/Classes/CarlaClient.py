@@ -1,6 +1,7 @@
 import carla
 import time
 import math
+import keyboard
 #funktioniert nur wenn Socket.py ausgeführt wird!!!
 from Code.CARLA.Classes.CollisionSensor import *
 
@@ -20,6 +21,16 @@ class CarlaClient:
             self.client.set_timeout(timeout)
         except Exception as e:
             print(f"Carla_client.py konnte sich nicht mit Carla Server verbinden.\nSicherstellen, dass Carla Simulator läuft.")
+        self.world = None
+        self.client = None
+        self.vehicle_found = False
+        self.vehicle = None
+        self.collision_sensor = None
+        self.crash_counter = 0
+        self.crash_impulse = False
+        
+        self.connect()
+        
 
     def connect(self):
         self.world = self.client.get_world()
@@ -42,6 +53,9 @@ class CarlaClient:
         weather = self.world.get_weather()
         rain_intensity = weather.precipitation
         wind_intensity = weather.wind_intensity
+        #Hupen
+        if keyboard.is_pressed('h'):
+            honk = True
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
@@ -77,6 +91,7 @@ class CarlaClient:
                     "rain_intensity" : rain_intensity,
                     "wind_intensity" : wind_intensity,
                     "acceleration" : acceleration.y,
+                    "honk" : honk
                 }
         else:
             data_packet = {
@@ -90,6 +105,7 @@ class CarlaClient:
                 "rain_intensity" : "keine Daten",
                 "wind_intensity" : "keine Daten",
                 "acceleration" : 0,
+                "honk" : False,
             }
         self.crash_impulse = False
         return data_packet
