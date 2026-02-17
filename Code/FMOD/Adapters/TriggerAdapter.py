@@ -14,6 +14,7 @@ class TriggerAdapter:
         self.past_gear = None
         self.speed_trigger = False
         self.crash_trigger = False
+        self.honk_trigger = False
         self.reverse_beep = ReverseBeep()
         self.bank = bank
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
@@ -36,6 +37,7 @@ class TriggerAdapter:
 
     def on_tick(self, tick):
         self.reverse_beep.update()
+        self.bank.update()
 
     def on_speed(self, speed=0):
         self.reverse_beep.update()
@@ -53,4 +55,8 @@ class TriggerAdapter:
             self.crash_trigger = False
     
     def on_honk(self, honk):
-        self.bank.play_honk()
+        if self.honk_trigger is False:
+            self.bank.play_honk()
+            self.crash_trigger = True
+        if self.bank.honk_sound.playback_state == PLAYBACK_STATE.STOPPED:
+            self.honk_trigger = False

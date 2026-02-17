@@ -75,15 +75,12 @@ class TriggerBank:
     
     def play_honk(self):
         self.honk_sound.start()
-        self.update()
     
     def play_crash(self):
         self.crash_sound.start()
-        self.update()
     
     def play_warning(self):
         self.warning_sound.start()
-        self.update()
 
     def update(self):
         self.studio_system.update()
