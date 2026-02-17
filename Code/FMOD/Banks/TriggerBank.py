@@ -16,7 +16,7 @@ HONK_EVENT_PATH = "event:/Honk"
 
 # Triggerbankpath auflösen
 FILE_DIR = Path(__file__).resolve().parent
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[3] / 'Banks' / 'Trigger_Bank').resolve())
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Trigger_Bank').resolve())
 
 class TriggerBank:
     studio_system = None
