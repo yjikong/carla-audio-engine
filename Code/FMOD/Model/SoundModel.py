@@ -1,8 +1,6 @@
 import socket
 from Code.FMOD.utils.DataKey import DataKey
 from ..Banks.TriggerBank import * 
-from ..Sounds.Reverse_Beep import *
-from ..utils.reverse_update import *
 from ..utils.EventBus import EventBus
 import keyboard
 import sys

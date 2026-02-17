@@ -31,7 +31,7 @@ class EnvironmentAdapter:
         else:
             return
         
-        self.rain_event.set_paused(pause)
+        #self.rain_event.set_paused(pause)
         self.rain_event.set_parameter_by_name("regenstaerke", value)
         self.bank.update_studio_system()
     
@@ -51,7 +51,7 @@ class EnvironmentAdapter:
         else:
             return
         
-        self.wind_event.set_paused(pause)
+        #self.wind_event.set_paused(pause)
         self.wind_event.set_parameter_by_name("Windstaerke", value)
         self.bank.update_studio_system()
 
