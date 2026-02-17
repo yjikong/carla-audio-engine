@@ -1,9 +1,15 @@
-from FMOD.utils import *
-from FMOD.Adapters import *
-from FMOD.Banks import *
-from FMOD.Model.SoundModel import *
-from FMOD.Sounds.EV_Sound import *
-from FMOD.Sounds.Reverse_Beep import *
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJECT_ROOT))
+
+from Code.FMOD.utils import *
+from Code.FMOD.Adapters import *
+from Code.FMOD.Banks import *
+from Code.FMOD.Model.SoundModel import *
+from Code.FMOD.Sounds.EV_Sound import *
+from Code.FMOD.Sounds.Reverse_Beep import *
 
 import keyboard
 import sys
@@ -32,5 +38,6 @@ if __name__ == '__main__':
     motor_adapter = MotorAdapter(bus, ev)
 
     model = SoundModel(bus)
+    model.run()
 
     
