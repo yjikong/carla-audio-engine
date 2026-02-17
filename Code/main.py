@@ -11,7 +11,6 @@ from Code.FMOD.Model.SoundModel import *
 from Code.FMOD.Sounds.EVSound import *
 from Code.FMOD.Sounds.ReverseBeep import *
 
-import keyboard
 import sys
 
 if __name__ == '__main__':
