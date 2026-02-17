@@ -17,6 +17,8 @@ class ReverseBeep:
         self.start_time = 0
         self.is_playing = False
         self.fader = None
+
+        self.dynamisch_Beep_erstellen()
     
     def dynamisch_Beep_erstellen(self):
         if self.grundton is None:
@@ -68,11 +70,8 @@ class ReverseBeep:
             self.system.release()
             self.system = None
 
-import keyboard
-
 if __name__ == '__main__':
     reverse_beep = ReverseBeep()
-    reverse_beep.dynamisch_Beep_erstellen()
     while True:
         reverse_beep.play()
             

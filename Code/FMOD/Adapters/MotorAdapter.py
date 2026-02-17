@@ -1,4 +1,4 @@
-from ..Sounds.EV_Sound import *
+from ..Sounds.EVSound import *
 from ..utils.EventBus import *
 from Code.FMOD.Banks import TriggerBank
 from Code.FMOD.utils import DataKey  
