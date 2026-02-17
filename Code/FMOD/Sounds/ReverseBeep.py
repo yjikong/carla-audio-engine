@@ -60,7 +60,6 @@ class ReverseBeep:
             if time.time() - self.start_time >= 0.4:
                 self.channel.stop()
                 self.is_playing = False
-        
         if self.system:
             self.system.update()
 

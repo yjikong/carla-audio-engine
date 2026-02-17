@@ -2,6 +2,7 @@ from ..utils import *
 from ..Banks import *
 from ..Sounds import *
 import keyboard
+import time
 
 import pyfmodex
 from pyfmodex.studio import StudioSystem 
@@ -30,9 +31,10 @@ class TriggerAdapter:
         self.past_gear = current_gear
         if val == True:
             self.reverse_beep.play()
-            self.reverse_beep.update()
+        self.reverse_beep.update()
 
-    def on_speed(self, speed):
+    def on_speed(self, speed=0):
+        self.reverse_beep.update()
         if speed > 100 and self.speed_trigger is False:
             self.bank.play_warning()
             self.speed_trigger = True
