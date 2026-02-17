@@ -1,12 +1,20 @@
+import weakref
+import collections
+import math
+import carla
+
 class CollisionSensor(object):
-    def __init__(self, parent_actor, hud):
+    collision_counter = 0
+    intensity = 0
+
+    def __init__(self, parent_actor):
         self.sensor = None
         self.history = []
         self._parent = parent_actor
-        self.hud = hud
-        world = self._parent.get_world()
-        bp = world.get_blueprint_library().find('sensor.other.collision')
-        self.sensor = world.spawn_actor(bp, carla.Transform(), attach_to=self._parent)
+        self.world = self._parent.get_world()
+        print(self.world)
+        bp = self.world.get_blueprint_library().find('sensor.other.collision')
+        self.sensor = self.world.spawn_actor(bp, carla.Transform(), attach_to=self._parent)
         # We need to pass the lambda a weak reference to self to avoid circular
         # reference.
         weak_self = weakref.ref(self)
@@ -20,13 +28,12 @@ class CollisionSensor(object):
 
     @staticmethod
     def _on_collision(weak_self, event):
+        CollisionSensor.collision_counter = CollisionSensor.collision_counter + 1
         self = weak_self()
         if not self:
             return
-        actor_type = get_actor_display_name(event.other_actor)
-        self.hud.notification('Collision with %r' % actor_type)
         impulse = event.normal_impulse
-        intensity = math.sqrt(impulse.x**2 + impulse.y**2 + impulse.z**2)
-        self.history.append((event.frame, intensity))
+        CollisionSensor.intensity = math.sqrt(impulse.x**2 + impulse.y**2 + impulse.z**2)
+        self.history.append((event.frame, CollisionSensor.intensity))
         if len(self.history) > 4000:
             self.history.pop(0)
