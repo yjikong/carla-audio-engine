@@ -20,6 +20,7 @@ class TriggerAdapter:
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
         event_bus.subscribe(DataKey.SPEED, self.on_speed)
         event_bus.subscribe(DataKey.TICK, self.on_tick)
+        event_bus.subscribe(DataKey.HONK, self.on_honk)
 
     def on_reverse(self, current_gear):
         val = None
@@ -52,5 +53,4 @@ class TriggerAdapter:
             self.crash_trigger = False
     
     def on_honk(self, honk):
-        if keyboard.is_pressed('h'):
-            self.bank.play_honk()
+        self.bank.play_honk()

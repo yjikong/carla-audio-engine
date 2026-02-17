@@ -12,3 +12,4 @@ class DataKey(str, Enum):
     THROTTLE = "throttle"
     WIND_INTENSITY = "wind_intensity"
     TICK = 1
+    HONK = "honk"
