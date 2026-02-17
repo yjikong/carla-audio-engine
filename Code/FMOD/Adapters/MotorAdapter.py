@@ -8,8 +8,8 @@ from ..utils.EventBus import EventBus
 class MotorAdapter:
     def __init__(self, bus : EventBus, ev: EVSoundEngine):
           self.ev = ev
-          self.speed = None
-          self.throttle = None
+          self.speed = 0
+          self.throttle = 0
           bus.subscribe(DataKey.SPEED, self.on_speed)
           bus.subscribe(DataKey.THROTTLE, self.on_throttle)
     def on_speed(self, speed):
@@ -20,7 +20,7 @@ class MotorAdapter:
         self.throttle = throttle
         self.update()
 
-    def calculate_torque(speed, throttle):
+    def calculate_torque(self, speed, throttle):
         #Wenn Throttle 0 -> Torque 0
         if throttle == 0:
             return 0
