@@ -2,7 +2,6 @@ import socket
 from Code.FMOD.utils.DataKey import DataKey
 from ..Banks.TriggerBank import * 
 from ..utils.EventBus import EventBus
-import keyboard
 import sys
 import json
 
