@@ -20,6 +20,6 @@ subprocess.Popen(
     creationflags=subprocess.CREATE_NEW_CONSOLE
 )
 
-time.sleep(50)
+time.sleep(60)
 
 subprocess.run([str(VENV_PYTHON), str(SCRIPT)])

@@ -11,7 +11,8 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-WETTER_EVENT_PATH = "event:/Wetter"
+REGEN_EVENT_PATH = "event:/Rain"
+WIND_EVENT_PATH = "event:/Wind"
 FILE_DIR = Path(__file__).resolve().parent
 DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Environment_Bank').resolve()) # Auf drei referenzieren gefährlich -> gebundene Ordnerstruktur
 
@@ -55,7 +56,8 @@ Es könnte interessant sein, folgende Werte zu publishen
 class EnvironmentBank:
     def __init__(self):
         self.studio_system = None
-        self.wetter_inst = None
+        self.rain_inst = None
+        self.wind_inst = None
         self._init_studio_system()
 
     def _init_studio_system(self):
@@ -80,8 +82,7 @@ class EnvironmentBank:
         expected_files = [
             "Master.bank",
             "Master.strings.bank",
-            "Motor.bank",
-            "Motor.strings.bank"
+            "Environment.bank"
         ]
 
         for f in expected_files:
@@ -95,20 +96,31 @@ class EnvironmentBank:
         self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
 
         # Try to load specific bank if they exist
-        test_bank = os.path.join(bank_path, "Motor.bank")
+        test_bank = os.path.join(bank_path, "Environment.bank")
         if os.path.exists(test_bank):
             self.studio_system.load_bank_file(test_bank)
-        test_strings = os.path.join(bank_path, "Motor.strings.bank")
-        if os.path.exists(test_strings):
-            self.studio_system.load_bank_file(test_strings)
 
     def prepare_event(self):
-        event_desc = self.studio_system.get_event(WETTER_EVENT_PATH)
-        self.wetter_inst = event_desc.create_instance()
-        return self.wetter_inst
+        rain_event_desc = self.studio_system.get_event(REGEN_EVENT_PATH)
+        self.rain_inst = rain_event_desc.create_instance()
+
+        wind_event_desc = self.studio_system.get_event(WIND_EVENT_PATH)
+        self.wind_inst = wind_event_desc.create_instance()
     
+    def start_events(self):
+        self.rain_inst.start()
+        self.wind_inst.start()
+
     def update_studio_system(self):
         self.studio_system.update()
+
+    def get_events(self):
+        events = {
+            "rain": self.rain_inst,
+            "wind": self.wind_inst
+        }
+
+        return events
     
     def shutdown(self):
         try:
