@@ -19,6 +19,7 @@ class TriggerAdapter:
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
         event_bus.subscribe(DataKey.SPEED, self.on_speed)
+        event_bus.subscribe(DataKey.TICK, self.on_tick)
 
     def on_reverse(self, current_gear):
         val = None
@@ -31,6 +32,8 @@ class TriggerAdapter:
         self.past_gear = current_gear
         if val == True:
             self.reverse_beep.play()
+
+    def on_tick(self, tick):
         self.reverse_beep.update()
 
     def on_speed(self, speed=0):
