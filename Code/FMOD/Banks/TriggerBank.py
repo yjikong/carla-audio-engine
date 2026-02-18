@@ -16,21 +16,25 @@ HONK_EVENT_PATH = "event:/Honk"
 
 # Triggerbankpath auflösen
 FILE_DIR = Path(__file__).resolve().parent
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[3] / 'Banks' / 'Trigger_Bank').resolve())
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Trigger_Bank').resolve())
 
 class TriggerBank:
-    studio_system = None
-    warning_sound = None
-    crash_sound = None
-    honk_sound = None
-    def TriggerBank():
-        # Init
+    def __init__(self):
+        #create TriggerBank
         temp_core_system = pyfmodex.System()
         temp_core_system.init()
         temp_core_system.release() 
-        TriggerBank.studio_system = StudioSystem()
-        TriggerBank.studio_system.initialize(max_channels=512)
-    def load(bank_path=None):
+        self.studio_system = StudioSystem()
+        self.studio_system.initialize(max_channels=512)
+        self.warning_sound = None
+        self.crash_sound = None
+        self.honk_sound = None
+
+        #initialize
+        self.load()
+        self.prepare_events()
+
+    def load(self, bank_path=None):
         if bank_path is None:
             bank_path = DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
@@ -52,44 +56,42 @@ class TriggerBank:
                 print(f"[TriggerBank] Warning: expected bank file missing: {full}")
 
         # Banks laden
-        TriggerBank.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
-        TriggerBank.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
+        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
+        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
         trigger_bank = os.path.join(bank_path, "Trigger_Bank.bank")
         if os.path.exists(trigger_bank):
-            TriggerBank.studio_system.load_bank_file(trigger_bank)
+            self.studio_system.load_bank_file(trigger_bank)
         trigger_strings = os.path.join(bank_path, "Trigger_Bank.strings.bank")
         if os.path.exists(trigger_strings):
-            TriggerBank.studio_system.load_bank_file(trigger_strings)
-    def prepare_events():
-        temp_warning_event = TriggerBank.studio_system.get_event(WARNING_EVENT_PATH)
-        temp_crash_event = TriggerBank.studio_system.get_event(CRASH_EVENT_PATH)
-        temp_honk_event = TriggerBank.studio_system.get_event(HONK_EVENT_PATH)
-        TriggerBank.warning_sound = temp_warning_event.create_instance()
-        TriggerBank.crash_sound = temp_crash_event.create_instance()
-        TriggerBank.honk_sound = temp_honk_event.create_instance()
-    def update_studio_system():
-        TriggerBank.studio_system.update()
-    def shutdown():
+            self.studio_system.load_bank_file(trigger_strings)
+
+    def prepare_events(self):
+        temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
+        temp_crash_event = self.studio_system.get_event(CRASH_EVENT_PATH)
+        temp_honk_event = self.studio_system.get_event(HONK_EVENT_PATH)
+        self.warning_sound = temp_warning_event.create_instance()
+        self.crash_sound = temp_crash_event.create_instance()
+        self.honk_sound = temp_honk_event.create_instance()
+    
+    def play_honk(self):
+        self.honk_sound.start()
+    
+    def play_crash(self):
+        self.crash_sound.start()
+    
+    def play_warning(self):
+        self.warning_sound.start()
+
+    def update(self):
+        self.studio_system.update()
+
+    def shutdown(self):
         try:
             print(f'Releasing Studio System')
-            TriggerBank.studio_system.release()
+            self.studio_system.release()
         except AttributeError as e:
             e.add_note(f"Fehlerquelle: Die Instanz existiert nicht mehr")
             print(f"Fehler abgefangen {e}")
         else: 
             print(f"Fahre herunter")
-
-
-if __name__ == '__main__':
-    TriggerBank.TriggerBank()
-    try:
-        TriggerBank.load()
-        TriggerBank.prepare_events()
-        TriggerBank.warning_sound.start()
-        TriggerBank.update_studio_system()
-        time.sleep(5)
-    except FileNotFoundError as e:
-        print(f"[TriggerBank] Error: {e}")
-    except FmodError as e:
-        print(f"[TriggerBank] FMOD error: {e}")
 

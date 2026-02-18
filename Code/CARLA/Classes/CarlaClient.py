@@ -1,25 +1,27 @@
 import carla
 import time
 import math
+import keyboard
 #funktioniert nur wenn Socket.py ausgeführt wird!!!
 from Code.CARLA.Classes.CollisionSensor import *
 
 class CarlaClient:
-    #Die Simulatorwelt muss von anderen Klassen zugänglich sein:
-    world = None
-    client = None
-    vehicle_found = False
-    vehicle = None
-    collision_sensor = None
-    crash_counter = 0
-    crash_impulse = False
-
     def __init__(self, ip,port,timeout):
         try:
             self.client = carla.Client(ip, port)
             self.client.set_timeout(timeout)
         except Exception as e:
             print(f"Carla_client.py konnte sich nicht mit Carla Server verbinden.\nSicherstellen, dass Carla Simulator läuft.")
+        self.world = None
+        self.vehicle_found = False
+        self.vehicle = None
+        self.collision_sensor = None
+        self.crash_counter = 0
+        self.crash_impulse = False
+        self.honk_trigger = False
+        
+        self.connect()
+        
 
     def connect(self):
         self.world = self.client.get_world()
@@ -28,7 +30,6 @@ class CarlaClient:
         vehicles = self.world.get_actors().filter('vehicle.*')
 
         if vehicles:
-            #vehicle = vehicles[0]
             for vehicle in vehicles:
                 if vehicle.attributes.get('role_name') == "hero":
                     print(f"Verbunden mit vorhandenem Fahrzeug: {vehicle.type_id}")
@@ -42,6 +43,15 @@ class CarlaClient:
         weather = self.world.get_weather()
         rain_intensity = weather.precipitation
         wind_intensity = weather.wind_intensity
+        #Hupen
+        honk = False
+        if keyboard.is_pressed('h') and self.honk_trigger is True:
+            honk = False
+        elif keyboard.is_pressed('h') and self.honk_trigger is False:
+            honk = True
+            self.honk_trigger = True
+        elif not keyboard.is_pressed('h'):
+            self.honk_trigger = False
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
@@ -77,6 +87,7 @@ class CarlaClient:
                     "rain_intensity" : rain_intensity,
                     "wind_intensity" : wind_intensity,
                     "acceleration" : acceleration.y,
+                    "honk" : honk
                 }
         else:
             data_packet = {
@@ -90,6 +101,7 @@ class CarlaClient:
                 "rain_intensity" : "keine Daten",
                 "wind_intensity" : "keine Daten",
                 "acceleration" : 0,
+                "honk" : False,
             }
         self.crash_impulse = False
         return data_packet

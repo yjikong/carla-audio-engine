@@ -2,7 +2,6 @@ import socket
 from Code.FMOD.utils.DataKey import DataKey
 from ..Banks.TriggerBank import * 
 from ..utils.EventBus import EventBus
-import keyboard
 import sys
 import json
 
@@ -39,6 +38,8 @@ class SoundModel:
             self.client_data = self._decode()
 
             diff = self._calculate_diff(self.client_data, old_data)
+
+            self.bus.publish(DataKey.TICK,1)
 
             for key, value in diff.items():
                 self.bus.publish(key, value)

@@ -11,3 +11,5 @@ class DataKey(str, Enum):
     SPEED_LIMIT = "speed_limit"
     THROTTLE = "throttle"
     WIND_INTENSITY = "wind_intensity"
+    TICK = 1
+    HONK = "honk"

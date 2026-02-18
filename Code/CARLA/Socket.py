@@ -1,7 +1,13 @@
 import socket as udp
 import json
-from Code.CARLA.Classes.CarlaClient import *
-from Code.CARLA.Classes.CollisionSensor import *
+import time
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
+
+from Code.CARLA.Classes import *
 
 class Socket:
     UDP_IP = "127.0.0.1"
@@ -16,7 +22,6 @@ class Socket:
 
 if __name__ == '__main__':
     client = CarlaClient('localhost', 2000, 10.0)
-    client.connect()
 
     sock = Socket()
 
