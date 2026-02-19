@@ -17,11 +17,11 @@ if __name__ == '__main__':
     bus = EventBus()
 
     env_bank = EnvironmentBank()
-    env_bank.load()
-    env_bank.prepare_event()
     events = env_bank.get_events()
     env_bank.start_events()
-    env_bank.update_studio_system()
+    env_bank.update_studio_system() 
+    # Eventuell muss beim start mitgeteilt werden, welcher 
+    # Wert für Wetter da sind um richtig zu initialisieren.
 
     trigger_bank = TriggerBank()
 

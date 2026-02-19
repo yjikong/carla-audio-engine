@@ -58,16 +58,21 @@ class EnvironmentBank:
         self.studio_system = None
         self.rain_inst = None
         self.wind_inst = None
-        self._init_studio_system()
+        self.__init_studio_system()
+        self.__init_events()
 
-    def _init_studio_system(self):
+    def __init_studio_system(self):
         core_system = pyfmodex.System()
         core_system.init()
         core_system.release()
         self.studio_system = StudioSystem()
         self.studio_system.initialize(max_channels=512)
 
-    def load(self, bank_path=None):
+    def __init_events(self, bank_path):
+        self._load()
+        self._prepare_events()
+
+    def _load(self, bank_path=None):
         if bank_path is None:
             logging.info("Kein Pfad angegeben")
             bank_path = DEFAULT_BANK_PATH
@@ -100,7 +105,7 @@ class EnvironmentBank:
         if os.path.exists(test_bank):
             self.studio_system.load_bank_file(test_bank)
 
-    def prepare_event(self):
+    def _prepare_events(self):
         rain_event_desc = self.studio_system.get_event(REGEN_EVENT_PATH)
         self.rain_inst = rain_event_desc.create_instance()
 
@@ -135,8 +140,8 @@ class EnvironmentBank:
 if __name__ == "__main__":
     tb = EnvironmentBank()
     try:
-        tb.load()
-        tb.prepare_event()
+        tb._load()
+        tb._prepare_events()
         tb.warning_sound.start()
         tb.update_studio_system()
         time.sleep(5)
