@@ -25,6 +25,7 @@ class TriggerAdapter:
         self.honk_trigger = False
         self.reverse_beep = ReverseBeep()
         self.bank = bank
+        self.crash_counter = 0
         self.honk_counter = 1
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
@@ -56,11 +57,13 @@ class TriggerAdapter:
             self.speed_trigger = False
 
     def on_crash(self, crash):
-        if self.crash_trigger is False:
+        if self.crash_trigger is False and self.crash_counter >= 1:
             self.bank.play_crash()
             self.crash_trigger = True
         if self.bank.crash_sound.playback_state == PLAYBACK_STATE.STOPPED:
             self.crash_trigger = False
+        if self.crash_counter == 0:
+            self.crash_counter = self.crash_counter + 1
     
     def on_honk(self, honk):
         if self.honk_trigger is False and self.honk_counter % 2 == 0:
