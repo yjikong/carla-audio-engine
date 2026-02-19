@@ -68,8 +68,8 @@ class EnvironmentBank:
         self.studio_system = StudioSystem()
         self.studio_system.initialize(max_channels=512)
 
-    def __init_events(self, bank_path):
-        self._load()
+    def __init_events(self, bank_path=None):
+        self._load(bank_path)
         self._prepare_events()
 
     def _load(self, bank_path=None):
