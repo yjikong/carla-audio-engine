@@ -21,9 +21,10 @@ PROJEKT_ROOT_PC = Path(r"C:\Users\ozanm\SoundCARLA\Code")
 VENV_PYTHON = CARLA_DIR_PC / "PythonAPI" / "examples" / ".venv38" / "Scripts" / "python.exe"
 CARLA_CLIENT_VENV = PROJEKT_ROOT_PC / "Carla" / ".venv38" / "Scripts" / "python.exe"
 FMOD_VENV = PROJEKT_ROOT_PC / "FMOD" / ".venv" / "Scripts" / "python.exe"
-#SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "manual_control.py"
-SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "no_rendering_mode.py"
+SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "manual_control.py"
+#SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "no_rendering_mode.py"
 SCRIPT2 = CARLA_DIR_PC / "PythonAPI" / "examples" / "generate_traffic.py"
+CHANGE_WEATHER_SCRIPT = PROJEKT_ROOT_PC / "Carla" / "Weather.py"
 CARLA_CLIENT_SKRIPT = PROJEKT_ROOT_PC / "Carla" / "Socket.py"
 FMOD_SKRIPT = PROJEKT_ROOT_PC / "main.py"
 
@@ -67,6 +68,8 @@ if __name__ == "__main__":
         # Wenn du willst, dass dieses Fenster offen bleibt, nutze run() oder ebenfalls Popen
         #process_traffic = subprocess.Popen([str(VENV_PYTHON), str(SCRIPT2),], env=env)
 
+        process_weather = subprocess.Popen([str(CARLA_CLIENT_VENV), str(CHANGE_WEATHER_SCRIPT)], env=env)
+
         time.sleep(2)
 
         process_carla_client = subprocess.Popen([str(CARLA_CLIENT_VENV), str(CARLA_CLIENT_SKRIPT),], env=env)
@@ -82,11 +85,13 @@ if __name__ == "__main__":
         try: # Das hier kostet viel performance evtl. Hauptskirpt beenden, nachdem alle Prozesse gestartet wurden
             #process_traffic.wait()
             process_no_render.wait()
+            process_weather.wait()
             process_carla_client.wait()
             process_fmod.wait()
         except KeyboardInterrupt:
             print("\nBeende Prozesse...")
             process_no_render.terminate()
+            process_weather.terminate()
             #process_traffic.terminate()
             process_fmod.terminate()
             process_carla_client.terminate()
