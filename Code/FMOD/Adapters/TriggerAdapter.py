@@ -25,7 +25,7 @@ class TriggerAdapter:
         self.honk_trigger = False
         self.reverse_beep = ReverseBeep()
         self.bank = bank
-        self.honk_counter = 0
+        self.honk_counter = 1
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
         event_bus.subscribe(DataKey.SPEED, self.on_speed)
