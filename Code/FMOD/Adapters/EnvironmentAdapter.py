@@ -8,11 +8,12 @@ from pyfmodex.studio import StudioSystem
 
 
 class EnvironmentAdapter:
-    def __init__(self, event_bus: EventBus, bank: EnvironmentBank, events: dict):
+    def __init__(self, event_bus: EventBus, bank: EnvironmentBank):
+        self.bank = bank
+        events = self.bank.get_events()
+        
         self.rain_event = events["rain"]
         self.wind_event = events["wind"]
-
-        self.bank = bank
 
         event_bus.subscribe(DataKey.RAIN_INTENSITY, self.on_rain)
         event_bus.subscribe(DataKey.WIND_INTENSITY, self.on_wind)
@@ -31,7 +32,8 @@ class EnvironmentAdapter:
         else:
             return
         
-        #self.rain_event.set_paused(pause)
+        if pause != self.rain_event.paused:
+            self.rain_event.paused = pause
         self.rain_event.set_parameter_by_name("regenstaerke", value)
         self.bank.update_studio_system()
     
@@ -51,6 +53,7 @@ class EnvironmentAdapter:
         else:
             return
         
-        #self.wind_event.set_paused(pause)
+        if pause != self.rain_event.paused:
+            self.rain_event.paused = pause
         self.wind_event.set_parameter_by_name("Windstaerke", value)
         self.bank.update_studio_system()

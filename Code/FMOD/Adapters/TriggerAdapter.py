@@ -18,7 +18,7 @@ das Event nur noch korrekt ein einziges Mal abgespielt
 '''
 
 class TriggerAdapter:
-    def __init__(self, event_bus: EventBus, bank: TriggerBank, events: dict):
+    def __init__(self, event_bus: EventBus, bank: TriggerBank):
         self.past_gear = None
         self.speed_trigger = False
         self.crash_trigger = False

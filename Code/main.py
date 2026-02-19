@@ -17,7 +17,6 @@ if __name__ == '__main__':
     bus = EventBus()
 
     env_bank = EnvironmentBank()
-    events = env_bank.get_events()
     env_bank.start_events()
     env_bank.update_studio_system() 
 
@@ -25,9 +24,9 @@ if __name__ == '__main__':
 
     ev = EVSoundEngine()
 
-    env_adapter = EnvironmentAdapter(bus, env_bank, events)
+    env_adapter = EnvironmentAdapter(bus, env_bank)
     motor_adapter = MotorAdapter(bus, ev)
-    trigger_adapter = TriggerAdapter(bus, trigger_bank, events)
+    trigger_adapter = TriggerAdapter(bus, trigger_bank)
 
     model = SoundModel(bus)
 
