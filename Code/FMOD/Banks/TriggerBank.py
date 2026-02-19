@@ -31,10 +31,10 @@ class TriggerBank:
         self.honk_sound = None
 
         #initialize
-        self.load()
-        self.prepare_events()
+        self.__load()
+        self.__prepare_events()
 
-    def load(self, bank_path=None):
+    def __load(self, bank_path=None):
         if bank_path is None:
             bank_path = DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
@@ -65,7 +65,7 @@ class TriggerBank:
         if os.path.exists(trigger_strings):
             self.studio_system.load_bank_file(trigger_strings)
 
-    def prepare_events(self):
+    def __prepare_events(self):
         temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
         temp_crash_event = self.studio_system.get_event(CRASH_EVENT_PATH)
         temp_honk_event = self.studio_system.get_event(HONK_EVENT_PATH)

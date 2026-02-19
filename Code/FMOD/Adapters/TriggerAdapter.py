@@ -43,7 +43,7 @@ class TriggerAdapter:
         if val == True:
             self.reverse_beep.play()
 
-    def on_tick(self, tick):
+    def on_tick(self):
         self.reverse_beep.update()
         self.bank.update()
 
