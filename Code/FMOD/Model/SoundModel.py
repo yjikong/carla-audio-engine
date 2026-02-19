@@ -32,16 +32,12 @@ class SoundModel:
                     print(f"Unknown key received: {key_str}")
         return diff
 
-    def run(self) -> None:      
-        while True:
-            old_data = self.client_data.copy()
-            self.client_data = self._decode()
+    def on_tick(self) -> None:      
+        old_data = self.client_data.copy()
+        self.client_data = self._decode()
 
-            diff = self._calculate_diff(self.client_data, old_data)
+        diff = self._calculate_diff(self.client_data, old_data)
 
-            self.bus.publish(DataKey.TICK,1)
+        for key, value in diff.items():
+            self.bus.publish(key, value)
 
-            for key, value in diff.items():
-                self.bus.publish(key, value)
-
-            time.sleep(0.05)

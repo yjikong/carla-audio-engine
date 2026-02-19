@@ -20,21 +20,24 @@ DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Trigger_Bank').resolve
 
 class TriggerBank:
     def __init__(self):
-        #create TriggerBank
-        temp_core_system = pyfmodex.System()
-        temp_core_system.init()
-        temp_core_system.release() 
-        self.studio_system = StudioSystem()
-        self.studio_system.initialize(max_channels=512)
         self.warning_sound = None
         self.crash_sound = None
         self.honk_sound = None
+        self.__init_studio_system()
+        self.__init_events()
 
-        #initialize
-        self.load()
-        self.prepare_events()
+    def __init_studio_system(self):
+        core_system = pyfmodex.System()
+        core_system.init()
+        core_system.release()
+        self.studio_system = StudioSystem()
+        self.studio_system.initialize(max_channels=512)
 
-    def load(self, bank_path=None):
+    def __init_events(self, bank_path):
+        self._load()
+        self._prepare_events()
+
+    def _load(self, bank_path=None):
         if bank_path is None:
             bank_path = DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
@@ -65,7 +68,7 @@ class TriggerBank:
         if os.path.exists(trigger_strings):
             self.studio_system.load_bank_file(trigger_strings)
 
-    def prepare_events(self):
+    def _prepare_events(self):
         temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
         temp_crash_event = self.studio_system.get_event(CRASH_EVENT_PATH)
         temp_honk_event = self.studio_system.get_event(HONK_EVENT_PATH)

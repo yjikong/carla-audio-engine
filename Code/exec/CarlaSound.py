@@ -5,10 +5,10 @@ import time
 import sys
 
 # Pfade definieren
-# CARLA_DIR = Path(r"C:\Users\jikon\CARLA\WindowsNoEditor")
-# PROJEKT_ROOT = Path(r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Sound\Code")
-CARLA_DIR = Path(r"C:\Users\ozanm\Carla")
-PROJEKT_ROOT = Path(r"C:\Users\ozanm\SoundCARLA\Code")
+CARLA_DIR = Path(r"C:\Users\jikon\CARLA\WindowsNoEditor")
+PROJEKT_ROOT = Path(r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Sound\Code")
+# CARLA_DIR = Path(r"C:\Users\ozanm\Carla")
+# PROJEKT_ROOT = Path(r"C:\Users\ozanm\SoundCARLA\Code")
 VENV_PYTHON = CARLA_DIR / "PythonAPI" / "examples" / ".venv38" / "Scripts" / "python.exe"
 CARLA_CLIENT_VENV = PROJEKT_ROOT / "Carla" / ".venv38" / "Scripts" / "python.exe"
 FMOD_VENV = PROJEKT_ROOT / "FMOD" / ".venv" / "Scripts" / "python.exe"
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         process_fmod = subprocess.Popen([str(FMOD_VENV), str(FMOD_SKRIPT),], env=env)
 
         print("\n[INFO] Beide Skripte laufen parallel.")
-        print("Druecke Strg+C in CARLA oder beende diesen Prozess, um aufzuhaeren.")
+        print("Druecke Strg+C in CARLA oder beende diesen Prozess, um aufzuhoeren.")
         
         # Haelt das Hauptskript am Leben, solange die Unterprozesse laufen
         try: # Das hier kostet viel performance evtl. Hauptskirpt beenden, nachdem alle Prozesse gestartet wurden

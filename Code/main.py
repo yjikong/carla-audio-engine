@@ -17,11 +17,9 @@ if __name__ == '__main__':
     bus = EventBus()
 
     env_bank = EnvironmentBank()
-    env_bank.load()
-    env_bank.prepare_event()
     events = env_bank.get_events()
     env_bank.start_events()
-    env_bank.update_studio_system()
+    env_bank.update_studio_system() 
 
     trigger_bank = TriggerBank()
 
@@ -32,6 +30,11 @@ if __name__ == '__main__':
     trigger_adapter = TriggerAdapter(bus, trigger_bank, events)
 
     model = SoundModel(bus)
-    model.run()
+
+    while True:
+        model.on_tick()
+        trigger_adapter.on_tick()
+
+        time.sleep(0.05)
 
     
