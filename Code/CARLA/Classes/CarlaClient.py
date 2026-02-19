@@ -70,7 +70,7 @@ class CarlaClient:
             kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
             control = self.vehicle.get_control()
             gear = control.gear
-            handbrake = control.hand_brake()
+            handbrake = control.hand_brake
             steer = control.steer
 
             if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
