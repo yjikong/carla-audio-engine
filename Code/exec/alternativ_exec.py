@@ -5,8 +5,8 @@ import time
 import sys
 
 # Pfade definieren Laptop
-# CARLA_DIR_LAPTOP = Path(r"C:\Users\ozanm\1_Code\Projekt_Carla_Sound_Semester_6\RunCarla\WindowsNoEditor")
-# PROJEKT_ROOT_LAPTOP = Path(r"C:\Users\ozanm\1_Code\Projekt_Carla_Sound_Semester_6\SoundCarla\Code")
+# CARLA_DIR_LAPTOP = Path(r"C:\Users\jikon\CARLA\WindowsNoEditor")
+# PROJEKT_ROOT_LAPTOP = Path(r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Sound\Code")
 # VENV_PYTHON = CARLA_DIR_LAPTOP / ".venv38" / "Scripts" / "python.exe"
 # CARLA_CLIENT_VENV = PROJEKT_ROOT_LAPTOP / "Carla" / ".venv38" / "Scripts" / "python.exe"
 # FMOD_VENV = PROJEKT_ROOT_LAPTOP / "FMOD" / ".venv" / "Scripts" / "python.exe"
@@ -16,12 +16,13 @@ import sys
 # FMOD_SKRIPT = PROJEKT_ROOT_LAPTOP / "main.py"
 
 #Pfade definieren PC
-CARLA_DIR_PC = Path(r"C:\Users\ozanm\Carla")
-PROJEKT_ROOT_PC = Path(r"C:\Users\ozanm\SoundCarla\Code")
+CARLA_DIR_PC = Path(r"C:\Users\jikon\CARLA\WindowsNoEditor")
+PROJEKT_ROOT_PC = Path(r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Sound\Code")
 VENV_PYTHON = CARLA_DIR_PC / "PythonAPI" / "examples" / ".venv38" / "Scripts" / "python.exe"
 CARLA_CLIENT_VENV = PROJEKT_ROOT_PC / "Carla" / ".venv38" / "Scripts" / "python.exe"
 FMOD_VENV = PROJEKT_ROOT_PC / "FMOD" / ".venv" / "Scripts" / "python.exe"
-SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "manual_control.py"
+#SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "manual_control.py"
+SCRIPT = CARLA_DIR_PC / "PythonAPI" / "examples" / "no_rendering_mode.py"
 SCRIPT2 = CARLA_DIR_PC / "PythonAPI" / "examples" / "generate_traffic.py"
 CARLA_CLIENT_SKRIPT = PROJEKT_ROOT_PC / "Carla" / "Socket.py"
 FMOD_SKRIPT = PROJEKT_ROOT_PC / "main.py"
