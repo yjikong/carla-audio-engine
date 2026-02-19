@@ -20,13 +20,13 @@ class CarlaClient:
         self.crash_impulse = False
         self.honk_trigger = False
         
-        self.connect()
+        self.__connect()
         
 
-    def connect(self):
+    def __connect(self):
         self.world = self.client.get_world()
     
-    def get_vehicle(self):
+    def __get_vehicle(self):
         vehicles = self.world.get_actors().filter('vehicle.*')
 
         if vehicles:
@@ -55,7 +55,7 @@ class CarlaClient:
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
-            self.vehicle = self.get_vehicle()
+            self.vehicle = self.__get_vehicle()
             #2. Variable setzen:
             if self.vehicle is not None:
                 self.vehicle_found = True
@@ -63,6 +63,9 @@ class CarlaClient:
                 self.collision_sensor = CollisionSensor(self.vehicle)
         #3. Daten auslesen:
         if self.vehicle_found == True:
+            if not self.vehicle.is_alive:
+                self.vehicle = self.__get_vehicle()
+                self.collision_sensor = CollisionSensor(self.vehicle)
 
             acceleration = self.vehicle.get_acceleration()
             speed_limit = self.vehicle.get_speed_limit()

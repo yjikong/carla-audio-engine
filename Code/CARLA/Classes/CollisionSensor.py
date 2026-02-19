@@ -10,15 +10,16 @@ class CollisionSensor(object):
     def __init__(self, parent_actor):
         self.sensor = None
         self.history = []
-        self._parent = parent_actor
-        self.world = self._parent.get_world()
-        print(self.world)
-        bp = self.world.get_blueprint_library().find('sensor.other.collision')
-        self.sensor = self.world.spawn_actor(bp, carla.Transform(), attach_to=self._parent)
-        # We need to pass the lambda a weak reference to self to avoid circular
-        # reference.
-        weak_self = weakref.ref(self)
-        self.sensor.listen(lambda event: CollisionSensor._on_collision(weak_self, event))
+        if parent_actor is not None:
+            self._parent = parent_actor
+            self.world = self._parent.get_world()
+            print(self.world)
+            bp = self.world.get_blueprint_library().find('sensor.other.collision')
+            self.sensor = self.world.spawn_actor(bp, carla.Transform(), attach_to=self._parent)
+            # We need to pass the lambda a weak reference to self to avoid circular
+            # reference.
+            weak_self = weakref.ref(self)
+            self.sensor.listen(lambda event: CollisionSensor._on_collision(weak_self, event))
 
     def get_collision_history(self):
         history = collections.defaultdict(int)
