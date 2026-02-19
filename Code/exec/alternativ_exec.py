@@ -16,8 +16,8 @@ import sys
 # FMOD_SKRIPT = PROJEKT_ROOT_LAPTOP / "main.py"
 
 #Pfade definieren PC
-CARLA_DIR_PC = Path(r"C:\Users\jikon\CARLA\WindowsNoEditor")
-PROJEKT_ROOT_PC = Path(r"C:\Users\jikon\Dokumente\Studium\Semester_6\Projekt\Sound\Code")
+CARLA_DIR_PC = Path(r"C:\Users\ozanm\CARLA")
+PROJEKT_ROOT_PC = Path(r"C:\Users\ozanm\SoundCARLA\Code")
 VENV_PYTHON = CARLA_DIR_PC / "PythonAPI" / "examples" / ".venv38" / "Scripts" / "python.exe"
 CARLA_CLIENT_VENV = PROJEKT_ROOT_PC / "Carla" / ".venv38" / "Scripts" / "python.exe"
 FMOD_VENV = PROJEKT_ROOT_PC / "FMOD" / ".venv" / "Scripts" / "python.exe"
@@ -51,6 +51,7 @@ def wait_for_carla(host="127.0.0.1", port=2000, timeout=60):
     return False
 
 if __name__ == "__main__":
+    print(f"{Path.exists(CARLA_DIR_PC)}{Path.exists(PROJEKT_ROOT_PC)}")
     if wait_for_carla('localhost', 2000, 10):
         env = os.environ.copy()
         
