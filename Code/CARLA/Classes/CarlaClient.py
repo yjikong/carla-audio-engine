@@ -3,7 +3,7 @@ import time
 import math
 import keyboard
 #funktioniert nur wenn Socket.py ausgeführt wird!!!
-from Code.CARLA.Classes.CollisionSensor import *
+from Classes.CollisionSensor import *
 
 class CarlaClient:
     def __init__(self, ip,port,timeout):
@@ -94,3 +94,14 @@ class CarlaClient:
                 }
         self.crash_impulse = False
         return data_packet
+    
+    def set_rain(self, in_rain_intensity):
+        weather = self.world.get_weather()
+        weather.precipitation = float(in_rain_intensity)
+        weather.wetness = float(in_rain_intensity)
+        self.world.set_weather(weather)
+    
+    def set_wind(self, in_wind_intensity=0):
+        weather = self.world.get_weather()
+        weather.wind_intensity = float(in_wind_intensity)
+        self.world.set_weather(weather)
