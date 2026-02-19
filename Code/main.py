@@ -20,8 +20,6 @@ if __name__ == '__main__':
     events = env_bank.get_events()
     env_bank.start_events()
     env_bank.update_studio_system() 
-    # Eventuell muss beim start mitgeteilt werden, welcher 
-    # Wert für Wetter da sind um richtig zu initialisieren.
 
     trigger_bank = TriggerBank()
 
