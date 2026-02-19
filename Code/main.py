@@ -32,6 +32,11 @@ if __name__ == '__main__':
     trigger_adapter = TriggerAdapter(bus, trigger_bank, events)
 
     model = SoundModel(bus)
-    model.run()
+
+    while True:
+        model.on_tick()
+        trigger_adapter.on_tick()
+
+        time.sleep(0.05)
 
     

@@ -27,6 +27,6 @@ if __name__ == "__main__":
 
     # Model starten
     model = SoundModel(bus)
-    model.run()
+    model.on_tick()
 
     
