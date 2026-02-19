@@ -70,6 +70,8 @@ class CarlaClient:
             kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
             control = self.vehicle.get_control()
             gear = control.gear
+            handbrake = control.hand_brake()
+            steer = control.steer
 
             if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
                 self.crash_impulse = True
@@ -87,21 +89,8 @@ class CarlaClient:
                     "rain_intensity" : rain_intensity,
                     "wind_intensity" : wind_intensity,
                     "acceleration" : acceleration.y,
-                    "honk" : honk
+                    "honk" : honk,
+                    "handbrake" : handbrake
                 }
-        else:
-            data_packet = {
-                "speed": 0.0,
-                "throttle": 0.0,
-                "brake": 0.0,
-                "speed_limit": 0.0,
-                "message": "keine Daten verfügbar.",
-                "gear" : "N",
-                "collision_event" : False,
-                "rain_intensity" : "keine Daten",
-                "wind_intensity" : "keine Daten",
-                "acceleration" : 0,
-                "honk" : False,
-            }
         self.crash_impulse = False
         return data_packet
