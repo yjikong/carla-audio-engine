@@ -80,13 +80,11 @@ if __name__ == "__main__":
         try: # Das hier kostet viel performance evtl. Hauptskirpt beenden, nachdem alle Prozesse gestartet wurden
             #process_traffic.wait()
             process_no_render.wait()
-            process_weather.wait()
             process_carla_client.wait()
             process_fmod.wait()
         except KeyboardInterrupt:
             print("\nBeende Prozesse...")
             process_no_render.terminate()
-            process_weather.terminate()
             #process_traffic.terminate()
             process_fmod.terminate()
             process_carla_client.terminate()
