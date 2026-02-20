@@ -23,7 +23,7 @@ class SimulatorGUI:
 
         self.root = Tk()
         self.root.title("SoundCARLA Master Launcher")
-        self.root.geometry("600x500")
+        self.root.geometry("500x500")
         
         self.processes = []
         self._build_ui()
@@ -94,6 +94,19 @@ class SimulatorGUI:
         stop_btn = Button(btn_frm, text="■ STOP ALL", bg="#e74c3c", fg="white", font=("Arial", 10, "bold"), 
                           padx=20, pady=10, command=self.stop_all)
         stop_btn.pack(side=LEFT, padx=10)
+
+        row_idx += 1
+        
+        # Warning Label placed dynamically below the buttons
+        warning_lbl = Label(
+            main_frm, 
+            text="⚠ After STOP ALL - Close Simulator manually!!!", 
+            font=("Arial", 9, "italic bold"),
+            fg="#d35400",  # Dark orange for a warning look
+            pady=10
+        )
+        # columnspan=3 centers it across the whole window
+        warning_lbl.grid(column=0, row=row_idx, columnspan=3, sticky=S)
 
     def refresh_ui(self):
         self._build_ui()
