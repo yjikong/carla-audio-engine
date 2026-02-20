@@ -2,7 +2,6 @@ from pathlib import Path
 
 FILE_DIR = Path(__file__).resolve().parent
 
-from Classes import *
 from tkinter import *
 from tkinter import ttk
 
