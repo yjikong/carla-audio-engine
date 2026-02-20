@@ -112,19 +112,24 @@ class SimulatorGUI:
         self._build_ui()
     
     def kill_process_on_port(self, port):
-        """Finds and kills whatever is sitting on the specified port."""
-        try:
-            # Command to find the PID on port 2000
-            output = subprocess.check_output(f"netstat -ano | findstr :{port}", shell=True).decode()
-            for line in output.strip().split('\n'):
-                if "LISTENING" in line or "ABHÖREN" in line:
-                    pid = line.strip().split()[-1]
-                    print(f"Killing zombie process {pid} on port {port}...")
-                    os.system(f"taskkill /f /pid {pid}")
-                    time.sleep(1)
-        except subprocess.CalledProcessError:
-            # This happens if findstr finds nothing (port is already free)
-            pass
+            """Finds and kills whatever is sitting on the specified port."""
+            try:
+                # Wir nutzen errors='ignore', um Encoding-Konflikte (Umlaute) zu vermeiden
+                output = subprocess.check_output(
+                    f"netstat -ano | findstr :{port}", 
+                    shell=True
+                ).decode('utf-8', errors='ignore')
+                
+                for line in output.strip().split('\n'):
+                    # Suche nach LISTENING (Englisch) oder ABHÖREN (Deutsch)
+                    if "LISTENING" in line or "ABH" in line: # 'ABH' reicht für Abhören
+                        pid = line.strip().split()[-1]
+                        print(f"Killing zombie process {pid} on port {port}...")
+                        os.system(f"taskkill /f /pid {pid}")
+                        time.sleep(1)
+            except subprocess.CalledProcessError:
+                # Port ist frei
+                pass
 
     def launch_all(self):
         self.kill_process_on_port(2000)
@@ -165,6 +170,11 @@ class SimulatorGUI:
             print("Launching FMOD Engine...")
             p3 = subprocess.Popen([self.paths["FMOD_VENV"], self.paths["FMOD_SCRIPT"]])
             self.processes.append(p3)
+
+        if self.paths["VENV_PYTHON"] and self.paths["TRAFFIC_SCRIPT"]:
+            print("Generating Traffic")
+            p4 = subprocess.Popen([self.paths["VENV_PYTHON"], self.paths["TRAFFIC_SCRIPT"]])
+            self.processes.append(p4)
 
     def stop_all(self):
         for p in self.processes:
