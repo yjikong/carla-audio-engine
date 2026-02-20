@@ -20,20 +20,15 @@ class EnvironmentAdapter:
 
     def on_rain(self, intensity: float):
         value = 0
-        pause = False
         if (intensity > 55) and intensity <= 100:
             value = 2
         elif ((intensity > 10) and (intensity <= 55)):
             value = 1
-        elif ((intensity <= 10) and (intensity > 0)):
+        elif ((intensity <= 10) and (intensity >= 0)):
             value = 0
-        elif intensity == 0:
-            pause = True
         else:
             return
         
-        if pause != self.rain_event.paused:
-            self.rain_event.paused = pause
         self.rain_event.set_parameter_by_name("regenstaerke", value)
         self.bank.update_studio_system()
     
@@ -41,19 +36,14 @@ class EnvironmentAdapter:
 
     def on_wind(self, intensity: float):    
         value = 0
-        pause = False
         if (intensity > 66) and intensity <= 100:
             value = 2
         elif ((intensity > 33) and (intensity <= 66)):
             value = 1
-        elif ((intensity <= 33) and (intensity > 0)):
+        elif ((intensity <= 33) and (intensity >= 0)):
             value = 0
-        elif intensity == 0:
-            pause = True
         else:
             return
         
-        if pause != self.rain_event.paused:
-            self.rain_event.paused = pause
         self.wind_event.set_parameter_by_name("Windstaerke", value)
         self.bank.update_studio_system()
