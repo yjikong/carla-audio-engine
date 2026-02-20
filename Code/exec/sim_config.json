@@ -5,5 +5,6 @@
     "MANUAL_CONTROL_SCRIPT": "C:/Users/ozanm/Carla/PythonAPI/examples/manual_control.py",
     "TRAFFIC_SCRIPT": "C:/Users/ozanm/Carla/PythonAPI/examples/generate_traffic.py",
     "CARLA_CLIENT_SCRIPT": "C:/Users/ozanm/SoundCARLA/Code/CARLA/cmain.py",
-    "FMOD_SCRIPT": "C:/Users/ozanm/SoundCARLA/Code/main.py"
+    "FMOD_SCRIPT": "C:/Users/ozanm/SoundCARLA/Code/main.py",
+    "CARLA_SIM": "C:/Users/ozanm/Carla/CarlaUE4.exe"
 }
