@@ -15,7 +15,7 @@ def carla_data_loop(client, sock):
         time.sleep(0.05)
 
 if __name__ == '__main__':
-    client = CarlaClient('localhost', 2000, 10.0)
+    client = CarlaClient('localhost', 2000, 30.0)
     weather = Weather(client)
     sock = Socket()
     carla_thread = Thread(target=carla_data_loop, args=(client, sock), daemon=True)
