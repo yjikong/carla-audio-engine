@@ -3,7 +3,7 @@ import time
 import math
 import keyboard
 #funktioniert nur wenn Socket.py ausgeführt wird!!!
-from Code.CARLA.Classes.CollisionSensor import *
+from Classes.CollisionSensor import *
 
 class CarlaClient:
     def __init__(self, ip,port,timeout):
@@ -20,13 +20,13 @@ class CarlaClient:
         self.crash_impulse = False
         self.honk_trigger = False
         
-        self.connect()
+        self.__connect()
         
 
-    def connect(self):
+    def __connect(self):
         self.world = self.client.get_world()
     
-    def get_vehicle(self):
+    def __get_vehicle(self):
         vehicles = self.world.get_actors().filter('vehicle.*')
 
         if vehicles:
@@ -55,7 +55,7 @@ class CarlaClient:
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
-            self.vehicle = self.get_vehicle()
+            self.vehicle = self.__get_vehicle()
             #2. Variable setzen:
             if self.vehicle is not None:
                 self.vehicle_found = True
@@ -63,6 +63,9 @@ class CarlaClient:
                 self.collision_sensor = CollisionSensor(self.vehicle)
         #3. Daten auslesen:
         if self.vehicle_found == True:
+            if not self.vehicle.is_alive:
+                self.vehicle = self.__get_vehicle()
+                self.collision_sensor = CollisionSensor(self.vehicle)
 
             acceleration = self.vehicle.get_acceleration()
             speed_limit = self.vehicle.get_speed_limit()
@@ -70,6 +73,8 @@ class CarlaClient:
             kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
             control = self.vehicle.get_control()
             gear = control.gear
+            handbrake = control.hand_brake
+            steer = control.steer
 
             if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
                 self.crash_impulse = True
@@ -87,21 +92,19 @@ class CarlaClient:
                     "rain_intensity" : rain_intensity,
                     "wind_intensity" : wind_intensity,
                     "acceleration" : acceleration.y,
-                    "honk" : honk
+                    "honk" : honk,
+                    "handbrake" : handbrake
                 }
-        else:
-            data_packet = {
-                "speed": 0.0,
-                "throttle": 0.0,
-                "brake": 0.0,
-                "speed_limit": 0.0,
-                "message": "keine Daten verfügbar.",
-                "gear" : "N",
-                "collision_event" : False,
-                "rain_intensity" : "keine Daten",
-                "wind_intensity" : "keine Daten",
-                "acceleration" : 0,
-                "honk" : False,
-            }
         self.crash_impulse = False
         return data_packet
+    
+    def set_rain(self, in_rain_intensity):
+        weather = self.world.get_weather()
+        weather.precipitation = float(in_rain_intensity)
+        weather.wetness = float(in_rain_intensity)
+        self.world.set_weather(weather)
+    
+    def set_wind(self, in_wind_intensity=0):
+        weather = self.world.get_weather()
+        weather.wind_intensity = float(in_wind_intensity)
+        self.world.set_weather(weather)
