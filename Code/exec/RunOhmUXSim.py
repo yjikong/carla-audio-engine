@@ -110,8 +110,25 @@ class SimulatorGUI:
 
     def refresh_ui(self):
         self._build_ui()
+    
+    def kill_process_on_port(self, port):
+        """Finds and kills whatever is sitting on the specified port."""
+        try:
+            # Command to find the PID on port 2000
+            output = subprocess.check_output(f"netstat -ano | findstr :{port}", shell=True).decode()
+            for line in output.strip().split('\n'):
+                if "LISTENING" in line or "ABHÖREN" in line:
+                    pid = line.strip().split()[-1]
+                    print(f"Killing zombie process {pid} on port {port}...")
+                    os.system(f"taskkill /f /pid {pid}")
+                    time.sleep(1)
+        except subprocess.CalledProcessError:
+            # This happens if findstr finds nothing (port is already free)
+            pass
 
     def launch_all(self):
+        self.kill_process_on_port(2000)
+
         # 1. Start the CARLA Simulator Executable
         if self.paths["CARLA_SIM"]:
             print("Launching CARLA Simulator...")
