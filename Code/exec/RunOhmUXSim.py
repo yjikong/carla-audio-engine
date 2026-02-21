@@ -133,19 +133,39 @@ class SimulatorGUI:
 
     def launch_all(self):
         self.kill_process_on_port(2000)
-
-        # 1. Start the CARLA Simulator Executable
+       
         if self.paths["CARLA_SIM"]:
             print("Launching CARLA Simulator...")
-            # We use the folder of the .exe as the working directory (cwd) 
-            # so CARLA can find its content folders.
             carla_folder = os.path.dirname(self.paths["CARLA_SIM"])
             p0 = subprocess.Popen([self.paths["CARLA_SIM"], "-dx11"], cwd=carla_folder)
             self.processes.append(p0)
             
-            # Give the simulator more time to start the server (e.g., 5-8 seconds)
-            print("Waiting for CARLA server to initialize...")
-            time.sleep(8) 
+            # --- NEW: Connection Validation Check ---
+            print("Verifying CARLA server connectivity...")
+            connected = False
+            max_retries = 10
+            
+            # Simple python snippet to test the connection
+            check_script = "import carla; carla.Client('localhost', 2000).get_world()"
+            
+            for i in range(max_retries):
+                try:
+                    # Run the check using the venv python
+                    subprocess.run(
+                        [self.paths["VENV_PYTHON"], "-c", check_script],
+                        check=True, 
+                        capture_output=True,
+                        timeout=5
+                    )
+                    print("CARLA Client successfully connected!")
+                    connected = True
+                    break
+                except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                    print(f"Attempt {i+1}/{max_retries}: Server not ready yet, retrying...")
+                    time.sleep(2)
+
+            if not connected:
+                print("Error: Could not connect to CARLA server. Aborting launch.")
         else:
             print("Warning: CARLA_SIM path not set. Skipping simulator launch.")
 
