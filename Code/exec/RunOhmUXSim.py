@@ -140,7 +140,7 @@ class SimulatorGUI:
             # We use the folder of the .exe as the working directory (cwd) 
             # so CARLA can find its content folders.
             carla_folder = os.path.dirname(self.paths["CARLA_SIM"])
-            p0 = subprocess.Popen([self.paths["CARLA_SIM"]], cwd=carla_folder)
+            p0 = subprocess.Popen([self.paths["CARLA_SIM"], "-dx11"], cwd=carla_folder)
             self.processes.append(p0)
             
             # Give the simulator more time to start the server (e.g., 5-8 seconds)
