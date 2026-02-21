@@ -9,7 +9,6 @@ from tkinter import ttk, filedialog
 class SimulatorGUI:
     def __init__(self):
         self.config_path = "sim_config.json"
-        # Define the roles we need paths for
         self.paths = self.load_config({
             "CARLA_SIM":"",
             "VENV_PYTHON": "",
@@ -32,7 +31,6 @@ class SimulatorGUI:
             if os.path.exists(self.config_path):
                 with open(self.config_path, "r") as f:
                     saved_conf = json.load(f)
-                # Merge: Use saved values, but keep defaults for missing keys
                 for key in defaults:
                     if key not in saved_conf:
                         saved_conf[key] = defaults[key]
@@ -51,42 +49,34 @@ class SimulatorGUI:
             self.refresh_ui()
 
     def _build_ui(self):
-        # Clear existing widgets for refresh
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        # Main Container
         main_frm = ttk.Frame(self.root, padding=20)
         main_frm.pack(fill=BOTH, expand=True)
 
-        # Title
         ttk.Label(main_frm, text="SoundCARLA Master Launcher", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=(0, 20))
 
-        # Path Rows
         row_idx = 1
         for key, path in self.paths.items():
-            # Label for the key
+
             ttk.Label(main_frm, text=key.replace("_", " "), font=("Arial", 9, "bold")).grid(column=0, row=row_idx, sticky=W, pady=5)
             
-            # Shortened path display
+
             display_text = (path[:30] + '...') if len(path) > 30 else (path if path else "--- NOT SET ---")
             color = "black" if path else "red"
             ttk.Label(main_frm, text=display_text, foreground=color).grid(column=1, row=row_idx, padx=10, sticky=W)
             
-            # Browse Button
             ttk.Button(main_frm, text="Browse", width=10, command=lambda k=key: self.browse_file(k)).grid(column=2, row=row_idx, pady=2)
             
             row_idx += 1
 
-        # Separator line
         ttk.Separator(main_frm, orient='horizontal').grid(row=row_idx, column=0, columnspan=3, sticky="ew", pady=20)
         row_idx += 1
 
-        # Control Buttons Frame
         btn_frm = ttk.Frame(main_frm)
         btn_frm.grid(row=row_idx, column=0, columnspan=3)
 
-        # Big Action Buttons
         start_btn = Button(btn_frm, text="▶ START ALL", bg="#2ecc71", fg="white", font=("Arial", 10, "bold"), 
                            padx=20, pady=10, command=self.launch_all)
         start_btn.pack(side=LEFT, padx=10)
@@ -97,15 +87,14 @@ class SimulatorGUI:
 
         row_idx += 1
         
-        # Warning Label placed dynamically below the buttons
         warning_lbl = Label(
             main_frm, 
             text="⚠ After STOP ALL - Close Simulator manually!!!", 
             font=("Arial", 9, "italic bold"),
-            fg="#d35400",  # Dark orange for a warning look
+            fg="#d35400",
             pady=10
         )
-        # columnspan=3 centers it across the whole window
+
         warning_lbl.grid(column=0, row=row_idx, columnspan=3, sticky=S)
 
     def refresh_ui(self):
@@ -114,43 +103,38 @@ class SimulatorGUI:
     def kill_process_on_port(self, port):
             """Finds and kills whatever is sitting on the specified port."""
             try:
-                # Wir nutzen errors='ignore', um Encoding-Konflikte (Umlaute) zu vermeiden
                 output = subprocess.check_output(
                     f"netstat -ano | findstr :{port}", 
                     shell=True
                 ).decode('utf-8', errors='ignore')
                 
                 for line in output.strip().split('\n'):
-                    # Suche nach LISTENING (Englisch) oder ABHÖREN (Deutsch)
-                    if "LISTENING" in line or "ABH" in line: # 'ABH' reicht für Abhören
+                    if "LISTENING" in line or "ABH" in line:
                         pid = line.strip().split()[-1]
                         print(f"Killing zombie process {pid} on port {port}...")
                         os.system(f"taskkill /f /pid {pid}")
                         time.sleep(1)
             except subprocess.CalledProcessError:
-                # Port ist frei
                 pass
 
     def launch_all(self):
         self.kill_process_on_port(2000)
-       
+        
+        # 1. Start Carla Sim
         if self.paths["CARLA_SIM"]:
             print("Launching CARLA Simulator...")
             carla_folder = os.path.dirname(self.paths["CARLA_SIM"])
             p0 = subprocess.Popen([self.paths["CARLA_SIM"], "-dx11"], cwd=carla_folder)
             self.processes.append(p0)
             
-            # --- NEW: Connection Validation Check ---
             print("Verifying CARLA server connectivity...")
             connected = False
             max_retries = 10
             
-            # Simple python snippet to test the connection
             check_script = "import carla; carla.Client('localhost', 2000).get_world()"
             
             for i in range(max_retries):
                 try:
-                    # Run the check using the venv python
                     subprocess.run(
                         [self.paths["VENV_PYTHON"], "-c", check_script],
                         check=True, 
