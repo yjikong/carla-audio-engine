@@ -42,6 +42,7 @@ class MotorAdapter:
             return 0
 
     def on_handBrake(self, handBrake):
+        """Plays handbrake sound on alternating calls if available"""
         if self.handBrake_trigger is False and self.handBrake_counter % 2 == 0:
             self.bank.play_handBrake()
             self.handBrake_trigger = True
@@ -50,6 +51,7 @@ class MotorAdapter:
         self.handBrake_counter = self.handBrake_counter + 1
 
     def update(self):
+        """Updates engine and sound states each frame"""
         if self.ev.is_running is False:
             self.ev.start()
         self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
