@@ -49,6 +49,7 @@ class MotorAdapter:
         if self.bank.handBrake_sound.playback_state == PLAYBACK_STATE.STOPPED:
             self.handBrake_trigger = False
         self.handBrake_counter = self.handBrake_counter + 1
+        #Todo: if speed>...
 
     def update(self):
         """Updates engine and sound states each frame"""
