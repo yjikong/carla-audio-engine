@@ -62,41 +62,44 @@ class CarlaClient:
                 #Attach Collision Sensor to vehicle
                 self.collision_sensor = CollisionSensor(self.vehicle)
         #3. Daten auslesen:
-        if self.vehicle_found == True:
+        if self.vehicle is not None:
             if not self.vehicle.is_alive:
                 self.vehicle = self.__get_vehicle()
                 self.collision_sensor = CollisionSensor(self.vehicle)
+            try:
+                acceleration = self.vehicle.get_acceleration()
+                speed_limit = self.vehicle.get_speed_limit()
+                v = self.vehicle.get_velocity()
+                kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
+                control = self.vehicle.get_control()
+                gear = control.gear
+                handbrake = control.hand_brake
+                steer = control.steer
 
-            acceleration = self.vehicle.get_acceleration()
-            speed_limit = self.vehicle.get_speed_limit()
-            v = self.vehicle.get_velocity()
-            kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
-            control = self.vehicle.get_control()
-            gear = control.gear
-            handbrake = control.hand_brake
-            steer = control.steer
+                if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
+                    self.crash_impulse = True
+                    self.crash_counter = self.collision_sensor.collision_counter
 
-            if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
-                self.crash_impulse = True
-                self.crash_counter = self.collision_sensor.collision_counter
+                #4. Daten in JSON Packet umwandeln:
+                data_packet = {
+                        "speed": round(kmh, 2),
+                        "throttle": round(control.throttle, 2),
+                        "brake": round(control.brake, 2),
+                        "speed_limit": speed_limit,
+                        "message": "GREEN",
+                        "gear" : gear,
+                        "collision_event" : self.crash_impulse,
+                        "rain_intensity" : rain_intensity,
+                        "wind_intensity" : wind_intensity,
+                        "acceleration" : acceleration.y,
+                        "honk" : honk,
+                        "handbrake" : handbrake
+                    }
+                self.crash_impulse = False
+                return data_packet
+            except(AttributeError):
+                print("Dont change the vehicle too fast please")
 
-            #4. Daten in JSON Packet umwandeln:
-            data_packet = {
-                    "speed": round(kmh, 2),
-                    "throttle": round(control.throttle, 2),
-                    "brake": round(control.brake, 2),
-                    "speed_limit": speed_limit,
-                    "message": "GREEN",
-                    "gear" : gear,
-                    "collision_event" : self.crash_impulse,
-                    "rain_intensity" : rain_intensity,
-                    "wind_intensity" : wind_intensity,
-                    "acceleration" : acceleration.y,
-                    "honk" : honk,
-                    "handbrake" : handbrake
-                }
-            self.crash_impulse = False
-            return data_packet
     
     def set_rain(self, in_rain_intensity):
         weather = self.world.get_weather()
