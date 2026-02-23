@@ -95,8 +95,8 @@ class CarlaClient:
                     "honk" : honk,
                     "handbrake" : handbrake
                 }
-        self.crash_impulse = False
-        return data_packet
+            self.crash_impulse = False
+            return data_packet
     
     def set_rain(self, in_rain_intensity):
         weather = self.world.get_weather()

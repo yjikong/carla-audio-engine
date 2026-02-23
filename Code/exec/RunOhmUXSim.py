@@ -8,12 +8,13 @@ from tkinter import ttk, filedialog
 
 class SimulatorGUI:
     def __init__(self):
-        self.config_path = "sim_config.json"
+        base_dir = Path(__file__).resolve().parent
+        self.config_path = base_dir / "sim_config.json"
         self.paths = self.load_config({
             "CARLA_SIM":"",
-            "VENV_PYTHON": "",
-            "CARLA_CLIENT_VENV": "",
-            "FMOD_VENV": "",
+            "SIM_VENV_PYTHON": "",
+            "CARLA_CLIENT_VENV_PYTHON": "",
+            "FMOD_VENV_PYTHON": "",
             "MANUAL_CONTROL_SCRIPT": "",
             "TRAFFIC_SCRIPT": "",
             "CARLA_CLIENT_SCRIPT": "",
@@ -136,7 +137,7 @@ class SimulatorGUI:
             for i in range(max_retries):
                 try:
                     subprocess.run(
-                        [self.paths["VENV_PYTHON"], "-c", check_script],
+                        [self.paths["SIM_VENV_PYTHON"], "-c", check_script],
                         check=True, 
                         capture_output=True,
                         timeout=5
@@ -154,30 +155,30 @@ class SimulatorGUI:
             print("Warning: CARLA_SIM path not set. Skipping simulator launch.")
 
         # 2. Start Manual Control / No Render
-        if self.paths["VENV_PYTHON"] and self.paths["MANUAL_CONTROL_SCRIPT"]:
+        if self.paths["SIM_VENV_PYTHON"] and self.paths["MANUAL_CONTROL_SCRIPT"]:
             print("Launching Manual Control...")
-            p1 = subprocess.Popen([self.paths["VENV_PYTHON"], self.paths["MANUAL_CONTROL_SCRIPT"]])
+            p1 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["MANUAL_CONTROL_SCRIPT"]])
             self.processes.append(p1)
 
         time.sleep(2)
 
         # 3. Start Carla Client (cmain.py)
-        if self.paths["CARLA_CLIENT_VENV"] and self.paths["CARLA_CLIENT_SCRIPT"]:
+        if self.paths["CARLA_CLIENT_VENV_PYTHON"] and self.paths["CARLA_CLIENT_SCRIPT"]:
             print("Launching Carla Client...")
-            p2 = subprocess.Popen([self.paths["CARLA_CLIENT_VENV"], self.paths["CARLA_CLIENT_SCRIPT"]])
+            p2 = subprocess.Popen([self.paths["CARLA_CLIENT_VENV_PYTHON"], self.paths["CARLA_CLIENT_SCRIPT"]])
             self.processes.append(p2)
 
         time.sleep(2)
 
         # 4. Start FMOD
-        if self.paths["FMOD_VENV"] and self.paths["FMOD_SCRIPT"]:
+        if self.paths["FMOD_VENV_PYTHON"] and self.paths["FMOD_SCRIPT"]:
             print("Launching FMOD Engine...")
-            p3 = subprocess.Popen([self.paths["FMOD_VENV"], self.paths["FMOD_SCRIPT"]])
+            p3 = subprocess.Popen([self.paths["FMOD_VENV_PYTHON"], self.paths["FMOD_SCRIPT"]])
             self.processes.append(p3)
 
-        if self.paths["VENV_PYTHON"] and self.paths["TRAFFIC_SCRIPT"]:
+        if self.paths["SIM_VENV_PYTHON"] and self.paths["TRAFFIC_SCRIPT"]:
             print("Generating Traffic")
-            p4 = subprocess.Popen([self.paths["VENV_PYTHON"], self.paths["TRAFFIC_SCRIPT"]])
+            p4 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["TRAFFIC_SCRIPT"]])
             self.processes.append(p4)
 
     def stop_all(self):
