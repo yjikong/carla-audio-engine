@@ -8,7 +8,8 @@ from tkinter import ttk, filedialog
 
 class SimulatorGUI:
     def __init__(self):
-        self.config_path = "sim_config.json"
+        base_dir = Path(__file__).resolve().parent
+        self.config_path = base_dir / "sim_config.json"
         self.paths = self.load_config({
             "CARLA_SIM":"",
             "VENV_PYTHON": "",
