@@ -2,6 +2,9 @@ from Code.FMOD.Banks import EnvironmentBank
 from Code.FMOD.utils import DataKey  
 from Code.FMOD.utils.DataKey import DataKey
 from ..utils.EventBus import EventBus
+from .RainIntensity import RainIntensity
+from .WindIntensity import WindIntensity
+from ..utils import RangeLevel
 
 import pyfmodex
 from pyfmodex.studio import StudioSystem 
@@ -20,29 +23,23 @@ class EnvironmentAdapter:
 
     def on_rain(self, intensity: float):
         value = 0
-        if (intensity > 55) and intensity <= 100:
-            value = 2
-        elif ((intensity > 10) and (intensity <= 55)):
-            value = 1
-        elif ((intensity <= 10) and (intensity >= 0)):
-            value = 0
+        rain_level = RainIntensity.from_value(intensity)
+        if rain_level:
+            value = rain_level.mapped_value  # 0,1,2,3
         else:
-            return
+            print(self.__class__.__name__ + ":Invalid intensity value")
+            return  # Ungültiger Wert
         
         self.rain_event.set_parameter_by_name("regenstaerke", value)
         self.bank.update_studio_system() 
 
     def on_wind(self, intensity: float):    
         value = 0
-        if (intensity > 77) and intensity <= 100:
-            value = 3
-        elif ((intensity > 44) and (intensity <= 77)):
-            value = 2
-        elif ((intensity > 10) and (intensity <= 44)):
-            value = 1
-        elif ((intensity >= 0) and (intensity <= 10)):
-            value = 0
+        wind_level = WindIntensity.from_value(intensity)
+        if wind_level:
+            value = wind_level.mapped_value  # 0,1,2
         else:
+            print(self.__class__.__name__ + ":Invalid intensity value")
             return
         
         self.wind_event.set_parameter_by_name("Windstaerke", value)
