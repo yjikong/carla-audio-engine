@@ -30,17 +30,17 @@ class EnvironmentAdapter:
             return
         
         self.rain_event.set_parameter_by_name("regenstaerke", value)
-        self.bank.update_studio_system()
-    
-        
+        self.bank.update_studio_system() 
 
     def on_wind(self, intensity: float):    
         value = 0
-        if (intensity > 66) and intensity <= 100:
+        if (intensity > 77) and intensity <= 100:
+            value = 3
+        elif ((intensity > 44) and (intensity <= 77)):
             value = 2
-        elif ((intensity > 33) and (intensity <= 66)):
+        elif ((intensity > 10) and (intensity <= 44)):
             value = 1
-        elif ((intensity <= 33) and (intensity >= 0)):
+        elif ((intensity >= 0) and (intensity <= 10)):
             value = 0
         else:
             return
