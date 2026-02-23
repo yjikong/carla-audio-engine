@@ -12,7 +12,8 @@ class SimulatorGUI:
         base_dir = Path(__file__).resolve().parent
         self.config_path = base_dir / "sim_config.json"
         
-        # Initialisiere Pfade
+        # Initialisiere Pfade und Optionen
+        # Added "USE_DX11" to the default config
         self.paths = self.load_config({
             "CARLA_SIM": "",
             "SIM_VENV_PYTHON": "",
@@ -21,12 +22,16 @@ class SimulatorGUI:
             "MANUAL_CONTROL_SCRIPT": "",
             "TRAFFIC_SCRIPT": "",
             "CARLA_CLIENT_SCRIPT": "",
-            "FMOD_SCRIPT": ""
+            "FMOD_SCRIPT": "",
+            "USE_DX11": True  # Default value
         })
 
         self.root = Tk()
         self.root.title("SoundCARLA Master Launcher")
-        self.root.geometry("550x550")
+        self.root.geometry("550x600") # Increased height slightly for the checkbox
+        
+        # Tkinter variable for the checkbox
+        self.dx11_var = BooleanVar(value=self.paths.get("USE_DX11", True))
         
         self.processes = []
         self._build_ui()
@@ -36,7 +41,6 @@ class SimulatorGUI:
             try:
                 with open(self.config_path, "r") as f:
                     saved_conf = json.load(f)
-                # Merge gespeicherte Werte mit Defaults
                 for key in defaults:
                     if key not in saved_conf:
                         saved_conf[key] = defaults[key]
@@ -47,6 +51,8 @@ class SimulatorGUI:
         return defaults
 
     def save_config(self):
+        # Update the dict with the current checkbox value before saving
+        self.paths["USE_DX11"] = self.dx11_var.get()
         with open(self.config_path, "w") as f:
             json.dump(self.paths, f, indent=4)
 
@@ -67,7 +73,10 @@ class SimulatorGUI:
         ttk.Label(main_frm, text="SoundCARLA Master Launcher", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=(0, 20))
 
         row_idx = 1
-        for key, path in self.paths.items():
+        # Filter out the boolean setting from the path-browsing list
+        path_items = {k: v for k, v in self.paths.items() if k != "USE_DX11"}
+        
+        for key, path in path_items.items():
             ttk.Label(main_frm, text=key.replace("_", " "), font=("Arial", 9, "bold")).grid(column=0, row=row_idx, sticky=W, pady=5)
             
             display_text = (path[:35] + '...') if len(path) > 35 else (path if path else "--- NOT SET ---")
@@ -77,10 +86,17 @@ class SimulatorGUI:
             ttk.Button(main_frm, text="Browse", width=10, command=lambda k=key: self.browse_file(k)).grid(column=2, row=row_idx, pady=2)
             row_idx += 1
 
-        ttk.Separator(main_frm, orient='horizontal').grid(row=row_idx, column=0, columnspan=3, sticky="ew", pady=20)
+        # --- Checkbox Section ---
+        ttk.Separator(main_frm, orient='horizontal').grid(row=row_idx, column=0, columnspan=3, sticky="ew", pady=10)
+        row_idx += 1
+        
+        dx_check = ttk.Checkbutton(main_frm, text="Use DirectX 11 (-dx11)", variable=self.dx11_var, command=self.save_config)
+        dx_check.grid(row=row_idx, column=0, columnspan=3, sticky=W, pady=5)
         row_idx += 1
 
-        # Status Label zur Anzeige des Fortschritts
+        ttk.Separator(main_frm, orient='horizontal').grid(row=row_idx, column=0, columnspan=3, sticky="ew", pady=10)
+        row_idx += 1
+
         self.status_var = StringVar(value="Bereit")
         ttk.Label(main_frm, textvariable=self.status_var, font=("Arial", 10, "italic"), foreground="blue").grid(row=row_idx, column=0, columnspan=3, pady=5)
         row_idx += 1
@@ -106,20 +122,17 @@ class SimulatorGUI:
         self._build_ui()
     
     def kill_process_on_port(self, port):
-        """Finds and kills whatever is sitting on the specified port."""
         try:
             output = subprocess.check_output(f"netstat -ano | findstr :{port}", shell=True).decode('utf-8', errors='ignore')
             for line in output.strip().split('\n'):
                 if "LISTENING" in line or "ABH" in line:
                     pid = line.strip().split()[-1]
-                    print(f"Killing zombie process {pid} on port {port}...")
                     os.system(f"taskkill /f /pid {pid}")
                     time.sleep(1)
         except subprocess.CalledProcessError:
             pass
 
     def launch_all(self):
-        """Startet die Launch-Sequenz in einem eigenen Thread, um die GUI nicht zu blockieren."""
         self.start_btn.config(state=DISABLED)
         thread = threading.Thread(target=self._run_launch_sequence, daemon=True)
         thread.start()
@@ -132,7 +145,13 @@ class SimulatorGUI:
         if self.paths["CARLA_SIM"]:
             self.status_var.set("Starte CARLA Simulator...")
             carla_folder = os.path.dirname(self.paths["CARLA_SIM"])
-            p0 = subprocess.Popen([self.paths["CARLA_SIM"]], cwd=carla_folder)
+            
+            # Build arguments list dynamically
+            cmd = [self.paths["CARLA_SIM"]]
+            if self.dx11_var.get():
+                cmd.append("-dx11")
+                
+            p0 = subprocess.Popen(cmd, cwd=carla_folder)
             self.processes.append(p0)
             
             self.status_var.set("Warte auf CARLA Server...")
@@ -155,29 +174,25 @@ class SimulatorGUI:
                 self.start_btn.config(state=NORMAL)
                 return
 
-        # 2. Manual Control
+        # ... (Rest of the manual control, client, and traffic logic remains the same)
         if self.paths["SIM_VENV_PYTHON"] and self.paths["MANUAL_CONTROL_SCRIPT"]:
             self.status_var.set("Starte Manual Control...")
             p1 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["MANUAL_CONTROL_SCRIPT"]])
             self.processes.append(p1)
-            self.status_var.set("Warte auf Map-Ladevorgang (25s)...")
             time.sleep(10)
 
-        # 3. Carla Client (cmain.py)
         if self.paths["CARLA_CLIENT_VENV_PYTHON"] and self.paths["CARLA_CLIENT_SCRIPT"]:
             self.status_var.set("Starte Carla Client (cmain.py)...")
             p2 = subprocess.Popen([self.paths["CARLA_CLIENT_VENV_PYTHON"], self.paths["CARLA_CLIENT_SCRIPT"]])
             self.processes.append(p2)
             time.sleep(5)
 
-        # 4. FMOD Engine
         if self.paths["FMOD_VENV_PYTHON"] and self.paths["FMOD_SCRIPT"]:
             self.status_var.set("Starte FMOD Engine...")
             p3 = subprocess.Popen([self.paths["FMOD_VENV_PYTHON"], self.paths["FMOD_SCRIPT"]])
             self.processes.append(p3)
             time.sleep(5)
 
-        # 5. Traffic Script
         if self.paths["SIM_VENV_PYTHON"] and self.paths["TRAFFIC_SCRIPT"]:
             self.status_var.set("Generiere Traffic...")
             p4 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["TRAFFIC_SCRIPT"]])
@@ -194,7 +209,6 @@ class SimulatorGUI:
             except:
                 pass
         self.processes = []
-        print("All processes terminated.")
         self.status_var.set("Bereit")
         self.start_btn.config(state=NORMAL)
 
