@@ -12,9 +12,9 @@ class SimulatorGUI:
         self.config_path = base_dir / "sim_config.json"
         self.paths = self.load_config({
             "CARLA_SIM":"",
-            "VENV_PYTHON": "",
-            "CARLA_CLIENT_VENV": "",
-            "FMOD_VENV": "",
+            "SIM_VENV_PYTHON": "",
+            "CARLA_CLIENT_VENV_PYTHON": "",
+            "FMOD_VENV_PYTHON": "",
             "MANUAL_CONTROL_SCRIPT": "",
             "TRAFFIC_SCRIPT": "",
             "CARLA_CLIENT_SCRIPT": "",
