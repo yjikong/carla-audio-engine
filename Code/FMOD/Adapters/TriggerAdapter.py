@@ -34,6 +34,7 @@ class TriggerAdapter:
 
     def on_reverse(self, current_gear):
         val = None
+        # Sets reverse sound trigger based on gear changes
         if current_gear == -1 and self.past_gear == None:
             val = True
         elif current_gear == -1 and self.past_gear !=-1:
@@ -49,6 +50,7 @@ class TriggerAdapter:
         self.bank.update()
 
     def on_speed(self, speed=0):
+        """Plays speed warning; resets trigger when finished"""
         self.reverse_beep.update()
         if speed > 100 and self.speed_trigger is False:
             self.bank.play_warning()
@@ -57,6 +59,7 @@ class TriggerAdapter:
             self.speed_trigger = False
 
     def on_crash(self, crash):
+        """Plays crash sound once per crash event"""
         if self.crash_trigger is False and self.crash_counter >= 1:
             self.bank.play_crash()
             self.crash_trigger = True
@@ -66,6 +69,7 @@ class TriggerAdapter:
             self.crash_counter = self.crash_counter + 1
     
     def on_honk(self, honk):
+        """Plays honk sound on even counts when stopped"""
         if self.honk_trigger is False and self.honk_counter % 2 == 0:
             self.bank.play_honk()
             self.crash_trigger = True

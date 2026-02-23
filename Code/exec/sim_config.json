@@ -1,10 +1,10 @@
 {
-    "VENV_PYTHON": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/RunCarla/WindowsNoEditor/.venv38/Scripts/python.exe",
-    "CARLA_CLIENT_VENV": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/SoundCARLA/Code/CARLA/.venv38/Scripts/python.exe",
-    "FMOD_VENV": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/SoundCARLA/Code/FMOD/.venv/Scripts/python.exe",
-    "MANUAL_CONTROL_SCRIPT": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/RunCarla/WindowsNoEditor/PythonAPI/examples/no_rendering_mode.py",
-    "TRAFFIC_SCRIPT": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/SoundCARLA/Code/CARLA/generate_traffic.py",
-    "CARLA_CLIENT_SCRIPT": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/SoundCARLA/Code/CARLA/cmain.py",
-    "FMOD_SCRIPT": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/SoundCARLA/Code/FMOD/fmain.py",
-    "CARLA_SIM": "C:/Users/ozanm/1_Code/Projekt_Carla_Sound_Semester_6/RunCarla/WindowsNoEditor/CarlaUE4.exe"
+    "VENV_PYTHON": "D:/Carla/WindowsNoEditor/PythonAPI/examples/venv38/Scripts/python.exe",
+    "CARLA_CLIENT_VENV": "C:/Users/braun/PycharmProjects/SoundCARLA/Code/CARLA/venv38/Scripts/python.exe",
+    "FMOD_VENV": "C:/Users/braun/PycharmProjects/SoundCARLA/Code/FMOD/venv/Scripts/python.exe",
+    "MANUAL_CONTROL_SCRIPT": "D:/Carla/WindowsNoEditor/PythonAPI/examples/no_rendering_mode.py",
+    "TRAFFIC_SCRIPT": "C:/Users/braun/PycharmProjects/SoundCARLA/Code/CARLA/generate_traffic.py",
+    "CARLA_CLIENT_SCRIPT": "C:/Users/braun/PycharmProjects/SoundCARLA/Code/CARLA/cmain.py",
+    "FMOD_SCRIPT": "C:/Users/braun/PycharmProjects/SoundCARLA/Code/FMOD/fmain.py",
+    "CARLA_SIM": "D:/Carla/WindowsNoEditor/CarlaUE4.exe"
 }

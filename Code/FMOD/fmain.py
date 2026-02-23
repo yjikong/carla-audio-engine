@@ -21,11 +21,12 @@ if __name__ == '__main__':
     env_bank.update_studio_system() 
 
     trigger_bank = TriggerBank()
+    motor_bank = MotorBank()
 
     ev = EVSoundEngine()
 
     env_adapter = EnvironmentAdapter(bus, env_bank)
-    motor_adapter = MotorAdapter(bus, ev)
+    motor_adapter = MotorAdapter(bus, ev, motor_bank)
     trigger_adapter = TriggerAdapter(bus, trigger_bank)
 
     model = SoundModel(bus)
