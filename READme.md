@@ -55,3 +55,4 @@ Use the following links to download the necessary files:
 - PYTHON 3.8 and 3.12
   - https://www.python.org/downloads/windows/
 
+After the installations are complete you can _clone_ the repository into your own IDE. 
