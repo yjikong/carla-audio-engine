@@ -37,15 +37,20 @@ as a proof of concept or starting point for further development.
 
 ## Installation and Setup
 
->[!TIPP]
+>[!TIP]
 >Everything you need to know about what has to be installed and
 > how to set up the project that every thing runs right is explained in
 > this video: LINK
 > >[!NOTE]
 > >Video is in German so you might have to use subtitles.
 
-At first you have to install following:
-- [FMOD-STUDIO 2.02]: https://www.fmod.com/download#fmodstudio
-- [FMOD-ENGING 2.02]: https://www.fmod.com/download#fmodengine
-- [CARLA 0.9.15]: https://github.com/carla-simulator/carla/releases/tag/0.9.15/
-- [PYTHON 3.8 AND 3.12]: https://www.python.org/downloads/windows/
+First, you need to install FMOD Studio 2.02 and Engine 2.02, Carla version 0.9.15, and Python 3.8 and 3.12.
+Use the following links to download the necessary files:
+- FMOD-STUDIO 2.02
+  - https://www.fmod.com/download#fmodstudio
+- FMOD-ENGINE 2.02
+  - https://www.fmod.com/download#fmodengine
+- CARLA 0.9.15
+  - https://github.com/carla-simulator/carla/releases/tag/0.9.15/
+- PYTHON 3.8 and 3.12
+  - https://www.python.org/downloads/windows/
