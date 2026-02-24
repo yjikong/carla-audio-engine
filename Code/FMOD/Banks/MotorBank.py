@@ -11,14 +11,16 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-HANDBRAKE_EVENT_PATH = "event:/HandBrake"
 
+#Declare Events from FMOD Project
+EXAMPE_EVENT_PATH = "event:/Example"
+
+#Path for Bank
 FILE_DIR = Path(__file__).resolve().parent
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Motor_Bank').resolve())
+DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Example_Bank').resolve())
 
 class MotorBank:
     def __init__(self):
-        self.handBrake_sound = None
         self.__init_studio_system()
         self.__init_events()
 
@@ -43,23 +45,19 @@ class MotorBank:
             raise FileNotFoundError(f"Bank directory not found: {bank_path}")
 
         expected_files = [
-            "HandBrake.bank",
+            "Example.bank",
             "Maser.bank",
             "Master.strings.bank",
         ]
 
         self.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
         self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
-        handBrake_bank = os.path.join(bank_path, "HandBrake.bank")
+        handBrake_bank = os.path.join(bank_path, "Example.bank")
         if os.path.exists(handBrake_bank):
             self.studio_system.load_bank_file(handBrake_bank)
 
     def _prepare_events(self):
-        temp_handBrake_event = self.studio_system.get_event(HANDBRAKE_EVENT_PATH)
-        self.handBrake_sound = temp_handBrake_event.create_instance()
-
-    def play_handBrake(self):
-        self.handBrake_sound.start()
+        pass
 
     def update(self):
         self.studio_system.update()

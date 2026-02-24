@@ -23,14 +23,18 @@ class TriggerAdapter:
         self.speed_trigger = False
         self.crash_trigger = False
         self.honk_trigger = False
+        self.handBrake_trigger = False
         self.reverse_beep = ReverseBeep()
         self.bank = bank
         self.crash_counter = 0
         self.honk_counter = 1
+        self.handBrake_counter = 1
+        self.speed = 0
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
         event_bus.subscribe(DataKey.SPEED, self.on_speed)
         event_bus.subscribe(DataKey.HONK, self.on_honk)
+        event_bus.subscribe(DataKey.HANDBRAKE, self.on_handBrake)
 
     def on_reverse(self, current_gear):
         val = None
@@ -51,6 +55,7 @@ class TriggerAdapter:
 
     def on_speed(self, speed=0):
         """Plays speed warning; resets trigger when finished"""
+        self.speed = speed
         self.reverse_beep.update()
         if speed > 100 and self.speed_trigger is False:
             self.bank.play_warning()
@@ -76,3 +81,13 @@ class TriggerAdapter:
         if self.bank.honk_sound.playback_state == PLAYBACK_STATE.STOPPED:
             self.honk_trigger = False
         self.honk_counter = self.honk_counter + 1
+
+    def on_handBrake(self, handBrake):
+        """Plays handbrake sound on alternating calls if available"""
+        if self.speed > 40:
+            if self.handBrake_trigger is False and self.handBrake_counter % 2 == 0:
+                self.bank.play_handBrake()
+                self.handBrake_trigger = True
+            if self.bank.handBrake_sound.playback_state == PLAYBACK_STATE.STOPPED:
+                self.handBrake_trigger = False
+            self.handBrake_counter = self.handBrake_counter + 1
