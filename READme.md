@@ -59,31 +59,31 @@ For the Carla Client Venv you have to go into the Carla folder where the _Carla4
 there a terminal or you directly navigate to the folder via the terminal.
 
 After that you have to naviagte into the _PythonAPI_ and then into the _examples_ folder.
-````Console
+````PowerShell
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor> cd PythonAPI\examples
 ````
 
 Here you have to creata a venv with __Pyhton 3.8__.
-````Console
+````PowerShell
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> py -3.8 venv .venv38
 ````
 
 After the venv is created you have to activate it. 
-````Console
+````PowerShell
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples>.venv38\Scripts\activate
 ````
 
 In the active venv you have to install a _requirements.txt_.
-````Console
+````PowerShell
 (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install -r requirements.txt
 ````
 
 This will take a while until all packages are installed. After that you have to install manualy carla in the venv.
-````Console
+````PowerShell
 (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install carla
 ````
 
-After that you can check with the command `pip list` if everything is installed correctly. And you can deactivate the venv.
+After that you can check with the command `pip list` if everything is installed correctly. And you can `deactivate` the venv.
 
 
 >[!IMPORTANT]
