@@ -16,6 +16,7 @@ game audio, this code can be used as:
 We hope this implementation will be helpful for researchers, students, and developers exploring the
 integration of audio in the CARLA simulator.
 
+
 ## Implemented Sounds
 This implementation introduces several basic sounds to enhance
 the realism of CARLA´s simulation environment.
@@ -29,9 +30,22 @@ The following sounds are implemented:
 - __EV Sound__: Simulates the characteristic audio of an Electrical-Car for operations.
 
 >[!NOTE]
->*All sounds included in this repository are improvised and gathered from online sources.
+>All sounds included in this repository are improvised and gathered from online sources.
 They were not professionally designed and may vary in quality. This implementation is primarily intended 
-as a proof of concept or starting point for further development.*
- 
+as a proof of concept or starting point for further development.
 
 
+## Installation and Setup
+
+>[!TIPP]
+>Everything you need to know about what has to be installed and
+> how to set up the project that every thing runs right is explained in
+> this video: LINK
+> >[!NOTE]
+> >Video is in German so you might have to use subtitles.
+
+At first you have to install following:
+- [FMOD-STUDIO 2.02]: https://www.fmod.com/download#fmodstudio
+- [FMOD-ENGING 2.02]: https://www.fmod.com/download#fmodengine
+- [CARLA 0.9.15]: https://github.com/carla-simulator/carla/releases/tag/0.9.15/
+- [PYTHON 3.8 AND 3.12]: https://www.python.org/downloads/windows/
