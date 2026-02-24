@@ -46,7 +46,7 @@ as a proof of concept or starting point for further development.
 
 First, you need to install FMOD Studio 2.02 and Engine 2.02, Carla version 0.9.15, and Python 3.8 and 3.12.
 Use the following links to download the necessary files:
-- [FMOD-STUDIO 2.02]: https://www.fmod.com/download#fmodstudio
+- [FMOD-STUDIO 2.02](https://www.fmod.com/download#fmodstudio)
 - FMOD-ENGINE 2.02
   - https://www.fmod.com/download#fmodengine
 - CARLA 0.9.15
