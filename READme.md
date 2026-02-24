@@ -24,7 +24,7 @@ The following sounds are implemented:
 
 - __Ambient Sounds__: Simulates environmental sounds such as wind and rain.
 - __Crash Sounds__: Plays a sound to simulate collisions between vehicles and objects.
-- __Speed Limit Alert__: Triggers a sound when exceeding 100km/h.
+- __Speed Limit Alert__: Triggers a sound when exceeding 100 km/h.
 - __Reverse Gear Alert__: Plays a sound upon switching to reverse gears.
 - __Handbrake Sound__: Features the tire squealing when the handbreak is applied.
 - __EV Sound__: Simulates the characteristic audio of an Electrical-Car for operations.
@@ -40,7 +40,7 @@ as a proof of concept or starting point for further development.
 >[!TIP]
 >Everything you need to know about what has to be installed and
 > how to set up the project that every thing runs right is explained in
-> this video: LINK
+> this video: https://www.youtube.com/watch?v=hypM038aNzE
 > >[!NOTE]
 > >Video is in German so you might have to use subtitles.
 
@@ -54,3 +54,4 @@ Use the following links to download the necessary files:
   - https://github.com/carla-simulator/carla/releases/tag/0.9.15/
 - PYTHON 3.8 and 3.12
   - https://www.python.org/downloads/windows/
+
