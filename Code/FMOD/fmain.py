@@ -26,7 +26,7 @@ if __name__ == '__main__':
     ev = EVSoundEngine()
 
     env_adapter = EnvironmentAdapter(bus, env_bank)
-    motor_adapter = MotorAdapter(bus, ev, motor_bank)
+    motor_adapter = MotorAdapter(bus, ev)
     trigger_adapter = TriggerAdapter(bus, trigger_bank)
 
     model = SoundModel(bus)

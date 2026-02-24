@@ -11,11 +11,10 @@ import keyboard
 
 
 class MotorAdapter:
-    def __init__(self, bus: EventBus, ev: EVSoundEngine, bank: MotorBank):
+    def __init__(self, bus: EventBus, ev: EVSoundEngine):
         self.ev = ev
         self.speed = 0
         self.throttle = 0
-        self.bank = bank
         bus.subscribe(DataKey.SPEED, self.on_speed)
         bus.subscribe(DataKey.THROTTLE, self.on_throttle)
 
@@ -45,4 +44,3 @@ class MotorAdapter:
         self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
         self.ev.system.update()
 
-        self.bank.update()
