@@ -29,9 +29,9 @@ The following sounds are implemented:
 - __EV Sound__: Simulates the characteristic audio of an Electrical-Car for operations.
 
 >[!NOTE]
->All sounds included in this repository are improvised and gathered from online sources.
+>*All sounds included in this repository are improvised and gathered from online sources.
 They were not professionally designed and may vary in quality. This implementation is primarily intended 
-as a proof of concept or starting point for further development.
+as a proof of concept or starting point for further development.*
  
 
 
