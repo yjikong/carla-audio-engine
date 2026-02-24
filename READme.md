@@ -58,7 +58,13 @@ Know you have to creat three different venvs for the project.
 For the Carla Client Venv you have to go into the Carla folder where the _Carla4UE.exe_ lies and start 
 there a terminal or you directly navigate to the folder via the terminal.
 
-After that you have to naviagte into the 
+After that you have to naviagte into the _PythonAPI_ and then into the _examples_ folder.
+
+````PowerShell
+  C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor> cd PythonAPI\examples
+````
+
+Here you have to creata a venv with __Pyhton 3.8__.
 
 ### 2. Carla Code Venv:
 
