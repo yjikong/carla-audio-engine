@@ -28,7 +28,7 @@ class EnvironmentAdapter:
             value = rain_level.mapped_value  # 0,1,2,3
         else:
             print(self.__class__.__name__ + ":Invalid intensity value")
-            return  # Ungültiger Wert
+            return
         
         self.rain_event.set_parameter_by_name("regenstaerke", value)
         self.bank.update_studio_system() 

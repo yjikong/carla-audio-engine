@@ -18,13 +18,13 @@ das Event nur noch korrekt ein einziges Mal abgespielt
 '''
 
 class TriggerAdapter:
-    def __init__(self, event_bus: EventBus, bank: TriggerBank):
+    def __init__(self, event_bus: EventBus, rev_beep: ReverseBeep, bank: TriggerBank):
         self.past_gear = None
         self.speed_trigger = False
         self.crash_trigger = False
         self.honk_trigger = False
         self.handBrake_trigger = False
-        self.reverse_beep = ReverseBeep()
+        self.reverse_beep = rev_beep
         self.bank = bank
         self.crash_counter = 0
         self.honk_counter = 1
@@ -51,7 +51,7 @@ class TriggerAdapter:
 
     def on_tick(self):
         self.reverse_beep.update()
-        self.bank.update()
+        self.bank.update_studio_system()
 
     def on_speed(self, speed=0):
         """Plays speed warning; resets trigger when finished"""

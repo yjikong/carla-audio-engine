@@ -1,5 +1,5 @@
 from .EnvironmentAdapter import EnvironmentAdapter
-from .MotorAdapter import MotorAdapter
+from .EngineAdapter import EngineAdapter
 from .TriggerAdapter import TriggerAdapter
 from .RainIntensity import RainIntensity
 from .WindIntensity import WindIntensity

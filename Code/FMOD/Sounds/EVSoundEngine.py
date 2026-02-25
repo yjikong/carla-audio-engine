@@ -16,16 +16,16 @@ class EVSoundEngine:
         
         # Channel Groups
         self.master_group = self.system.create_channel_group("Master")
-        self.motor_group = self.system.create_channel_group("Motor")
+        self.engine_group = self.system.create_channel_group("Engine")
         self.road_group = self.system.create_channel_group("Road")
         
         # 1. MOTOR (Inverter)
-        self.motor_dsp = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR) #Grundfrequenz
-        self.motor_dsp.set_parameter_int(0, 0) # Sinus
-        self.motor_dsp_oberwelle = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR)#1. Oberwelle
-        self.motor_dsp_oberwelle.set_parameter_int(0,0)
-        self.motor_dsp_oberwelle2 = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR)#2. Oberwelle
-        self.motor_dsp_oberwelle2.set_parameter_int(0,0)
+        self.engine_dsp = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR) # Fundamental frequency
+        self.engine_dsp.set_parameter_int(0, 0) # Sine
+        self.engine_dsp_harmonic = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR) # First harmonic
+        self.engine_dsp_harmonic.set_parameter_int(0,0)
+        self.engine_dsp_harmonic2 = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR) # Second harmonic
+        self.engine_dsp_harmonic2.set_parameter_int(0,0)
         
         # 2. ROAD BASE (Das rohe Rauschen)
         self.road_base_dsp = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR)
@@ -50,15 +50,15 @@ class EVSoundEngine:
     def start(self):
 
         # 1. Grundwelle starten
-        self.motor_ch = self.system.play_dsp(self.motor_dsp)
-        self.motor_ch.channel_group = self.motor_group
+        self.engine_ch = self.system.play_dsp(self.engine_dsp)
+        self.engine_ch.channel_group = self.engine_group
 
         # 1. OBERWELLE in einem eigenen Channel starten
         # Wir weisen sie ebenfalls der motor_group zu
-        self.motor_oberwelle_ch = self.system.play_dsp(self.motor_dsp_oberwelle)
+        self.engine_harmonic_ch = self.system.play_dsp(self.engine_dsp_harmonic)
 
         # 2. Oberwelle starten
-        self.motor_oberwelle2_ch = self.system.play_dsp(self.motor_dsp_oberwelle2)
+        self.engine_harmonic2_ch = self.system.play_dsp(self.engine_dsp_harmonic2)
 
         # Hier nutzen wir road_base_dsp für den Reifen-Sound
         self.road_ch = self.system.play_dsp(self.road_base_dsp)
@@ -68,7 +68,7 @@ class EVSoundEngine:
         self.hiss_ch.channel_group = self.road_group
 
         # Hierarchien setzen
-        self.master_group.add_group(self.motor_group)
+        self.master_group.add_group(self.engine_group)
         self.master_group.add_group(self.road_group)
         
         # DSP Kette: Road Noise -> Tire Resonance Filter
@@ -85,12 +85,12 @@ class EVSoundEngine:
         motor_freq = 200 + (speed_kmh * 3)
         if speed_kmh == 0:
             motor_freq = 0
-        self.motor_dsp.set_parameter_float(1, motor_freq)
-        self.motor_dsp_oberwelle.set_parameter_float(1, motor_freq + 15)
-        self.motor_dsp_oberwelle2.set_parameter_float(1, motor_freq + 60)
-        self.motor_ch.volume = abs(torque) * 0.05
-        self.motor_oberwelle_ch.volume = abs(torque) * 0.04
-        self.motor_oberwelle2_ch.volume = abs(torque) * 0.005
+        self.engine_dsp.set_parameter_float(1, motor_freq)
+        self.engine_dsp_harmonic.set_parameter_float(1, motor_freq + 15)
+        self.engine_dsp_harmonic2.set_parameter_float(1, motor_freq + 60)
+        self.engine_ch.volume = abs(torque) * 0.05
+        self.engine_harmonic_ch.volume = abs(torque) * 0.04
+        self.engine_harmonic2_ch.volume = abs(torque) * 0.005
 
         # ROAD TEXTURE (Reifenrollen)
         # Lautstärke basierend auf Speed & Straßenzustand
@@ -110,36 +110,3 @@ class EVSoundEngine:
     def stop(self):
         if self.system:
             self.system.release()
-
-if __name__ == '__main__':
-    tesla = EVSoundEngine()
-    tesla.start()
-    
-    speed = 0.0
-    torque = 0.0
-    last_time = time.time()
-    
-    print("Tesla Interior Sound Engine (Fixed Hierarchie)")
-    print("W/S: Fahren | ESC: Beenden")
-
-    while not keyboard.is_pressed('ESC'):
-        dt = time.time() - last_time
-        last_time = time.time()
-        
-        if keyboard.is_pressed('w'): 
-            speed = min(speed + 20 * dt, 200)
-            torque = 1.0
-        elif keyboard.is_pressed('s'): 
-            speed = max(speed - 40 * dt, 0)
-            torque = -0.8 # Rekuperation
-        else:
-            speed = max(speed - 5 * dt, 0)
-            torque *= 0.1 # Ausrollen
-            
-        tesla.update_params(speed, torque)
-        tesla.system.update()
-        
-        print(f"\rSpeed: {speed:5.1f} km/h | Motor-Load: {torque:4.1f}", end="")
-        time.sleep(0.01)
-    
-    tesla.stop()

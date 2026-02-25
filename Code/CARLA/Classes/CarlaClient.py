@@ -2,10 +2,13 @@ import carla
 import time
 import math
 import keyboard
-#funktioniert nur wenn Socket.py ausgeführt wird!!!
+
 from Classes.CollisionSensor import *
 
 class CarlaClient:
+    _COLLISION_INTENSITY = 100
+    _MS_IN_KMH = 3.6
+
     def __init__(self, ip,port,timeout):
         try:
             self.client = carla.Client(ip, port)
@@ -19,7 +22,7 @@ class CarlaClient:
         self.crash_counter = 0
         self.crash_impulse = False
         self.honk_trigger = False
-        
+
         self.__connect()
         
 
@@ -45,13 +48,14 @@ class CarlaClient:
         wind_intensity = weather.wind_intensity
         #Hupen
         honk = False
-        if keyboard.is_pressed('h') and self.honk_trigger is True:
+        if keyboard.is_pressed('h') and self.honk_trigger:
             honk = False
-        elif keyboard.is_pressed('h') and self.honk_trigger is False:
+        elif keyboard.is_pressed('h') and not self.honk_trigger:
             honk = True
             self.honk_trigger = True
         elif not keyboard.is_pressed('h'):
             self.honk_trigger = False
+            
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:

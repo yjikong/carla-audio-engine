@@ -8,7 +8,7 @@ from Code.FMOD.utils import *
 from Code.FMOD.Adapters import *
 from Code.FMOD.Banks import *
 from Code.FMOD.Model.SoundModel import *
-from Code.FMOD.Sounds.EVSound import *
+from Code.FMOD.Sounds.EVSoundEngine import *
 from Code.FMOD.Sounds.ReverseBeep import *
 
 import sys
@@ -17,17 +17,15 @@ if __name__ == '__main__':
     bus = EventBus()
 
     env_bank = EnvironmentBank()
-    env_bank.start_events()
-    env_bank.update_studio_system() 
-
     trigger_bank = TriggerBank()
-    motor_bank = MotorBank()
+    # example_bank = ExampleBank()
 
     ev = EVSoundEngine()
+    rev_beep = ReverseBeep()
 
     env_adapter = EnvironmentAdapter(bus, env_bank)
-    motor_adapter = MotorAdapter(bus, ev)
-    trigger_adapter = TriggerAdapter(bus, trigger_bank)
+    engine_adapter = EngineAdapter(bus, ev)
+    trigger_adapter = TriggerAdapter(bus, rev_beep, trigger_bank)
 
     model = SoundModel(bus)
 

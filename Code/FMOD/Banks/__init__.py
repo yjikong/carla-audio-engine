@@ -1,3 +1,3 @@
 from .EnvironmentBank import EnvironmentBank
-from .MotorBank import MotorBank
+from .ExampleBank import ExampleBank
 from .TriggerBank import TriggerBank

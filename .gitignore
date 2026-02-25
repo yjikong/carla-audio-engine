@@ -5,8 +5,7 @@ venv38/
 __pycache__/
 *.pyc
 Environment/
-Test/
 Build/
 cache/
 desktop.ini
-Code/exec/sim_config.json
+sim_config.json

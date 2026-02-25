@@ -1,6 +1,9 @@
 from enum import Enum
 
 class DataKey(str, Enum):
+    '''
+    Enumeration class for saving the string names of the carla client values.
+    '''
     ACCELERATION = "acceleration"
     BRAKE = "brake"
     COLLISION_EVENT = "collision_event"

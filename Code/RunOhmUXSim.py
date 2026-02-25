@@ -70,6 +70,10 @@ class SimulatorGUI:
         main_frm = ttk.Frame(self.root, padding=20)
         main_frm.pack(fill=BOTH, expand=True)
 
+        main_frm.columnconfigure(0, weight=0)
+        main_frm.columnconfigure(1, weight=1)
+        main_frm.columnconfigure(2, weight=0)
+
         ttk.Label(main_frm, text="SoundCARLA Master Launcher", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=(0, 20))
 
         row_idx = 1
@@ -79,7 +83,7 @@ class SimulatorGUI:
         for key, path in path_items.items():
             ttk.Label(main_frm, text=key.replace("_", " "), font=("Arial", 9, "bold")).grid(column=0, row=row_idx, sticky=W, pady=5)
             
-            display_text = (path[:35] + '...') if len(path) > 35 else (path if path else "--- NOT SET ---")
+            display_text = path if path else "--- NOT SET ---"
             color = "black" if path else "red"
             ttk.Label(main_frm, text=display_text, foreground=color).grid(column=1, row=row_idx, padx=10, sticky=W)
             

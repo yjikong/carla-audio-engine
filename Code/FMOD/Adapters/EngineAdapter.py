@@ -1,16 +1,16 @@
 from pyfmodex.studio.enums import PLAYBACK_STATE
 
-from ..Sounds.EVSound import *
+from ..Sounds.EVSoundEngine import *
 from ..utils.EventBus import *
 from Code.FMOD.Banks import TriggerBank
 from Code.FMOD.utils import DataKey
 from Code.FMOD.utils.DataKey import DataKey
 from ..utils.EventBus import EventBus
-from Code.FMOD.Banks import MotorBank
+from Code.FMOD.Banks import ExampleBank
 import keyboard
 
 
-class MotorAdapter:
+class EngineAdapter:
     def __init__(self, bus: EventBus, ev: EVSoundEngine):
         self.ev = ev
         self.speed = 0
@@ -43,4 +43,3 @@ class MotorAdapter:
             self.ev.start()
         self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
         self.ev.system.update()
-

@@ -60,6 +60,7 @@ class EnvironmentBank:
         self.wind_inst = None
         self.__init_studio_system()
         self.__init_events()
+        self.__start_events()
 
     def __init_studio_system(self):
         core_system = pyfmodex.System()
@@ -68,22 +69,20 @@ class EnvironmentBank:
         self.studio_system = StudioSystem()
         self.studio_system.initialize(max_channels=512)
 
-    def __init_events(self, bank_path=None):
+    def __init_events(self, bank_path=DEFAULT_BANK_PATH):
         self._load(bank_path)
         self._prepare_events()
 
-    def _load(self, bank_path=None):
+    def _load(self, bank_path=DEFAULT_BANK_PATH):
         if bank_path is None:
-            logging.info("Kein Pfad angegeben")
             bank_path = DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
+        print(f"[{self.__class__.__name__}] Resolved bank path: {bank_path}")
 
         if not os.path.isdir(bank_path):
             logging.error(f"Bank directory not found: {bank_path}")
             raise FileNotFoundError(f"Bank directory not found: {bank_path}")
-            # Dann sollten wir doch aus dem Programm raus
         
-        # Vllt hier auch ein zentrales dictionary oder enum
         expected_files = [
             "Master.bank",
             "Master.strings.bank",
@@ -91,19 +90,12 @@ class EnvironmentBank:
         ]
 
         for f in expected_files:
-            full = os.path.join(bank_path, f)
-            if not os.path.exists(full):
-                logging.warning(f"Expected bank file missing: {full}")
-                # Sollten wir dann nicht exiten
-
-        # Load Master bank
-        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
-        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
-
-        # Try to load specific bank if they exist
-        test_bank = os.path.join(bank_path, "Environment.bank")
-        if os.path.exists(test_bank):
-            self.studio_system.load_bank_file(test_bank)
+            full_path = os.path.join(bank_path, f)
+            if not os.path.exists(full_path):
+                print(f"[{self.__class__.__name__}] Expected bank file missing: {full_path}")
+                raise FileNotFoundError(f"Bank directory not found: {bank_path}")
+            else:
+                self.studio_system.load_bank_file(full_path)
 
     def _prepare_events(self):
         rain_event_desc = self.studio_system.get_event(REGEN_EVENT_PATH)
@@ -112,7 +104,7 @@ class EnvironmentBank:
         wind_event_desc = self.studio_system.get_event(WIND_EVENT_PATH)
         self.wind_inst = wind_event_desc.create_instance()
     
-    def start_events(self):
+    def __start_events(self):
         self.rain_inst.start()
         self.wind_inst.start()
 
@@ -124,7 +116,6 @@ class EnvironmentBank:
             "rain": self.rain_inst,
             "wind": self.wind_inst
         }
-
         return events
     
     def shutdown(self):
