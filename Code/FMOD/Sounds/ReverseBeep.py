@@ -67,10 +67,4 @@ class ReverseBeep:
         if self.system:
             print(f'Räume den Reverse Beep auf')
             self.system.release()
-            self.system = None
-
-if __name__ == '__main__':
-    reverse_beep = ReverseBeep()
-    while True:
-        reverse_beep.play()
-            
+            self.system = None            
