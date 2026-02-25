@@ -163,15 +163,15 @@ Furthermore, the model compares this data for inequality. If a difference is det
 EventBus and the function registered by the subscribers is executed. The EventBus works similarly to the Publisher–Subscriber 
 design pattern.
 
-Adapters subscribe to the data and provide functions that are executed when changes occur. They are divided into Environment (for ambient sounds),
-Motor (for engine and braking sounds), and Trigger (for events such as honking or collisions). In general, the adapters are responsible for playing 
+__Adapters__ subscribe to the data and provide functions that are executed when changes occur. They are divided into _Environment_ (for ambient sounds),
+_Motor_ (for engine and braking sounds), and _Trigger_ (for events such as honking or collisions). In general, the adapters are responsible for playing 
 the sounds with the correct parameters. This is done either through parameter changes and events in FMOD or through programmatically generated sounds in Python.
 
-Banks represent the Python interface for FMOD events. Within the respective classes, the events are initialized, played, and their parameters modified. 
+__Banks__ represent the Python interface for FMOD events. Within the respective classes, the events are initialized, played, and their parameters modified. 
 The sounds for an electric vehicle and the reverse gear tone are generated using oscillators. They are located in the Sound package.
 
-The utils package contains the helper classes DataKey and EventBus. DataKey manages ENUMs for the names of the data values. This ensures improved 
-maintainability, scalability, a centralized interface definition, and the avoidance of typos. The EventBus class distributes events without requiring 
+The __utils__ package contains the helper classes DataKey and EventBus. _DataKey_ manages ENUMs for the names of the data values. This ensures improved 
+maintainability, scalability, a centralized interface definition, and the avoidance of typos. The _EventBus_ class distributes events without requiring 
 senders and receivers to know each other. It enables loose coupling, better scalability, and—compared to the Observer or Pub-Sub pattern—offers 
 the advantage that multiple senders and receivers can communicate through a single bus.
 
