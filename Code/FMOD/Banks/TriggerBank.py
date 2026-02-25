@@ -1,6 +1,8 @@
 import os
 import time
 from pathlib import Path
+
+
 os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
 os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"
 
@@ -13,6 +15,7 @@ from pyfmodex.exceptions import FmodError
 WARNING_EVENT_PATH = "event:/Warning"
 CRASH_EVENT_PATH = "event:/Crash"
 HONK_EVENT_PATH = "event:/Honk"
+HANDBRAKE_EVENT_PATH = "event:/HandBrake"
 
 # Triggerbankpath auflösen
 FILE_DIR = Path(__file__).resolve().parent
@@ -23,6 +26,7 @@ class TriggerBank:
         self.warning_sound = None
         self.crash_sound = None
         self.honk_sound = None
+        self.handBrake_sound = None
         self.__init_studio_system()
         self.__init_events()
 
@@ -72,9 +76,11 @@ class TriggerBank:
         temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
         temp_crash_event = self.studio_system.get_event(CRASH_EVENT_PATH)
         temp_honk_event = self.studio_system.get_event(HONK_EVENT_PATH)
+        temp_handBranke_event = self.studio_system.get_event(HANDBRAKE_EVENT_PATH)
         self.warning_sound = temp_warning_event.create_instance()
         self.crash_sound = temp_crash_event.create_instance()
         self.honk_sound = temp_honk_event.create_instance()
+        self.handBrake_sound = temp_handBranke_event.create_instance()
     
     def play_honk(self):
         self.honk_sound.start()
@@ -84,6 +90,9 @@ class TriggerBank:
     
     def play_warning(self):
         self.warning_sound.start()
+
+    def play_handBrake(self):
+        self.handBrake_sound.start()
 
     def update(self):
         self.studio_system.update()
