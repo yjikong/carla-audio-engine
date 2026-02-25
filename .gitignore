@@ -8,4 +8,4 @@ Environment/
 Build/
 cache/
 desktop.ini
-Code/exec/sim_config.json
+sim_config.json
