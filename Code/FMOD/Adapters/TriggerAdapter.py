@@ -51,7 +51,7 @@ class TriggerAdapter:
 
     def on_tick(self):
         self.reverse_beep.update()
-        self.bank.update()
+        self.bank.update_studio_system()
 
     def on_speed(self, speed=0):
         """Plays speed warning; resets trigger when finished"""
