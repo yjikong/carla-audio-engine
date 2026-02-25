@@ -132,8 +132,48 @@ C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
 ````PowerShell
 (.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
 ````
-- deactivate it
+- `deactivate` it
 
+
+## Architecture
+The system is divided into two parts—Carla and FMOD. The Carla part essentially handles the setup of 
+and communication with the Carla simulator. The FMOD part handles sound playback.
+
+### 1. Carla
+
+### 2. FMOD
+The FMOD subsystem is based on an MVC architecture. This can be seen in the model and adapter classes.  
+There are packages for adapters, banks, models, sounds, and utilities.
+
+The model handles the retrieval and decoding of data relevant to the sound system, which is provided by a socket in the Carla package.  
+The relevant data includes:
+- Acceleration
+- Brake
+- Gear
+- Speed 
+- Speed eimit
+- Handbrake
+- Horn
+- Collision event
+- Message
+- Rain intensity
+- Wind intensity
+
+Furthermore, the model compares this data for inequality. If a difference is detected, the change is published via an 
+EventBus and the function registered by the subscribers is executed. The EventBus works similarly to the Publisher–Subscriber 
+design pattern.
+
+Adapters subscribe to the data and provide functions that are executed when changes occur. They are divided into Environment (for ambient sounds),
+Motor (for engine and braking sounds), and Trigger (for events such as honking or collisions). In general, the adapters are responsible for playing 
+the sounds with the correct parameters. This is done either through parameter changes and events in FMOD or through programmatically generated sounds in Python.
+
+Banks represent the Python interface for FMOD events. Within the respective classes, the events are initialized, played, and their parameters modified. 
+The sounds for an electric vehicle and the reverse gear tone are generated using oscillators. They are located in the Sound package.
+
+The utils package contains the helper classes DataKey and EventBus. DataKey manages ENUMs for the names of the data values. This ensures improved 
+maintainability, scalability, a centralized interface definition, and the avoidance of typos. The EventBus class distributes events without requiring 
+senders and receivers to know each other. It enables loose coupling, better scalability, and—compared to the Observer or Pub-Sub pattern—offers 
+the advantage that multiple senders and receivers can communicate through a single bus.
 
 ## Acknowledgments
 
