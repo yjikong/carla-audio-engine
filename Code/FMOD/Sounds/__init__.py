@@ -1,2 +1,2 @@
-from .EVSound import EVSoundEngine
+from .EVSoundEngine import EVSoundEngine
 from .ReverseBeep import ReverseBeep
