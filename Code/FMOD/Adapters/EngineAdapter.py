@@ -10,7 +10,7 @@ from Code.FMOD.Banks import MotorBank
 import keyboard
 
 
-class MotorAdapter:
+class EngineAdapter:
     def __init__(self, bus: EventBus, ev: EVSoundEngine):
         self.ev = ev
         self.speed = 0
