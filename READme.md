@@ -70,7 +70,7 @@ C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> py -3.8
 
 After the venv is created you have to activate it. 
 ````PowerShell
-C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples>.venv38\Scripts\activate
+C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> .\.venv38\Scripts\activate
 ````
 
 In the active venv you have to install a _requirements.txt_.
@@ -103,7 +103,7 @@ C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 venv .venv38
 
 And as with the venv for the simulator we have to activate it and install the _requirements.txt_.
 ````PowerShell
-C:\Users\user\yourProjectFolder\Code\CARLA>.\.venv38\Scripts\activate
+C:\Users\user\yourProjectFolder\Code\CARLA> .\.venv38\Scripts\activate
 ````
 ````PowerShell
 (.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
@@ -126,7 +126,7 @@ C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 venv .venv38
 ````
 - activate it
 ````PowerShell
-C:\Users\user\yourProjectFolder\Code\FMOD>.\.venv38\Scripts\activate
+C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
 ````
 - install the requirements.txt
 ````PowerShell
