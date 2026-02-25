@@ -145,7 +145,7 @@ and communication with the Carla simulator. The FMOD part handles sound playback
 The FMOD subsystem is based on an MVC architecture. This can be seen in the model and adapter classes.  
 There are packages for adapters, banks, models, sounds, and utilities.
 
-The model handles the retrieval and decoding of data relevant to the sound system, which is provided by a socket in the Carla package.  
+The model handles the retrieval and decoding of data relevant to the sound system, which is provided by a socket in the provided Carla Client.
 The relevant data includes:
 - Acceleration
 - Brake
