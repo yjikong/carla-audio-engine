@@ -21,7 +21,8 @@ class CarlaClient:
         self.collision_sensor = None
         self.crash_counter = 0
         self.crash_impulse = False
-        
+        self.honk_trigger = False
+
         self.__connect()
         
 
@@ -47,8 +48,14 @@ class CarlaClient:
         wind_intensity = weather.wind_intensity
         #Hupen
         honk = False
-        if keyboard.is_pressed('h'):
+        if keyboard.is_pressed('h') and self.honk_trigger:
             honk = False
+        elif keyboard.is_pressed('h') and not self.honk_trigger:
+            honk = True
+            self.honk_trigger = True
+        elif not keyboard.is_pressed('h'):
+            self.honk_trigger = False
+            
         #Fahrzeugdaten
         if self.vehicle_found == False:
             #1. Fahrzeug finden:
