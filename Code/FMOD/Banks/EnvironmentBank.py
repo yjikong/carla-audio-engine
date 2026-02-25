@@ -92,7 +92,7 @@ class EnvironmentBank:
         for f in expected_files:
             full_path = os.path.join(bank_path, f)
             if not os.path.exists(full_path):
-                print(f"Expected bank file missing: {full_path}")
+                print(f"[{self.__class__.__name__}] Expected bank file missing: {full_path}")
                 raise FileNotFoundError(f"Bank directory not found: {bank_path}")
             else:
                 self.studio_system.load_bank_file(full_path)
