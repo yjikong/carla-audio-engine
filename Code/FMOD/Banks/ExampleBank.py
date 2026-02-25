@@ -36,7 +36,7 @@ class ExampleBank:
         # if bank_path is None:
         #     bank_path = DEFAULT_BANK_PATH
         # bank_path = os.path.normpath(bank_path)
-        # print(f"{self.__class__.__name__} Resolved bank path: {bank_path}")
+        # print(f"[{self.__class__.__name__}] Resolved bank path: {bank_path}")
 
         # if not os.path.isdir(bank_path):
         #     raise FileNotFoundError(f"Bank directory not found: {bank_path}")
