@@ -89,9 +89,50 @@ After that you can check with the command `pip list` if everything is installed 
 >[!IMPORTANT]
 > The next two venvs have to be created in the code structure of the project. So you have to clone the project into your IDE if not already done.
 ### 2. Carla Code Venv:
+This venv has to be created in the _CARLA_ folder of our project. This part of the code connects with Carla 
+and sends/receives data from the simulator.  
+To create this venv you have to open a terminal in your IDE and direct to the Carla folder.
+````PowerShell
+C:\Users\user\yourProjectFolder> cd Code\CARLA
+````
 
+Here you must now create a venv with __Python 3.8__, as for the Carla simulator.
+````PowerShell
+C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 venv .venv38
+````
+
+And as with the venv for the simulator we have to activate it and install the _requirements.txt_.
+````PowerShell
+C:\Users\user\yourProjectFolder\Code\CARLA>.\.venv38\Scripts\activate
+````
+````PowerShell
+(.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
+````
+
+
+After the installation is complete you can `deactivate` the venv.
 
 ### 3. FMOD Code Venv:
+This venv has to be created in the _FMOD_ folder of our project. This part of the code is responisble
+for playing the sounds in the right events.  
+To creat it you have to follow the same steps a befor:
+- direct to the right folder
+````Powershell
+C:\Users\user\yourProjectFolder> cd Code\FMOD 
+````
+- create the venv with __Python 3.12__
+````PowerShell
+C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 venv .venv38
+````
+- activate it
+````PowerShell
+C:\Users\user\yourProjectFolder\Code\FMOD>.\.venv38\Scripts\activate
+````
+- install the requirements.txt
+````PowerShell
+(.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
+````
+- deactivate it
 
 
 ## Acknowledgments
