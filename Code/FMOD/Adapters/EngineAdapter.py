@@ -43,4 +43,3 @@ class EngineAdapter:
             self.ev.start()
         self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
         self.ev.system.update()
-
