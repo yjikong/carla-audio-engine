@@ -6,7 +6,7 @@ from Code.FMOD.Banks import TriggerBank
 from Code.FMOD.utils import DataKey
 from Code.FMOD.utils.DataKey import DataKey
 from ..utils.EventBus import EventBus
-from Code.FMOD.Banks import MotorBank
+from Code.FMOD.Banks import ExampleBank
 import keyboard
 
 

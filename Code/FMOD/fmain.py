@@ -17,11 +17,11 @@ if __name__ == '__main__':
     bus = EventBus()
 
     env_bank = EnvironmentBank()
-    env_bank.start_events()
+    env_bank.__start_events()
     env_bank.update_studio_system() 
 
     trigger_bank = TriggerBank()
-    motor_bank = MotorBank()
+    motor_bank = ExampleBank()
 
     ev = EVSoundEngine()
 
