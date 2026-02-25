@@ -58,19 +58,11 @@ class TriggerBank:
         ]
 
         for f in expected_files:
-            full = os.path.join(bank_path, f)
-            if not os.path.exists(full):
-                print(f"[TriggerBank] Warning: expected bank file missing: {full}")
-
-        # Banks laden
-        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.bank"))
-        self.studio_system.load_bank_file(os.path.join(bank_path, "Master.strings.bank"))
-        trigger_bank = os.path.join(bank_path, "Trigger_Bank.bank")
-        if os.path.exists(trigger_bank):
-            self.studio_system.load_bank_file(trigger_bank)
-        trigger_strings = os.path.join(bank_path, "Trigger_Bank.strings.bank")
-        if os.path.exists(trigger_strings):
-            self.studio_system.load_bank_file(trigger_strings)
+            full_path = os.path.join(bank_path, f)
+            if not os.path.exists(full_path):
+                print(f"[{self.__class__.__name__}] Expected bank file missing: {full_path}")
+            else:
+                self.studio_system.load_bank_file(full_path)
 
     def _prepare_events(self):
         temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
@@ -94,8 +86,14 @@ class TriggerBank:
     def play_handBrake(self):
         self.handBrake_sound.start()
 
-    def update(self):
+    def update_studio_system(self):
         self.studio_system.update()
+
+    def get_events():
+        events = {
+
+        }
+        return events
 
     def shutdown(self):
         try:
