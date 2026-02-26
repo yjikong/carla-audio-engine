@@ -6,7 +6,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
 
-from Code.CARLA.Classes import *
+from src.CARLA.Classes import *
 
 def carla_data_loop(client, sock):
     while True:

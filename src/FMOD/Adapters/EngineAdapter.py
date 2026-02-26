@@ -2,11 +2,11 @@ from pyfmodex.studio.enums import PLAYBACK_STATE
 
 from ..Sounds.EVSoundEngine import *
 from ..utils.EventBus import *
-from Code.FMOD.Banks import TriggerBank
-from Code.FMOD.utils import DataKey
-from Code.FMOD.utils.DataKey import DataKey
+from ..Banks import TriggerBank
+from ..utils import DataKey
+from ..utils.DataKey import DataKey
 from ..utils.EventBus import EventBus
-from Code.FMOD.Banks import ExampleBank
+from ..Banks import ExampleBank
 import keyboard
 
 

@@ -4,12 +4,12 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
 
-from Code.FMOD.utils import *
-from Code.FMOD.Adapters import *
-from Code.FMOD.Banks import *
-from Code.FMOD.Model.SoundModel import *
-from Code.FMOD.Sounds.EVSoundEngine import *
-from Code.FMOD.Sounds.ReverseBeep import *
+from src.FMOD.utils import *
+from src.FMOD.Adapters import *
+from src.FMOD.Banks import *
+from src.FMOD.Model.SoundModel import *
+from src.FMOD.Sounds.EVSoundEngine import *
+from src.FMOD.Sounds.ReverseBeep import *
 
 import sys
 
