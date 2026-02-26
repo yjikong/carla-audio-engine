@@ -1,6 +1,14 @@
 Adapters
 ========
 
+EngineAdapter
+-------------
+
+.. automodule:: src.FMOD.Adapters.EngineAdapter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 
 EnvironmentAdapter
 ------------------

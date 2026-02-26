@@ -11,7 +11,28 @@ import keyboard
 
 
 class EngineAdapter:
+    """
+    Adapter responsible for synchronizing vehicle dynamics with the EV sound engine.
+
+    This class subscribes to simulation data from the EventBus (speed and throttle) 
+    and translates these values into auditory parameters for the EVSoundEngine. 
+    It ensures that engine sounds react dynamically to the driver's input and 
+    vehicle state.
+
+    Attributes:
+        ev (EVSoundEngine): The engine responsible for generating electric 
+            vehicle sounds.
+        speed (float): The current velocity of the vehicle, typically in km/h.
+        throttle (float): The current throttle input, ranging from 0.0 to 1.0.
+    """
     def __init__(self, bus: EventBus, ev: EVSoundEngine):
+        """
+        Initializes the EngineAdapter and subscribes to relevant data keys.
+
+        Args:
+            bus (EventBus): The global system bus used for data subscription.
+            ev (EVSoundEngine): The sound engine instance to be controlled.
+        """
         self.ev = ev
         self.speed = 0
         self.throttle = 0
@@ -19,21 +40,48 @@ class EngineAdapter:
         bus.subscribe(DataKey.THROTTLE, self.on_throttle)
 
     def on_speed(self, speed):
+        """
+        Callback triggered when a new speed value is published to the EventBus.
+
+        Args:
+            speed (float): The updated speed value from the simulation.
+        """
         self.speed = speed
         self.update()
 
     def on_throttle(self, throttle):
+        """
+        Callback triggered when a new throttle value is published to the EventBus.
+
+        Args:
+            throttle (float): The updated throttle input from the simulation.
+        """
         self.throttle = throttle
         self.update()
 
     def calculate_torque(self, speed, throttle):
+        """
+        Calculates a simplified torque value used for sound modulation.
+
+        Args:
+            speed (float): Current vehicle speed.
+            throttle (float): Current throttle position.
+
+        Returns:
+            int: Returns 1 if throttle is active, 0 otherwise.
+        """
         if throttle <= 0:
             return 0
         elif throttle > 0:
             return 1
 
     def update(self):
-        """Updates engine and sound states each frame"""
+        """
+        Updates the engine and sound states for the current frame.
+
+        Ensures the sound engine is running and pushes the latest speed 
+        and torque parameters to the FMOD system.
+        """
         if self.ev.is_running is False:
             self.ev.start()
         self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))

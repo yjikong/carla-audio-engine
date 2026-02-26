@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -115,16 +120,46 @@
 <div class="viewcode-block" id="EngineAdapter">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EngineAdapter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adapter responsible for synchronizing vehicle dynamics with the EV sound engine.</span>
+
+<span class="sd">    This class subscribes to simulation data from the EventBus (speed and throttle) </span>
+<span class="sd">    and translates these values into auditory parameters for the EVSoundEngine. </span>
+<span class="sd">    It ensures that engine sounds react dynamically to the driver&#39;s input and </span>
+<span class="sd">    vehicle state.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        ev (EVSoundEngine): The engine responsible for generating electric </span>
+<span class="sd">            vehicle sounds.</span>
+<span class="sd">        speed (float): The current velocity of the vehicle, typically in km/h.</span>
+<span class="sd">        throttle (float): The current throttle input, ranging from 0.0 to 1.0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EngineAdapter.__init__">
+<a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus</span><span class="p">:</span> <span class="n">EventBus</span><span class="p">,</span> <span class="n">ev</span><span class="p">:</span> <span class="n">EVSoundEngine</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the EngineAdapter and subscribes to relevant data keys.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bus (EventBus): The global system bus used for data subscription.</span>
+<span class="sd">            ev (EVSoundEngine): The sound engine instance to be controlled.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ev</span> <span class="o">=</span> <span class="n">ev</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">SPEED</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_speed</span><span class="p">)</span>
-        <span class="n">bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">THROTTLE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_throttle</span><span class="p">)</span>
+        <span class="n">bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">THROTTLE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_throttle</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="EngineAdapter.on_speed">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_speed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback triggered when a new speed value is published to the EventBus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            speed (float): The updated speed value from the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
@@ -132,6 +167,12 @@
 <div class="viewcode-block" id="EngineAdapter.on_throttle">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_throttle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_throttle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">throttle</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback triggered when a new throttle value is published to the EventBus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            throttle (float): The updated throttle input from the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">throttle</span> <span class="o">=</span> <span class="n">throttle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
@@ -139,6 +180,16 @@
 <div class="viewcode-block" id="EngineAdapter.calculate_torque">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.calculate_torque">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">throttle</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates a simplified torque value used for sound modulation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            speed (float): Current vehicle speed.</span>
+<span class="sd">            throttle (float): Current throttle position.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Returns 1 if throttle is active, 0 otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">throttle</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="n">throttle</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -148,7 +199,12 @@
 <div class="viewcode-block" id="EngineAdapter.update">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates engine and sound states each frame&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the engine and sound states for the current frame.</span>
+
+<span class="sd">        Ensures the sound engine is running and pushes the latest speed </span>
+<span class="sd">        and torque parameters to the FMOD system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">is_running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">update_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttle</span><span class="p">))</span>
