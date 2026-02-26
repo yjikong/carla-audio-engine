@@ -59,27 +59,27 @@ For the Carla Client Venv you have to go into the Carla folder where the _Carla4
 there a terminal or you directly navigate to the folder via the terminal.
 
 After that you have to naviagte into the _PythonAPI_ and then into the _examples_ folder.
-````PowerShell
+````Console
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor> cd PythonAPI\examples
 ````
 
 Here you have to creata a venv with __Pyhton 3.8__.
-````PowerShell
+````Console
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> py -3.8 venv .venv38
 ````
 
 After the venv is created you have to activate it. 
-````PowerShell
+````Console
 C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> .\.venv38\Scripts\activate
 ````
 
 In the active venv you have to install a _requirements.txt_.
-````PowerShell
+````Console
 (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install -r requirements.txt
 ````
 
 This will take a while until all packages are installed. After that you have to install manualy carla in the venv.
-````PowerShell
+````Console
 (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install carla
 ````
 
@@ -92,20 +92,20 @@ After that you can check with the command `pip list` if everything is installed 
 This venv has to be created in the _CARLA_ folder of our project. This part of the code connects with Carla 
 and sends/receives data from the simulator.  
 To create this venv you have to open a terminal in your IDE and direct to the Carla folder.
-````PowerShell
+````Console
 C:\Users\user\yourProjectFolder> cd Code\CARLA
 ````
 
 Here you must now create a venv with __Python 3.8__, as for the Carla simulator.
-````PowerShell
+````Console
 C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 venv .venv38
 ````
 
 And as with the venv for the simulator we have to activate it and install the _requirements.txt_.
-````PowerShell
+````Console
 C:\Users\user\yourProjectFolder\Code\CARLA> .\.venv38\Scripts\activate
 ````
-````PowerShell
+````Console
 (.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
 ````
 
@@ -117,19 +117,19 @@ This venv has to be created in the _FMOD_ folder of our project. This part of th
 for playing the sounds in the right events.  
 To creat it you have to follow the same steps a befor:
 - direct to the right folder
-````Powershell
+````Console
 C:\Users\user\yourProjectFolder> cd Code\FMOD 
 ````
 - create the venv with __Python 3.12__
-````PowerShell
+````Console
 C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 venv .venv38
 ````
 - activate it
-````PowerShell
+````Console
 C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
 ````
 - install the requirements.txt
-````PowerShell
+````Console
 (.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
 ````
 - `deactivate` it
