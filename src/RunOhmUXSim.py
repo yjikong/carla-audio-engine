@@ -213,6 +213,7 @@ class SimulatorGUI:
             except:
                 pass
         self.processes = []
+        print("Ready")
         self.status_var.set("Bereit")
         self.start_btn.config(state=NORMAL)
 
