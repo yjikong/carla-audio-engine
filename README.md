@@ -34,6 +34,13 @@ The following sounds are implemented:
 They were not professionally designed and may vary in quality. This implementation is primarily intended 
 as a proof of concept or starting point for further development.
 
+## How to run
+flowchart TD
+  A[Download all dependencies](#dependencies) --> Checkout Code into IDE
+  B --> C[Create Carla Client Venv](#1-carla-client-venv) 
+  C --> D[Create Carla Code Venv](#2-carla-code-venv) 
+  D --> E[Create FMOD Code Venv](#3-fmod-code-venv) 
+  E --> Run `RunOhmUXSim.py`
 
 ## Installation and Setup
 
@@ -47,6 +54,7 @@ as a proof of concept or starting point for further development.
 First, you need to install FMOD Studio 2.02 and Engine 2.02, Carla version 0.9.15, and Python 3.8 and 3.12.
 Use the following links to download the necessary files:
 
+### Dependencies
 |Component|Version|
 |---|---|
 |[FMOD-STUDIO](https://www.fmod.com/download#fmodstudio)|2.02|
