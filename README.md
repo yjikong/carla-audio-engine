@@ -35,12 +35,14 @@ They were not professionally designed and may vary in quality. This implementati
 as a proof of concept or starting point for further development.
 
 ## How to run
+```mermaid
 flowchart TD
   A[Download all dependencies](#dependencies) --> Checkout Code into IDE
   B --> C[Create Carla Client Venv](#1-carla-client-venv) 
   C --> D[Create Carla Code Venv](#2-carla-code-venv) 
   D --> E[Create FMOD Code Venv](#3-fmod-code-venv) 
   E --> Run `RunOhmUXSim.py`
+```
 
 ## Installation and Setup
 
