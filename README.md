@@ -152,7 +152,7 @@ locates/monitors the "hero" vehicle reads relevant state information, and __peri
   Contains the cor calsses for connecting, sensing, data transport, and UI:
   - `__init__.py`
   Exposes the main classes as package imports.
-  - <font color="blue">`CarlaClient.py`</font>
+  - `CarlaClient.py`
   Encapsulates the Carla server connection, retrieves the `world`, searches for a vehicle, and continuously reads vehicle and environment data.
   It also attaches a collision sensor and produces a compact data packet (relevant for the sound logic).
   - `CollisionSensor.py`
