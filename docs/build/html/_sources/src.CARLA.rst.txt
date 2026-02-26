@@ -6,7 +6,7 @@ CARLA Module
 
    Classes <src.CARLA.Classes>
 
-cmain helo
+cmain
 ----------------------
 
 .. automodule:: src.CARLA.cmain

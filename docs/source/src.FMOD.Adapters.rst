@@ -1,53 +1,42 @@
-src.FMOD.Adapters package
-=========================
+Adapters
+========
 
-Submodules
-----------
-
-src.FMOD.Adapters.EngineAdapter module
---------------------------------------
+EngineAdapter
+-------------
 
 .. automodule:: src.FMOD.Adapters.EngineAdapter
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Adapters.EnvironmentAdapter module
--------------------------------------------
+EnvironmentAdapter
+------------------
 
 .. automodule:: src.FMOD.Adapters.EnvironmentAdapter
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Adapters.RainIntensity module
---------------------------------------
+RainIntensity
+-------------
 
 .. automodule:: src.FMOD.Adapters.RainIntensity
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Adapters.TriggerAdapter module
----------------------------------------
+TriggerAdapter
+--------------
 
 .. automodule:: src.FMOD.Adapters.TriggerAdapter
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Adapters.WindIntensity module
---------------------------------------
+WindIntensity
+-------------
 
 .. automodule:: src.FMOD.Adapters.WindIntensity
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.FMOD.Adapters
    :members:
    :show-inheritance:
    :undoc-members:
