@@ -11,8 +11,7 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-# FILE_DIR = Path(__file__).resolve().parent
-# DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Motor_Bank').resolve())
+from config import *
 
 class ExampleBank:
     EXAMPLE_EVENT_PATH = "event:/Example"
