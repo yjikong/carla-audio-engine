@@ -18,6 +18,8 @@ das Event nur noch korrekt ein einziges Mal abgespielt
 '''
 
 class TriggerAdapter:
+    GEAR_REVERSE = -1
+    SPEED_LIMIT = 100
     def __init__(self, event_bus: EventBus, rev_beep: ReverseBeep, bank: TriggerBank):
         self.past_gear = None
         self.speed_trigger = False
@@ -39,11 +41,11 @@ class TriggerAdapter:
     def on_reverse(self, current_gear):
         val = None
         # Sets reverse sound trigger based on gear changes
-        if current_gear == -1 and self.past_gear == None:
+        if current_gear == self.GEAR_REVERSE and self.past_gear == None:
             val = True
-        elif current_gear == -1 and self.past_gear !=-1:
+        elif current_gear == self.GEAR_REVERSE and self.past_gear != self.GEAR_REVERSE:
             val = True
-        elif current_gear == -1 and self.past_gear == -1:
+        elif current_gear == self.GEAR_REVERSE and self.past_gear == self.GEAR_REVERSE:
             val = False
         self.past_gear = current_gear
         if val == True:
@@ -57,7 +59,7 @@ class TriggerAdapter:
         """Plays speed warning; resets trigger when finished"""
         self.speed = speed
         self.reverse_beep.update()
-        if speed > 100 and self.speed_trigger is False:
+        if speed > self.SPEED_LIMIT and self.speed_trigger is False:
             self.bank.play_warning()
             self.speed_trigger = True
         if self.bank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
