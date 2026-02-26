@@ -8,14 +8,20 @@
 # Allows controlling a vehicle with a keyboard. For a simpler and more
 # documented example, please take a look at tutorial.py.
 
-"""
-Welcome to CARLA manual control with steering wheel Logitech G29.
+"""Manual control module with Logitech G29 steering wheel support.
 
-To drive start by preshing the brake pedal.
-Change your wheel_config.ini according to your steering wheel.
+This script is based on the official CARLA manual control examples and has been 
+extensively modified to provide native support for the Logitech G29 Racing 
+Wheel, including pedal mapping and force feedback integration. It manages 
+user input, vehicle physics control, and real-time sensor data visualization.
 
-To find out the values of your steering wheel use jstest-gtk in Ubuntu.
+Note:
+    Ensure that the Logitech G Hub software is installed and the steering wheel 
+    is calibrated before starting the simulation to avoid axis mapping issues.
 
+See Also:
+    For a detailed technical reference of the classes used here,
+    consult the :carla_docs:`Pygame for vehicle control <tuto_G_pygame/#pygame-for-vehicle-control>`.
 """
 
 from __future__ import print_function

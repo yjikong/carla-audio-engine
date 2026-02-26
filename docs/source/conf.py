@@ -59,15 +59,20 @@ add_module_names = False
 # -- Custom Setup Hook -------------------------------------------------------
 def setup(app):
     def skip(app, what, name, obj, skip, options):
-        # Zielmodul definieren
-        target_module = "Code.CARLA.generate_traffic"
+        # Definiere die Module, die "leer" sein sollen (nur Docstrings)
+        clean_modules = [
+            "Code.CARLA.generate_traffic",
+            "Code.CARLA.manual_control_sw" # Prüfe, ob der Name exakt stimmt
+        ]
         
-        # Zu ignorierende Funktionen NUR in diesem Modul
-        excluded_members = ["main", "get_actor_blueprints"]
+        # Hole das Modul, zu dem das aktuelle Objekt gehört
+        module_name = getattr(obj, "__module__", None)
 
-        if hasattr(obj, "__module__") and obj.__module__ == target_module:
-            if name in excluded_members:
-                return True
+        if module_name in clean_modules:
+            # Wenn wir uns in einem der Zielmodule befinden, 
+            # überspringen wir alles (Funktionen, Klassen, etc.)
+            return True 
+            
         return skip
 
     app.connect("autodoc-skip-member", skip)

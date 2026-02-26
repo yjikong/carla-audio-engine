@@ -18,7 +18,7 @@ Note:
 
 See Also:
     For a detailed technical reference of the classes used here, 
-    consult the :carla_docs:`Python API < >`.
+    consult the :carla_docs:`Python API <python_api>`.
 """
 
 import glob

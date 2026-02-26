@@ -36,8 +36,6 @@ Code.CARLA.manual\_control\_sw module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
 
 .. automodule:: Code.CARLA
    :members:
