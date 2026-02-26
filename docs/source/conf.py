@@ -6,11 +6,6 @@ from unittest.mock import MagicMock
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../Code/CARLA'))
 
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
-
 # Erweitertes Mocking für verschachtelte Module
 MOCK_MODULES = [
     'carla', 'numpy', 'pygame', 'pygame.locals', 
@@ -20,24 +15,20 @@ for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = MagicMock()
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
 project = 'SoundCARLA'
 copyright = '2026, Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong'
 author = 'Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong'
 release = '0.1'
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
 extensions = [
     'sphinx.ext.autodoc',      # Liest deine Docstrings
     'sphinx.ext.intersphinx',
-    'sphinx.ext.napoleon',     # Versteht den Google-Style, den wir gerade geschrieben haben
+    'sphinx.ext.napoleon',     # Versteht den Google-Style
     'sphinx.ext.viewcode',     # Fügt Links zum Quellcode hinzu
     'sphinx_rtd_theme',        # Das schicke Read-the-Docs Design
     'sphinx.ext.extlinks'
-    ]
+]
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
@@ -52,7 +43,7 @@ extlinks = {
 # Napoleon settings
 napoleon_google_docstring = True
 napoleon_numpy_docstring = True
-napoleon_include_init_with_doc = True  # Dokumentiert auch die __init__ Methoden
+napoleon_include_init_with_doc = True
 napoleon_use_param = True
 napoleon_use_rtype = True
 autodoc_member_order = 'bysource'
@@ -60,12 +51,23 @@ autodoc_member_order = 'bysource'
 templates_path = ['_templates']
 exclude_patterns = []
 
-
-
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
-
 add_module_names = False
+
+# -- Custom Setup Hook -------------------------------------------------------
+def setup(app):
+    def skip(app, what, name, obj, skip, options):
+        # Zielmodul definieren
+        target_module = "Code.CARLA.generate_traffic"
+        
+        # Zu ignorierende Funktionen NUR in diesem Modul
+        excluded_members = ["main", "get_actor_blueprints"]
+
+        if hasattr(obj, "__module__") and obj.__module__ == target_module:
+            if name in excluded_members:
+                return True
+        return skip
+
+    app.connect("autodoc-skip-member", skip)
