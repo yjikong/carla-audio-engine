@@ -74,14 +74,14 @@ class SimulatorGUI:
         main_frm.columnconfigure(1, weight=1)
         main_frm.columnconfigure(2, weight=0)
 
-        ttk.Label(main_frm, text="SoundCARLA Master Launcher", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=(0, 20))
+        ttk.Label(main_frm, text="SoundCARLA Master Launcher", font=("Inter", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=(0, 20))
 
         row_idx = 1
         # Filter out the boolean setting from the path-browsing list
         path_items = {k: v for k, v in self.paths.items() if k != "USE_DX11"}
         
         for key, path in path_items.items():
-            ttk.Label(main_frm, text=key.replace("_", " "), font=("Arial", 9, "bold")).grid(column=0, row=row_idx, sticky=W, pady=5)
+            ttk.Label(main_frm, text=key.replace("_", " "), font=("Inter", 9, "bold")).grid(column=0, row=row_idx, sticky=W, pady=5)
             
             display_text = path if path else "--- NOT SET ---"
             color = "black" if path else "red"
@@ -102,24 +102,24 @@ class SimulatorGUI:
         row_idx += 1
 
         self.status_var = StringVar(value="Bereit")
-        ttk.Label(main_frm, textvariable=self.status_var, font=("Arial", 10, "italic"), foreground="blue").grid(row=row_idx, column=0, columnspan=3, pady=5)
+        ttk.Label(main_frm, textvariable=self.status_var, font=("Inter", 10, "italic"), foreground="blue").grid(row=row_idx, column=0, columnspan=3, pady=5)
         row_idx += 1
 
         btn_frm = ttk.Frame(main_frm)
         btn_frm.grid(row=row_idx, column=0, columnspan=3)
 
-        self.start_btn = Button(btn_frm, text="▶ START ALL", bg="#2ecc71", fg="white", font=("Arial", 10, "bold"), 
+        self.start_btn = Button(btn_frm, text="▶ START ALL", bg="#2ecc71", fg="white", font=("Inter", 10, "bold"), 
                                 padx=20, pady=10, command=self.launch_all)
         self.start_btn.pack(side=LEFT, padx=10)
 
-        stop_btn = Button(btn_frm, text="■ STOP ALL", bg="#e74c3c", fg="white", font=("Arial", 10, "bold"), 
+        stop_btn = Button(btn_frm, text="■ STOP ALL", bg="#e74c3c", fg="white", font=("Inter", 10, "bold"), 
                           padx=20, pady=10, command=self.stop_all)
         stop_btn.pack(side=LEFT, padx=10)
 
         row_idx += 1
         
         warning_lbl = Label(main_frm, text="⚠ After STOP ALL - Close Simulator manually!!!", 
-                            font=("Arial", 9, "italic bold"), fg="#d35400", pady=10)
+                            font=("Inter", 9, "italic bold"), fg="#d35400", pady=10)
         warning_lbl.grid(column=0, row=row_idx, columnspan=3, sticky=S)
 
     def refresh_ui(self):
@@ -213,6 +213,7 @@ class SimulatorGUI:
             except:
                 pass
         self.processes = []
+        print("Ready")
         self.status_var.set("Bereit")
         self.start_btn.config(state=NORMAL)
 

@@ -18,6 +18,9 @@ das Event nur noch korrekt ein einziges Mal abgespielt
 '''
 
 class TriggerAdapter:
+    GEAR_REVERSE = -1
+    SPEED_LIMIT = 100
+    HANDBRAKE_SPEED = 40
     def __init__(self, event_bus: EventBus, rev_beep: ReverseBeep, bank: TriggerBank):
         self.past_gear = None
         self.speed_trigger = False
@@ -28,7 +31,7 @@ class TriggerAdapter:
         self.bank = bank
         self.crash_counter = 0
         self.honk_counter = 1
-        self.handBrake_counter = 1
+        self.handBrake_flag = False
         self.speed = 0
         event_bus.subscribe(DataKey.GEAR, self.on_reverse)
         event_bus.subscribe(DataKey.COLLISION_EVENT, self.on_crash)
@@ -39,11 +42,11 @@ class TriggerAdapter:
     def on_reverse(self, current_gear):
         val = None
         # Sets reverse sound trigger based on gear changes
-        if current_gear == -1 and self.past_gear == None:
+        if current_gear == self.GEAR_REVERSE and self.past_gear == None:
             val = True
-        elif current_gear == -1 and self.past_gear !=-1:
+        elif current_gear == self.GEAR_REVERSE and self.past_gear != self.GEAR_REVERSE:
             val = True
-        elif current_gear == -1 and self.past_gear == -1:
+        elif current_gear == self.GEAR_REVERSE and self.past_gear == self.GEAR_REVERSE:
             val = False
         self.past_gear = current_gear
         if val == True:
@@ -57,7 +60,7 @@ class TriggerAdapter:
         """Plays speed warning; resets trigger when finished"""
         self.speed = speed
         self.reverse_beep.update()
-        if speed > 100 and self.speed_trigger is False:
+        if speed > self.SPEED_LIMIT and self.speed_trigger is False:
             self.bank.play_warning()
             self.speed_trigger = True
         if self.bank.warning_sound.playback_state == PLAYBACK_STATE.STOPPED:
@@ -84,10 +87,11 @@ class TriggerAdapter:
 
     def on_handBrake(self, handBrake):
         """Plays handbrake sound on alternating calls if available"""
-        if self.speed > 40:
-            if self.handBrake_trigger is False and self.handBrake_counter % 2 == 0:
+        if self.speed > self.HANDBRAKE_SPEED:
+            if self.handBrake_trigger is False and self.handBrake_flag:
                 self.bank.play_handBrake()
                 self.handBrake_trigger = True
             if self.bank.handBrake_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 self.handBrake_trigger = False
-            self.handBrake_counter = self.handBrake_counter + 1
+            if not self.handBrake_flag:
+                self.handBrake_flag = True
