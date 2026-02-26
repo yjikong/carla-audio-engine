@@ -5,8 +5,21 @@
 #
 # This work is licensed under the terms of the MIT license.
 # For a copy, see <https://opensource.org/licenses/MIT>.
+"""Traffic generation script for asynchronous CARLA simulation.
 
-"""Example script to generate traffic in the simulation without forcing synchronous mode"""
+This module is based on the official CARLA examples and has been specifically 
+adapted to support asynchronous mode for the SoundCARLA project. It handles 
+spawning actors, managing traffic, and ensuring synchronization between the 
+simulator and the audio engine.
+
+Note:
+    This script requires a running CARLA server and should be used with 
+    caution regarding performance when spawning a high number of NPCs.
+
+See Also:
+    For a detailed technical reference of the classes used here, 
+    consult the :carla_docs:`Python API <python_api>`.
+"""
 
 import glob
 import os

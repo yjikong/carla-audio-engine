@@ -6,6 +6,20 @@ import keyboard
 from Classes.CollisionSensor import *
 
 class CarlaClient:
+    """Communication interface for the CARLA simulator.
+
+    This class handles the connection to the CARLA server, identifies the 
+    player vehicle (tagged as 'hero'), and extracts real-time simulation 
+    data required for the sound engine and logic processing.
+
+    Attributes:
+        client (carla.Client): The official CARLA client instance. :carla_docs:`carla.Client <python_api/#carlaclient>`
+        world (carla.World): The current simulation world instance. :carla_docs:`carla.World <core_world/#the-world>`
+        vehicle (carla.Vehicle): The identified player vehicle. :carla_docs:`carla.Vehicle <python_api/#carla.Vehicle>`
+        collision_sensor (CollisionSensor): Sensor for detecting impact events.
+        crash_counter (int): Counter to track the number of collisions.
+        honk_trigger (bool): State tracker for the horn input logic.
+    """
     _COLLISION_INTENSITY = 100
     _MS_IN_KMH = 3.6
 

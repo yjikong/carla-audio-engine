@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.FMOD package &mdash; SoundCARLA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.FMOD.Adapters package" href="src.FMOD.Adapters.html" />
+    <link rel="prev" title="src.CARLA.Classes package" href="src.CARLA.Classes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SoundCARLA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">src.CARLA package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">src.FMOD package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.FMOD.fmain">src.FMOD.fmain module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.FMOD">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">src.RunOhmUXSim module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SoundCARLA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="src.html">src package</a></li>
+      <li class="breadcrumb-item active">src.FMOD package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.FMOD.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-fmod-package">
+<h1>src.FMOD package<a class="headerlink" href="#src-fmod-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.FMOD.Adapters.html">src.FMOD.Adapters package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters.EngineAdapter">src.FMOD.Adapters.EngineAdapter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter"><code class="docutils literal notranslate"><span class="pre">EngineAdapter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_speed"><code class="docutils literal notranslate"><span class="pre">EngineAdapter.on_speed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_throttle"><code class="docutils literal notranslate"><span class="pre">EngineAdapter.on_throttle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.calculate_torque"><code class="docutils literal notranslate"><span class="pre">EngineAdapter.calculate_torque()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.update"><code class="docutils literal notranslate"><span class="pre">EngineAdapter.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters.EnvironmentAdapter">src.FMOD.Adapters.EnvironmentAdapter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter"><code class="docutils literal notranslate"><span class="pre">EnvironmentAdapter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_rain"><code class="docutils literal notranslate"><span class="pre">EnvironmentAdapter.on_rain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_wind"><code class="docutils literal notranslate"><span class="pre">EnvironmentAdapter.on_wind()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters.RainIntensity">src.FMOD.Adapters.RainIntensity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.RainIntensity.RainIntensity"><code class="docutils literal notranslate"><span class="pre">RainIntensity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.RainIntensity.RainIntensity.NONE"><code class="docutils literal notranslate"><span class="pre">RainIntensity.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.RainIntensity.RainIntensity.LOW"><code class="docutils literal notranslate"><span class="pre">RainIntensity.LOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.RainIntensity.RainIntensity.MEDIUM"><code class="docutils literal notranslate"><span class="pre">RainIntensity.MEDIUM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.RainIntensity.RainIntensity.HIGH"><code class="docutils literal notranslate"><span class="pre">RainIntensity.HIGH</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters.TriggerAdapter">src.FMOD.Adapters.TriggerAdapter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.GEAR_REVERSE"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.GEAR_REVERSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.SPEED_LIMIT"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.SPEED_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.HANDBRAKE_SPEED"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.HANDBRAKE_SPEED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_reverse"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_tick"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_tick()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_speed"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_speed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_crash"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_crash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_honk"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_honk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_handBrake"><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.on_handBrake()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters.WindIntensity">src.FMOD.Adapters.WindIntensity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.WindIntensity.WindIntensity"><code class="docutils literal notranslate"><span class="pre">WindIntensity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.WindIntensity.WindIntensity.NONE"><code class="docutils literal notranslate"><span class="pre">WindIntensity.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.WindIntensity.WindIntensity.LOW"><code class="docutils literal notranslate"><span class="pre">WindIntensity.LOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Adapters.html#src.FMOD.Adapters.WindIntensity.WindIntensity.HIGH"><code class="docutils literal notranslate"><span class="pre">WindIntensity.HIGH</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Adapters.html#module-src.FMOD.Adapters">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.FMOD.Banks.html">src.FMOD.Banks package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#module-src.FMOD.Banks.EnvironmentBank">src.FMOD.Banks.EnvironmentBank module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank"><code class="docutils literal notranslate"><span class="pre">EnvironmentBank</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.DEFAULT_BANK_PATH"><code class="docutils literal notranslate"><span class="pre">EnvironmentBank.DEFAULT_BANK_PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.update_studio_system"><code class="docutils literal notranslate"><span class="pre">EnvironmentBank.update_studio_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.get_events"><code class="docutils literal notranslate"><span class="pre">EnvironmentBank.get_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.shutdown"><code class="docutils literal notranslate"><span class="pre">EnvironmentBank.shutdown()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#module-src.FMOD.Banks.ExampleBank">src.FMOD.Banks.ExampleBank module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank"><code class="docutils literal notranslate"><span class="pre">ExampleBank</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.EXAMPLE_EVENT_PATH"><code class="docutils literal notranslate"><span class="pre">ExampleBank.EXAMPLE_EVENT_PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.update_studio_system"><code class="docutils literal notranslate"><span class="pre">ExampleBank.update_studio_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.get_events"><code class="docutils literal notranslate"><span class="pre">ExampleBank.get_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.shutdown"><code class="docutils literal notranslate"><span class="pre">ExampleBank.shutdown()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#module-src.FMOD.Banks.TriggerBank">src.FMOD.Banks.TriggerBank module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank"><code class="docutils literal notranslate"><span class="pre">TriggerBank</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.DEFAULT_BANK_PATH"><code class="docutils literal notranslate"><span class="pre">TriggerBank.DEFAULT_BANK_PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.play_honk"><code class="docutils literal notranslate"><span class="pre">TriggerBank.play_honk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.play_crash"><code class="docutils literal notranslate"><span class="pre">TriggerBank.play_crash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.play_warning"><code class="docutils literal notranslate"><span class="pre">TriggerBank.play_warning()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.play_handBrake"><code class="docutils literal notranslate"><span class="pre">TriggerBank.play_handBrake()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.update_studio_system"><code class="docutils literal notranslate"><span class="pre">TriggerBank.update_studio_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.get_events"><code class="docutils literal notranslate"><span class="pre">TriggerBank.get_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank.shutdown"><code class="docutils literal notranslate"><span class="pre">TriggerBank.shutdown()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#module-src.FMOD.Banks.config">src.FMOD.Banks.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Banks.html#module-src.FMOD.Banks">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.FMOD.Model.html">src.FMOD.Model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Model.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Model.html#module-src.FMOD.Model.SoundModel">src.FMOD.Model.SoundModel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Model.html#src.FMOD.Model.SoundModel.SoundModel"><code class="docutils literal notranslate"><span class="pre">SoundModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Model.html#src.FMOD.Model.SoundModel.SoundModel.on_tick"><code class="docutils literal notranslate"><span class="pre">SoundModel.on_tick()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Model.html#module-src.FMOD.Model">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.FMOD.Sounds.html">src.FMOD.Sounds package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Sounds.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Sounds.html#module-src.FMOD.Sounds.EVSoundEngine">src.FMOD.Sounds.EVSoundEngine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine"><code class="docutils literal notranslate"><span class="pre">EVSoundEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.start"><code class="docutils literal notranslate"><span class="pre">EVSoundEngine.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.update_params"><code class="docutils literal notranslate"><span class="pre">EVSoundEngine.update_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.stop"><code class="docutils literal notranslate"><span class="pre">EVSoundEngine.stop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Sounds.html#module-src.FMOD.Sounds.ReverseBeep">src.FMOD.Sounds.ReverseBeep module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep"><code class="docutils literal notranslate"><span class="pre">ReverseBeep</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep.dynamisch_Beep_erstellen"><code class="docutils literal notranslate"><span class="pre">ReverseBeep.dynamisch_Beep_erstellen()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep.play"><code class="docutils literal notranslate"><span class="pre">ReverseBeep.play()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep.update"><code class="docutils literal notranslate"><span class="pre">ReverseBeep.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep.shutdown"><code class="docutils literal notranslate"><span class="pre">ReverseBeep.shutdown()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.Sounds.html#module-src.FMOD.Sounds">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.FMOD.utils.html">src.FMOD.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.utils.html#module-src.FMOD.utils.DataKey">src.FMOD.utils.DataKey module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey"><code class="docutils literal notranslate"><span class="pre">DataKey</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.ACCELERATION"><code class="docutils literal notranslate"><span class="pre">DataKey.ACCELERATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.BRAKE"><code class="docutils literal notranslate"><span class="pre">DataKey.BRAKE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.COLLISION_EVENT"><code class="docutils literal notranslate"><span class="pre">DataKey.COLLISION_EVENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.GEAR"><code class="docutils literal notranslate"><span class="pre">DataKey.GEAR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.MESSAGE"><code class="docutils literal notranslate"><span class="pre">DataKey.MESSAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.RAIN_INTENSITY"><code class="docutils literal notranslate"><span class="pre">DataKey.RAIN_INTENSITY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.SPEED"><code class="docutils literal notranslate"><span class="pre">DataKey.SPEED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.SPEED_LIMIT"><code class="docutils literal notranslate"><span class="pre">DataKey.SPEED_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.THROTTLE"><code class="docutils literal notranslate"><span class="pre">DataKey.THROTTLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.WIND_INTENSITY"><code class="docutils literal notranslate"><span class="pre">DataKey.WIND_INTENSITY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.HONK"><code class="docutils literal notranslate"><span class="pre">DataKey.HONK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.DataKey.DataKey.HANDBRAKE"><code class="docutils literal notranslate"><span class="pre">DataKey.HANDBRAKE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.utils.html#module-src.FMOD.utils.EventBus">src.FMOD.utils.EventBus module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus"><code class="docutils literal notranslate"><span class="pre">EventBus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus.subscribe"><code class="docutils literal notranslate"><span class="pre">EventBus.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus.unsubscribe"><code class="docutils literal notranslate"><span class="pre">EventBus.unsubscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus.publish"><code class="docutils literal notranslate"><span class="pre">EventBus.publish()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.utils.html#module-src.FMOD.utils.RangeLevel">src.FMOD.utils.RangeLevel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.RangeLevel.RangeLevel"><code class="docutils literal notranslate"><span class="pre">RangeLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.RangeLevel.RangeLevel.contains"><code class="docutils literal notranslate"><span class="pre">RangeLevel.contains()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.RangeLevel.RangeLevel.from_value"><code class="docutils literal notranslate"><span class="pre">RangeLevel.from_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.FMOD.utils.html#module-src.FMOD.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-src.FMOD.fmain">
+<span id="src-fmod-fmain-module"></span><h2>src.FMOD.fmain module<a class="headerlink" href="#module-src.FMOD.fmain" title="Link to this heading"></a></h2>
+</section>
+<section id="module-src.FMOD">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.FMOD" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.CARLA.Classes.html" class="btn btn-neutral float-left" title="src.CARLA.Classes package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.FMOD.Adapters.html" class="btn btn-neutral float-right" title="src.FMOD.Adapters package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
