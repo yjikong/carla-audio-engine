@@ -41,9 +41,32 @@ class CarlaClient:
         
 
     def __connect(self):
+        """Connects to the CARLA server and retrieves the simulation world.
+
+            Sets the `self.world` attribute by fetching the current world instance 
+            from the CARLA client. This is a prerequisite for manipulating 
+            environment actors or weather settings.
+
+            Returns:
+                None
+        """
         self.world = self.client.get_world()
     
     def __get_vehicle(self):
+        """Finds and returns the primary ego-vehicle from the simulation.
+
+        Iterates through all active vehicle actors in the current world and 
+        identifies the one assigned the 'hero' role. This is typically used 
+        to bind the simulation sensors to the user-controlled vehicle.
+
+        Returns:
+            carla.Vehicle: The vehicle actor with role_name 'hero', 
+                           or None if no such vehicle is found.
+
+        Note:
+            This method expects the vehicle to have been spawned with 
+            the attribute 'role_name' set to 'hero' in CARLA.
+        """
         vehicles = self.world.get_actors().filter('vehicle.*')
 
         if vehicles:
@@ -56,6 +79,37 @@ class CarlaClient:
             return None
 
     def retrieve_data(self):
+        """Extracts and aggregates simulation state data into a telemetry packet.
+
+        This method polls the CARLA world for environmental conditions (weather), 
+        monitors hardware/keyboard inputs (honk), and fetches real-time vehicle 
+        physics. It also manages the lifecycle of the collision sensor and 
+        processes collision impulses based on defined intensity thresholds.
+
+        The resulting data packet is formatted for downstream consumption, 
+        typically for synchronization with the FMOD audio engine.
+
+        Returns:
+            dict or None: A dictionary containing telemetry data, or None if no 
+            vehicle is found or initialized.
+            
+            Telemetry dictionary keys:
+                - speed (float): Vehicle speed in km/h.
+                - throttle (float): Throttle position [0.0, 1.0].
+                - brake (float): Brake position [0.0, 1.0].
+                - speed_limit (float): Current road speed limit.
+                - gear (int): Current active gear.
+                - collision_event (bool): True if a collision above intensity 100 is detected.
+                - rain_intensity (float): Precipitation amount [0, 100].
+                - wind_intensity (float): Wind strength [0, 100].
+                - acceleration (float): Lateral acceleration (Y-axis).
+                - honk (bool): Single-trigger state of the horn.
+                - handbrake (bool): State of the handbrake.
+
+        Raises:
+            AttributeError: Handled internally if vehicle reference is lost during 
+                actor switching or rapid simulation resets.
+        """
         #Wetterdaten
         weather = self.world.get_weather()
         rain_intensity = weather.precipitation
@@ -120,12 +174,36 @@ class CarlaClient:
 
     
     def set_rain(self, in_rain_intensity):
+        """Adjusts the precipitation and road wetness levels in the simulation.
+
+        This method updates the CARLA weather parameters simultaneously to ensure 
+        visual rain matches the physical road conditions (puddles/friction).
+
+        Args:
+            in_rain_intensity (float/int): The intensity of the rain. 
+                Typically a value between 0 (none) and 100 (heavy).
+        
+        Returns:
+            None
+        """
         weather = self.world.get_weather()
         weather.precipitation = float(in_rain_intensity)
         weather.wetness = float(in_rain_intensity)
         self.world.set_weather(weather)
     
     def set_wind(self, in_wind_intensity=0):
+        """Sets the wind intensity for the simulation environment.
+
+        Updates the physical wind force acting on actors and environmental 
+        elements like trees or rain particles.
+
+        Args:
+            in_wind_intensity (float/int, optional): The wind strength. 
+                Ranges from 0 to 100. Defaults to 0.
+
+        Returns:
+            None
+        """
         weather = self.world.get_weather()
         weather.wind_intensity = float(in_wind_intensity)
         self.world.set_weather(weather)

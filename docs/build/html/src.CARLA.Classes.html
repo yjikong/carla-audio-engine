@@ -168,17 +168,78 @@ data required for the sound engine and logic processing.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.CARLA.Classes.CarlaClient.CarlaClient.retrieve_data">
 <span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/CarlaClient.html#CarlaClient.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.CarlaClient.CarlaClient.retrieve_data" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Extracts and aggregates simulation state data into a telemetry packet.</p>
+<p>This method polls the CARLA world for environmental conditions (weather),
+monitors hardware/keyboard inputs (honk), and fetches real-time vehicle
+physics. It also manages the lifecycle of the collision sensor and
+processes collision impulses based on defined intensity thresholds.</p>
+<p>The resulting data packet is formatted for downstream consumption,
+typically for synchronization with the FMOD audio engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>A dictionary containing telemetry data, or None if no
+vehicle is found or initialized.</p>
+<dl class="simple">
+<dt>Telemetry dictionary keys:</dt><dd><ul class="simple">
+<li><p>speed (float): Vehicle speed in km/h.</p></li>
+<li><p>throttle (float): Throttle position [0.0, 1.0].</p></li>
+<li><p>brake (float): Brake position [0.0, 1.0].</p></li>
+<li><p>speed_limit (float): Current road speed limit.</p></li>
+<li><p>gear (int): Current active gear.</p></li>
+<li><p>collision_event (bool): True if a collision above intensity 100 is detected.</p></li>
+<li><p>rain_intensity (float): Precipitation amount [0, 100].</p></li>
+<li><p>wind_intensity (float): Wind strength [0, 100].</p></li>
+<li><p>acceleration (float): Lateral acceleration (Y-axis).</p></li>
+<li><p>honk (bool): Single-trigger state of the horn.</p></li>
+<li><p>handbrake (bool): State of the handbrake.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a> or None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AttributeError" title="(in Python v3.14)"><strong>AttributeError</strong></a> – Handled internally if vehicle reference is lost during
+    actor switching or rapid simulation resets.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.CARLA.Classes.CarlaClient.CarlaClient.set_rain">
 <span class="sig-name descname"><span class="pre">set_rain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_rain_intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/CarlaClient.html#CarlaClient.set_rain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.CarlaClient.CarlaClient.set_rain" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Adjusts the precipitation and road wetness levels in the simulation.</p>
+<p>This method updates the CARLA weather parameters simultaneously to ensure
+visual rain matches the physical road conditions (puddles/friction).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_rain_intensity</strong> (<em>float/int</em>) – The intensity of the rain.
+Typically a value between 0 (none) and 100 (heavy).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.CARLA.Classes.CarlaClient.CarlaClient.set_wind">
 <span class="sig-name descname"><span class="pre">set_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_wind_intensity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/CarlaClient.html#CarlaClient.set_wind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.CarlaClient.CarlaClient.set_wind" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sets the wind intensity for the simulation environment.</p>
+<p>Updates the physical wind force acting on actors and environmental
+elements like trees or rain particles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_wind_intensity</strong> (<em>float/int</em><em>, </em><em>optional</em>) – The wind strength.
+Ranges from 0 to 100. Defaults to 0.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
