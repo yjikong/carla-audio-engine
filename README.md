@@ -178,7 +178,6 @@ Python dependencies that are required for the Carla client (will be installed in
 __Goal of this module:__
 Provide a robust and easily extensible interface between the Carla simulation and the sound system, without embedding sound logic directly inside the Carla side.
 
-
 ### 2. FMOD
 The __FMOD part__ handles the actual __sound logic and audio playback__. It receives data packets sent by the Carla client (UDP/JSON),
 detects changes (diffing), and translates these changes into __FMOD event triggers__, __parameter updates__, or __procedurally generated sounds__. The structure is loosely
