@@ -46,7 +46,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="src.html">Source Code</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="src.html#modules">Modules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.Classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.cmain">cmain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.generate_traffic">generate traffic Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.manual_control_sw">manual control Script</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="reference internal" href="src.FMOD.html">FMOD</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="src.FMOD.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.FMOD.html#module-src.FMOD.fmain">fmain</a></li>
@@ -54,7 +60,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.refresh_ui"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.refresh_ui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.kill_process_on_port()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.launch_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.launch_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.stop_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.stop_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.run"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -87,165 +106,17 @@
              
   <section id="adapters">
 <h1>Adapters<a class="headerlink" href="#adapters" title="Link to this heading"></a></h1>
-<section id="module-src.FMOD.Adapters.EngineAdapter">
-<span id="engineadapter"></span><h2>EngineAdapter<a class="headerlink" href="#module-src.FMOD.Adapters.EngineAdapter" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EngineAdapter.EngineAdapter">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">EngineAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus" title="src.FMOD.utils.EventBus.EventBus"><span class="pre">EventBus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine" title="src.FMOD.Sounds.EVSoundEngine.EVSoundEngine"><span class="pre">EVSoundEngine</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EngineAdapter.html#EngineAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EngineAdapter.EngineAdapter" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_speed">
-<span class="sig-name descname"><span class="pre">on_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EngineAdapter.html#EngineAdapter.on_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_speed" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_throttle">
-<span class="sig-name descname"><span class="pre">on_throttle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">throttle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EngineAdapter.html#EngineAdapter.on_throttle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EngineAdapter.EngineAdapter.on_throttle" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EngineAdapter.EngineAdapter.calculate_torque">
-<span class="sig-name descname"><span class="pre">calculate_torque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throttle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EngineAdapter.html#EngineAdapter.calculate_torque"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EngineAdapter.EngineAdapter.calculate_torque" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EngineAdapter.EngineAdapter.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EngineAdapter.html#EngineAdapter.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EngineAdapter.EngineAdapter.update" title="Link to this definition"></a></dt>
-<dd><p>Updates engine and sound states each frame</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-src.FMOD.Adapters.EnvironmentAdapter">
 <span id="environmentadapter"></span><h2>EnvironmentAdapter<a class="headerlink" href="#module-src.FMOD.Adapters.EnvironmentAdapter" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">EnvironmentAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus" title="src.FMOD.utils.EventBus.EventBus"><span class="pre">EventBus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank" title="src.FMOD.Banks.EnvironmentBank.EnvironmentBank"><span class="pre">EnvironmentBank</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EnvironmentAdapter.html#EnvironmentAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_rain">
-<span class="sig-name descname"><span class="pre">on_rain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intensity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EnvironmentAdapter.html#EnvironmentAdapter.on_rain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_rain" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_wind">
-<span class="sig-name descname"><span class="pre">on_wind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intensity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/EnvironmentAdapter.html#EnvironmentAdapter.on_wind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_wind" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.Adapters.RainIntensity">
 <span id="rainintensity"></span><h2>RainIntensity<a class="headerlink" href="#module-src.FMOD.Adapters.RainIntensity" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.RainIntensity.RainIntensity">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RainIntensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/RainIntensity.html#RainIntensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.RainIntensity.RainIntensity" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.RangeLevel.RangeLevel" title="src.FMOD.utils.RangeLevel.RangeLevel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RangeLevel</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.RainIntensity.RainIntensity.NONE">
-<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">10,</span> <span class="pre">0)</span></span><a class="headerlink" href="#src.FMOD.Adapters.RainIntensity.RainIntensity.NONE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.RainIntensity.RainIntensity.LOW">
-<span class="sig-name descname"><span class="pre">LOW</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(10,</span> <span class="pre">44,</span> <span class="pre">1)</span></span><a class="headerlink" href="#src.FMOD.Adapters.RainIntensity.RainIntensity.LOW" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.RainIntensity.RainIntensity.MEDIUM">
-<span class="sig-name descname"><span class="pre">MEDIUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(44,</span> <span class="pre">77,</span> <span class="pre">2)</span></span><a class="headerlink" href="#src.FMOD.Adapters.RainIntensity.RainIntensity.MEDIUM" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.RainIntensity.RainIntensity.HIGH">
-<span class="sig-name descname"><span class="pre">HIGH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(77,</span> <span class="pre">100,</span> <span class="pre">3)</span></span><a class="headerlink" href="#src.FMOD.Adapters.RainIntensity.RainIntensity.HIGH" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.Adapters.TriggerAdapter">
 <span id="triggeradapter"></span><h2>TriggerAdapter<a class="headerlink" href="#module-src.FMOD.Adapters.TriggerAdapter" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">TriggerAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_bus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.EventBus.EventBus" title="src.FMOD.utils.EventBus.EventBus"><span class="pre">EventBus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rev_beep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.Sounds.html#src.FMOD.Sounds.ReverseBeep.ReverseBeep" title="src.FMOD.Sounds.ReverseBeep.ReverseBeep"><span class="pre">ReverseBeep</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.FMOD.Banks.html#src.FMOD.Banks.TriggerBank.TriggerBank" title="src.FMOD.Banks.TriggerBank.TriggerBank"><span class="pre">TriggerBank</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.GEAR_REVERSE">
-<span class="sig-name descname"><span class="pre">GEAR_REVERSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></span><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.GEAR_REVERSE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.SPEED_LIMIT">
-<span class="sig-name descname"><span class="pre">SPEED_LIMIT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></span><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.SPEED_LIMIT" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.HANDBRAKE_SPEED">
-<span class="sig-name descname"><span class="pre">HANDBRAKE_SPEED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></span><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.HANDBRAKE_SPEED" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_reverse">
-<span class="sig-name descname"><span class="pre">on_reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_gear</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_reverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_reverse" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_tick">
-<span class="sig-name descname"><span class="pre">on_tick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_tick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_tick" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_speed">
-<span class="sig-name descname"><span class="pre">on_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_speed" title="Link to this definition"></a></dt>
-<dd><p>Plays speed warning; resets trigger when finished</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_crash">
-<span class="sig-name descname"><span class="pre">on_crash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crash</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_crash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_crash" title="Link to this definition"></a></dt>
-<dd><p>Plays crash sound once per crash event</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_honk">
-<span class="sig-name descname"><span class="pre">on_honk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">honk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_honk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_honk" title="Link to this definition"></a></dt>
-<dd><p>Plays honk sound on even counts when stopped</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_handBrake">
-<span class="sig-name descname"><span class="pre">on_handBrake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handBrake</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/TriggerAdapter.html#TriggerAdapter.on_handBrake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.TriggerAdapter.TriggerAdapter.on_handBrake" title="Link to this definition"></a></dt>
-<dd><p>Plays handbrake sound on alternating calls if available</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.Adapters.WindIntensity">
 <span id="windintensity"></span><h2>WindIntensity<a class="headerlink" href="#module-src.FMOD.Adapters.WindIntensity" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.WindIntensity.WindIntensity">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">WindIntensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Adapters/WindIntensity.html#WindIntensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Adapters.WindIntensity.WindIntensity" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="src.FMOD.utils.html#src.FMOD.utils.RangeLevel.RangeLevel" title="src.FMOD.utils.RangeLevel.RangeLevel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RangeLevel</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.WindIntensity.WindIntensity.NONE">
-<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">10,</span> <span class="pre">0)</span></span><a class="headerlink" href="#src.FMOD.Adapters.WindIntensity.WindIntensity.NONE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.WindIntensity.WindIntensity.LOW">
-<span class="sig-name descname"><span class="pre">LOW</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(10,</span> <span class="pre">55,</span> <span class="pre">1)</span></span><a class="headerlink" href="#src.FMOD.Adapters.WindIntensity.WindIntensity.LOW" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.Adapters.WindIntensity.WindIntensity.HIGH">
-<span class="sig-name descname"><span class="pre">HIGH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(55,</span> <span class="pre">100,</span> <span class="pre">2)</span></span><a class="headerlink" href="#src.FMOD.Adapters.WindIntensity.WindIntensity.HIGH" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 

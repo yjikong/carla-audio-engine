@@ -46,7 +46,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="src.html">Source Code</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="src.html#modules">Modules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.Classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.cmain">cmain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.generate_traffic">generate traffic Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.manual_control_sw">manual control Script</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="reference internal" href="src.FMOD.html">FMOD</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="src.FMOD.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.FMOD.html#module-src.FMOD.fmain">fmain</a></li>
@@ -54,7 +60,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.refresh_ui"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.refresh_ui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.kill_process_on_port()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.launch_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.launch_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.stop_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.stop_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.run"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -74,7 +93,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="src.html">Source Code</a></li>
-          <li class="breadcrumb-item"><a href="src.FMOD.html">FMOD</a></li>
+          <li class="breadcrumb-item"><a href="src.FMOD.html">FMOD Module</a></li>
       <li class="breadcrumb-item active">Sounds</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/src.FMOD.Sounds.rst.txt" rel="nofollow"> View page source</a>
@@ -89,56 +108,9 @@
 <h1>Sounds<a class="headerlink" href="#sounds" title="Link to this heading"></a></h1>
 <section id="module-src.FMOD.Sounds.EVSoundEngine">
 <span id="evsoundengine"></span><h2>EVSoundEngine<a class="headerlink" href="#module-src.FMOD.Sounds.EVSoundEngine" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.EVSoundEngine.EVSoundEngine">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">EVSoundEngine</span></span><a class="reference internal" href="_modules/src/FMOD/Sounds/EVSoundEngine.html#EVSoundEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/EVSoundEngine.html#EVSoundEngine.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.start" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.update_params">
-<span class="sig-name descname"><span class="pre">update_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed_kmh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">road_roughness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/EVSoundEngine.html#EVSoundEngine.update_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.update_params" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/EVSoundEngine.html#EVSoundEngine.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.EVSoundEngine.EVSoundEngine.stop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.Sounds.ReverseBeep">
 <span id="reversebeep"></span><h2>ReverseBeep<a class="headerlink" href="#module-src.FMOD.Sounds.ReverseBeep" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.ReverseBeep.ReverseBeep">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ReverseBeep</span></span><a class="reference internal" href="_modules/src/FMOD/Sounds/ReverseBeep.html#ReverseBeep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.ReverseBeep.ReverseBeep" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.ReverseBeep.ReverseBeep.dynamisch_Beep_erstellen">
-<span class="sig-name descname"><span class="pre">dynamisch_Beep_erstellen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/ReverseBeep.html#ReverseBeep.dynamisch_Beep_erstellen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.ReverseBeep.ReverseBeep.dynamisch_Beep_erstellen" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.ReverseBeep.ReverseBeep.play">
-<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/ReverseBeep.html#ReverseBeep.play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.ReverseBeep.ReverseBeep.play" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.ReverseBeep.ReverseBeep.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/ReverseBeep.html#ReverseBeep.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.ReverseBeep.ReverseBeep.update" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.Sounds.ReverseBeep.ReverseBeep.shutdown">
-<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/Sounds/ReverseBeep.html#ReverseBeep.shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.Sounds.ReverseBeep.ReverseBeep.shutdown" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 

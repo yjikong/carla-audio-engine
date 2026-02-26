@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="src.FMOD.Sounds package" href="src.FMOD.Sounds.html" /> 
+    <link rel="prev" title="Sounds" href="src.FMOD.Sounds.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="src.html">Source Code</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="src.html#modules">Modules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.Classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.cmain">cmain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.generate_traffic">generate traffic Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.manual_control_sw">manual control Script</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="reference internal" href="src.FMOD.html">FMOD</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="src.FMOD.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="src.FMOD.html#module-src.FMOD.fmain">fmain</a></li>
@@ -53,7 +59,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.refresh_ui"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.refresh_ui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.kill_process_on_port()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.launch_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.launch_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.stop_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.stop_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.run"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -73,7 +92,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="src.html">Source Code</a></li>
-          <li class="breadcrumb-item"><a href="src.FMOD.html">FMOD</a></li>
+          <li class="breadcrumb-item"><a href="src.FMOD.html">FMOD Module</a></li>
       <li class="breadcrumb-item active">utils</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/src.FMOD.utils.rst.txt" rel="nofollow"> View page source</a>
@@ -88,123 +107,12 @@
 <h1>utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h1>
 <section id="module-src.FMOD.utils.DataKey">
 <span id="datakey"></span><h2>DataKey<a class="headerlink" href="#module-src.FMOD.utils.DataKey" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DataKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/utils/DataKey.html#DataKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
-<p>Enumeration class for saving the string names of the carla client values.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.ACCELERATION">
-<span class="sig-name descname"><span class="pre">ACCELERATION</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'acceleration'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.ACCELERATION" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.BRAKE">
-<span class="sig-name descname"><span class="pre">BRAKE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'brake'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.BRAKE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.COLLISION_EVENT">
-<span class="sig-name descname"><span class="pre">COLLISION_EVENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'collision_event'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.COLLISION_EVENT" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.GEAR">
-<span class="sig-name descname"><span class="pre">GEAR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gear'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.GEAR" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.MESSAGE">
-<span class="sig-name descname"><span class="pre">MESSAGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'message'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.MESSAGE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.RAIN_INTENSITY">
-<span class="sig-name descname"><span class="pre">RAIN_INTENSITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rain_intensity'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.RAIN_INTENSITY" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.SPEED">
-<span class="sig-name descname"><span class="pre">SPEED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'speed'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.SPEED" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.SPEED_LIMIT">
-<span class="sig-name descname"><span class="pre">SPEED_LIMIT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'speed_limit'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.SPEED_LIMIT" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.THROTTLE">
-<span class="sig-name descname"><span class="pre">THROTTLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'throttle'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.THROTTLE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.WIND_INTENSITY">
-<span class="sig-name descname"><span class="pre">WIND_INTENSITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'wind_intensity'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.WIND_INTENSITY" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.HONK">
-<span class="sig-name descname"><span class="pre">HONK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'honk'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.HONK" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.FMOD.utils.DataKey.DataKey.HANDBRAKE">
-<span class="sig-name descname"><span class="pre">HANDBRAKE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'handbrake'</span></span><a class="headerlink" href="#src.FMOD.utils.DataKey.DataKey.HANDBRAKE" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.utils.EventBus">
 <span id="eventbus"></span><h2>EventBus<a class="headerlink" href="#module-src.FMOD.utils.EventBus" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.utils.EventBus.EventBus">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">EventBus</span></span><a class="reference internal" href="_modules/src/FMOD/utils/EventBus.html#EventBus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.EventBus.EventBus" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.utils.EventBus.EventBus.subscribe">
-<span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.FMOD.utils.DataKey.DataKey" title="src.FMOD.utils.DataKey.DataKey"><span class="pre">DataKey</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/src/FMOD/utils/EventBus.html#EventBus.subscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.EventBus.EventBus.subscribe" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.utils.EventBus.EventBus.unsubscribe">
-<span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.FMOD.utils.DataKey.DataKey" title="src.FMOD.utils.DataKey.DataKey"><span class="pre">DataKey</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/src/FMOD/utils/EventBus.html#EventBus.unsubscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.EventBus.EventBus.unsubscribe" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.utils.EventBus.EventBus.publish">
-<span class="sig-name descname"><span class="pre">publish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.FMOD.utils.DataKey.DataKey" title="src.FMOD.utils.DataKey.DataKey"><span class="pre">DataKey</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/src/FMOD/utils/EventBus.html#EventBus.publish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.EventBus.EventBus.publish" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="module-src.FMOD.utils.RangeLevel">
 <span id="rangelevel"></span><h2>RangeLevel<a class="headerlink" href="#module-src.FMOD.utils.RangeLevel" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.FMOD.utils.RangeLevel.RangeLevel">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RangeLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_class_name</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/utils/RangeLevel.html#RangeLevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.RangeLevel.RangeLevel" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
-<p>Generic base class for level definitions with
-lower/upper bounds and a mapped output value.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.utils.RangeLevel.RangeLevel.contains">
-<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/utils/RangeLevel.html#RangeLevel.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.RangeLevel.RangeLevel.contains" title="Link to this definition"></a></dt>
-<dd><p>Checks whether the given value falls within this level’s range.</p>
-<p>The lower bound is inclusive only if it is 0,
-otherwise it is treated as exclusive.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.FMOD.utils.RangeLevel.RangeLevel.from_value">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/utils/RangeLevel.html#RangeLevel.from_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.utils.RangeLevel.RangeLevel.from_value" title="Link to this definition"></a></dt>
-<dd><p>Returns the first level whose range contains the given value.
-Returns None if no matching level is found.</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 
@@ -212,7 +120,7 @@ Returns None if no matching level is found.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.FMOD.Sounds.html" class="btn btn-neutral float-left" title="src.FMOD.Sounds package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.FMOD.Sounds.html" class="btn btn-neutral float-left" title="Sounds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
