@@ -1,5 +1,5 @@
-Code.FMOD package
-=================
+src package
+===========
 
 Subpackages
 -----------
@@ -7,19 +7,16 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   Code.FMOD.Adapters
-   Code.FMOD.Banks
-   Code.FMOD.Model
-   Code.FMOD.Sounds
-   Code.FMOD.utils
+   src.CARLA
+   src.FMOD
 
 Submodules
 ----------
 
-Code.FMOD.fmain module
+src.RunOhmUXSim module
 ----------------------
 
-.. automodule:: Code.FMOD.fmain
+.. automodule:: src.RunOhmUXSim
    :members:
    :show-inheritance:
    :undoc-members:
@@ -27,7 +24,7 @@ Code.FMOD.fmain module
 Module contents
 ---------------
 
-.. automodule:: Code.FMOD
+.. automodule:: src
    :members:
    :show-inheritance:
    :undoc-members:

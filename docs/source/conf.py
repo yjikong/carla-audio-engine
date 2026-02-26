@@ -2,15 +2,32 @@ import os
 import sys
 from unittest.mock import MagicMock
 
-# Geht zwei Ebenen nach oben von /docs/source/ zu deinem /Code/ Ordner
-sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../Code/CARLA'))
+# 1. Path Setup: We add both the Root and the Subfolders
+current_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(current_dir, "../../"))
+src_path = os.path.join(project_root, "src")
 
-# Erweitertes Mocking für verschachtelte Module
+sys.path.insert(0, project_root) # Supports 'from src.xxx'
+sys.path.insert(0, src_path)     # Supports 'from CARLA.xxx'
+sys.path.insert(0, os.path.join(src_path, "CARLA")) # Supports 'from Classes.xxx'
+sys.path.insert(0, os.path.join(src_path, "FMOD"))  # Supports 'from Adapters.xxx'
+
+# 1. Define all modules and submodules that need to be "faked"
 MOCK_MODULES = [
-    'carla', 'numpy', 'pygame', 'pygame.locals', 
-    'pygame.display', 'pygame.draw', 'pygame.event'
+    'carla', 
+    'numpy', 
+    'pygame', 
+    'pygame.locals', 
+    'pyfmodex', 
+    'pyfmodex.studio', 
+    'pyfmodex.studio.enums', 
+    'pyfmodex.exceptions', 
+    'pyfmodex.enums', 
+    'pyfmodex.flags', 
+    'pyfmodex.structures'
 ]
+
+# 2. Inject them into sys.modules as standard MagicMocks
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = MagicMock()
 
@@ -59,18 +76,17 @@ add_module_names = False
 # -- Custom Setup Hook -------------------------------------------------------
 def setup(app):
     def skip(app, what, name, obj, skip, options):
-        # Definiere die Module, die "leer" sein sollen (nur Docstrings)
+        # Adjusted names to match what Sphinx is actually seeing in your logs
         clean_modules = [
-            "Code.CARLA.generate_traffic",
-            "Code.CARLA.manual_control_sw" # Prüfe, ob der Name exakt stimmt
+            "src.CARLA.generate_traffic",
+            "src.CARLA.manual_control_sw",
+            "CARLA.generate_traffic",
+            "CARLA.manual_control_sw"
         ]
         
-        # Hole das Modul, zu dem das aktuelle Objekt gehört
         module_name = getattr(obj, "__module__", None)
 
         if module_name in clean_modules:
-            # Wenn wir uns in einem der Zielmodule befinden, 
-            # überspringen wir alles (Funktionen, Klassen, etc.)
             return True 
             
         return skip
