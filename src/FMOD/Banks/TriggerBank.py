@@ -10,18 +10,10 @@ import pyfmodex
 from pyfmodex.studio import StudioSystem 
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
-
-# Events aus FMOD Projekt deklarieren
-WARNING_EVENT_PATH = "event:/Warning"
-CRASH_EVENT_PATH = "event:/Crash"
-HONK_EVENT_PATH = "event:/Honk"
-HANDBRAKE_EVENT_PATH = "event:/HandBrake"
-
-# Triggerbankpath auflösen
-FILE_DIR = Path(__file__).resolve().parent
-DEFAULT_BANK_PATH = str((FILE_DIR.parents[2] / 'Banks' / 'Trigger_Bank').resolve())
+from config import *
 
 class TriggerBank:
+    DEFAULT_BANK_PATH = TRIGGER_BANK_PATH
     def __init__(self):
         self.warning_sound = None
         self.crash_sound = None
@@ -37,13 +29,13 @@ class TriggerBank:
         self.studio_system = StudioSystem()
         self.studio_system.initialize(max_channels=512)
 
-    def __init_events(self, bank_path=None):
+    def __init_events(self, bank_path=DEFAULT_BANK_PATH):
         self._load(bank_path)
         self._prepare_events()
 
-    def _load(self, bank_path=None):
+    def _load(self, bank_path=DEFAULT_BANK_PATH):
         if bank_path is None:
-            bank_path = DEFAULT_BANK_PATH
+            bank_path = self.DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
         print(f"[{self.__class__.__name__}] Resolved bank path: {bank_path}")
 
