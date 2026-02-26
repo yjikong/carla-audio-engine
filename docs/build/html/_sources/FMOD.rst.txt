@@ -1,0 +1,33 @@
+FMOD package
+============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   FMOD.Adapters
+   FMOD.Banks
+   FMOD.Model
+   FMOD.Sounds
+   FMOD.utils
+
+Submodules
+----------
+
+FMOD.fmain module
+-----------------
+
+.. automodule:: FMOD.fmain
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: FMOD
+   :members:
+   :show-inheritance:
+   :undoc-members:
