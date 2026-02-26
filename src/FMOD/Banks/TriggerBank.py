@@ -10,7 +10,7 @@ import pyfmodex
 from pyfmodex.studio import StudioSystem 
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
-from config import *
+from .config import *
 
 class TriggerBank:
     DEFAULT_BANK_PATH = TRIGGER_BANK_PATH

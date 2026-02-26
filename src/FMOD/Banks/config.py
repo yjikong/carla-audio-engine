@@ -1,7 +1,7 @@
 from pathlib import Path
 
 FILE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = FILE_DIR.parent
+PROJECT_ROOT = FILE_DIR.parents[2]
 BANKS_DIR = PROJECT_ROOT / "Banks"
 
 TRIGGER_BANK_PATH = str((BANKS_DIR / "Trigger_Bank").resolve())

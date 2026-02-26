@@ -10,7 +10,7 @@ from pyfmodex.studio import StudioSystem
 from pyfmodex.studio.enums import PLAYBACK_STATE
 from pyfmodex.exceptions import FmodError
 
-from config import *
+from .config import *
 
 class EnvironmentBank:
     DEFAULT_BANK_PATH = ENVIRONMENT_BANK_PATH
