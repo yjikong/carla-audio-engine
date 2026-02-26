@@ -93,4 +93,5 @@ class TriggerAdapter:
                 self.handBrake_trigger = True
             if self.bank.handBrake_sound.playback_state == PLAYBACK_STATE.STOPPED:
                 self.handBrake_trigger = False
-            self.handBrake_flag = not self.handBrake_flag
+            if not self.handBrake_flag:
+                self.handBrake_flag = True
