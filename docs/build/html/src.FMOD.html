@@ -143,6 +143,27 @@
 </section>
 <section id="module-src.FMOD.fmain">
 <span id="fmain"></span><h2>fmain<a class="headerlink" href="#module-src.FMOD.fmain" title="Link to this heading"></a></h2>
+<p>FMOD Integration Main Entry Point</p>
+<p>This module orchestrates the FMOD audio system by initializing the global
+EventBus, loading sound banks, and connecting simulation adapters to their
+respective sound engines. It manages the high-level execution loop for
+audio parameter updates.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.FMOD.fmain.main">
+<span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/FMOD/fmain.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.FMOD.fmain.main" title="Link to this definition"></a></dt>
+<dd><p>Bootstraps the audio engine components and enters the main update loop.</p>
+<p>The initialization sequence follows these steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Initialize the global <code class="xref py py-class docutils literal notranslate"><span class="pre">EventBus</span></code> for inter-module communication.</p></li>
+<li><p>Load environmental and trigger-based <code class="xref py py-class docutils literal notranslate"><span class="pre">Banks</span></code>.</p></li>
+<li><p>Instantiate sound engines (EV and Reverse Beep).</p></li>
+<li><p>Bind <code class="xref py py-class docutils literal notranslate"><span class="pre">Adapters</span></code> to bridge the EventBus and Sound Engines.</p></li>
+<li><p>Execute a continuous tick loop at approximately 20Hz (0.05s interval).</p></li>
+</ol>
+</div></blockquote>
+</dd></dl>
+
 </section>
 </section>
 
