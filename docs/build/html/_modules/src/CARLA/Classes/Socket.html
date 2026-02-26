@@ -41,7 +41,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../src.html">src package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../src.html">Source Code</a></li>
 </ul>
 
         </div>
@@ -76,13 +76,41 @@
 <div class="viewcode-block" id="Socket">
 <a class="viewcode-back" href="../../../../src.CARLA.Classes.html#src.CARLA.Classes.Socket.Socket">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Socket</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handles UDP networking for broadcasting simulation telemetry.</span>
+
+<span class="sd">    This class initializes a local UDP socket to transmit JSON-encoded data </span>
+<span class="sd">    packets. It acts as the primary transmitter for sending CARLA vehicle </span>
+<span class="sd">    states and environmental data to external listeners, such as the FMOD </span>
+<span class="sd">    integration layer.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        UDP_IP (str): The destination IP address (default: &quot;127.0.0.1&quot;).</span>
+<span class="sd">        UDP_PORT (int): The destination port number (default: 5005).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Socket.__init__">
+<a class="viewcode-back" href="../../../../src.CARLA.Classes.html#src.CARLA.Classes.Socket.Socket.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the UDP socket and sets network parameters.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">UDP_IP</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">UDP_PORT</span> <span class="o">=</span> <span class="mi">5005</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">udp</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">udp</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">udp</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">udp</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">udp</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">udp</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Socket.publish_data">
 <a class="viewcode-back" href="../../../../src.CARLA.Classes.html#src.CARLA.Classes.Socket.Socket.publish_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">publish_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_packet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serializes and sends a data packet over the UDP socket.</span>
+
+<span class="sd">        Converts a dictionary-based data packet into a JSON string, </span>
+<span class="sd">        encodes it into bytes, and transmits it to the pre-configured </span>
+<span class="sd">        IP and Port.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_packet (dict): The telemetry data dictionary generated </span>
+<span class="sd">                by the CarlaClient&#39;s retrieve_data method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_packet</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">UDP_IP</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">UDP_PORT</span><span class="p">))</span></div>
 </div>
