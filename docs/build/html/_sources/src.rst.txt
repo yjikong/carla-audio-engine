@@ -1,30 +1,20 @@
-src package
+Source Code
 ===========
 
-Subpackages
+Modules
 -----------
 
 .. toctree::
    :maxdepth: 4
 
-   src.CARLA
-   src.FMOD
+   CARLA <src.CARLA>
+   FMOD <src.FMOD>
 
-Submodules
-----------
 
-src.RunOhmUXSim module
+RunOhmUXSim
 ----------------------
 
 .. automodule:: src.RunOhmUXSim
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src
    :members:
    :show-inheritance:
    :undoc-members:

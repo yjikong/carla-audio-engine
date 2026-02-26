@@ -1,18 +1,12 @@
-src.CARLA package
+CARLA Module
 =================
-
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4
 
-   src.CARLA.Classes
+   Classes <src.CARLA.Classes>
 
-Submodules
-----------
-
-src.CARLA.cmain module
+cmain
 ----------------------
 
 .. automodule:: src.CARLA.cmain
@@ -20,26 +14,18 @@ src.CARLA.cmain module
    :show-inheritance:
    :undoc-members:
 
-src.CARLA.generate\_traffic module
-----------------------------------
+generate traffic Script
+-----------------------
 
 .. automodule:: src.CARLA.generate_traffic
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.CARLA.manual\_control\_sw module
-------------------------------------
+manual control Script
+---------------------
 
 .. automodule:: src.CARLA.manual_control_sw
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.CARLA
    :members:
    :show-inheritance:
    :undoc-members:
