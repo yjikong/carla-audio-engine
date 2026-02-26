@@ -140,6 +140,41 @@ The system is divided into two parts—Carla and FMOD. The Carla part essentiall
 and communication with the Carla simulator. The FMOD part handles sound playback.
 
 ### 1. Carla
+The __CARLA part__ is responsible for connecting to the Carla simulator and providing the __simulation data__ that is later used by the 
+FMOD subsystem for audio playback. Technically, it consists of a lightweight client that connects to the running Carla server,
+locates/monitors the "hero" vehicle reads relevant state information, and __periodically sends it via UDP as JSON__ to a local receiver.
+
+#### Folder structure
+- `cmain.py`  
+  Entry point for the Carla client. Starts the data loop (polling simulation values) and sends data packets at a fixed interval.
+  It also launches a small weather UI to adjust weather parameters during runtim.
+- `Classes\`  
+  Contains the cor calsses for connecting, sensing, data transport, and UI:
+  - `__init__.py`
+  Exposes the main classes as package imports.
+  - `CarlaClient.py`
+  Encapsulates the Carla server connection, retrieves the `world`, searches for a vehicle, and continuously reads vehicle and environment data.
+  It also attaches a collision sensor and produces a compact data packet (relevant for the sound logic).
+  - `CollisionSensor.py`
+  Implements a Carla collision sensor that counts collisions and measures their intensity, used to trigger crash events.
+  - `Socket.py`
+  Minimal UDP wrapper for sending JSON data (locally to 127.0.0.1 on a fix port)
+  - `Weather.py`
+  Small Tkinter GUI used to set rain and wind intensity in the running simulation.
+- `generate_traffic.py`
+Script to generate traffic in the simulator.
+- `requirements.txt`
+Python dependencies that are required for the Carla client (will be installed into a venv).
+
+#### Data flow
+1. `cmain.py` starts the client and the sender loop.
+2. `CarlaClient` connects to the simulator, finds the ego/hero vehicle, and attaches a `CollisionSensor`.
+3. At short intervals, it reads relevant states (vehicle motion/control, speed/speed limit, wheather, events like collisions/honk)
+4. `Socket` serializes the values as JSON and sends them via UDP to the local receiver (FMOD subsystem).
+
+__Goal of this module:__
+Provide a robust and easily extensible interface between the Carla simulation and the sound system, without embedding sound logic directly inside the Carla side.
+
 
 ### 2. FMOD
 The FMOD subsystem is based on an MVC architecture. This can be seen in the model and adapter classes.  
