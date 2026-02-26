@@ -2,11 +2,11 @@ from pyfmodex.studio.enums import PLAYBACK_STATE
 
 from ..Sounds.EVSoundEngine import *
 from ..utils.EventBus import *
-from Code.FMOD.Banks import TriggerBank
-from Code.FMOD.utils import DataKey
-from Code.FMOD.utils.DataKey import DataKey
+from ..Banks import TriggerBank
+from ..utils import DataKey
+from ..utils.DataKey import DataKey
 from ..utils.EventBus import EventBus
-from Code.FMOD.Banks import ExampleBank
+from ..Banks import ExampleBank
 import keyboard
 
 
@@ -27,15 +27,10 @@ class EngineAdapter:
         self.update()
 
     def calculate_torque(self, speed, throttle):
-        # Wenn Throttle 0 -> Torque 0
-        if throttle == 0:
+        if throttle <= 0:
             return 0
-        elif throttle > 0 and speed > 0:
+        elif throttle > 0:
             return 1
-        elif throttle > 0 and speed < 0:
-            return -0.8
-        else:
-            return 0
 
     def update(self):
         """Updates engine and sound states each frame"""
