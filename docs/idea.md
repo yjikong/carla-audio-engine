@@ -1,7 +1,8 @@
-Idee: Alle Banks in eine Klasse Bank
-- Alles was geladen werden muss wird in einer Datei oder so definiert
-- Durch diese durch iterieren um alle zu laden 
-- Dann vllt static
+Idee: 
+---
+Alle Banks in eine **einzige** Klasse Bank
+Alles, was geladen werden muss wird in der config-Datei definiert
+Um alle Banks zu laden wird über eine Liste dieser iteriert.
 
 Bei dieser Idee müsste man also globale Parameter und instanzparam beachten
 ich bräuchte damit eine Liste der zuordnung welcher Parameter zu welcher Instanz
@@ -31,3 +32,69 @@ Es könnte interessant sein, folgende Werte zu publishen
 | `event_parameter_changed` | Parametername + Wert | Falls du dynamische Parameter im Event setzt                             |
 | `bank_loaded`             | Bankname             | Optional, falls Monitoring benötigt                                      |
 | `studio_updated`          | Timestamp / Counter  | Optional, falls Subscriber wissen wollen, dass Studio aktualisiert wurde |
+
+# 💡 Feature Idea: Central Bank class
+
+## 1. Motivation
+This could be useful as at the moment we have several different Bank classes that have to maintained
+Warum ist diese Idee sinnvoll?
+Welches Problem wird gelöst?
+Welcher Mehrwert entsteht?
+
+---
+
+## 2. Aktueller Stand
+Wie funktioniert das System aktuell?
+Welche Klassen / Module sind betroffen?
+(z.B. MotorBank, EventBus, SimulationController)
+
+---
+
+## 3. Zielbild (Soll-Zustand)
+Wie soll es am Ende funktionieren?
+Beschreibe das Verhalten möglichst konkret.
+
+Beispiel:
+- Motorgeräusch reagiert dynamisch auf Drehzahl
+- Wetter beeinflusst Wind-Sound kontinuierlich
+- Honk nur bei Zustandswechsel
+
+---
+
+## 4. Technische Umsetzungsidee
+
+### 4.1 Betroffene Module
+- audio/banks/motor_bank.py
+- audio/event_bus.py
+- simulation/weather_controller.py
+
+### 4.2 Neue Klassen / Änderungen
+- Neue Klasse?
+- Neue Events?
+- Erweiterung bestehender Methoden?
+
+### 4.3 Datenfluss
+Beschreibe den Flow:
+
+CARLA → EventBus → Bank → FMOD Event → Playback
+
+---
+
+## 5. Risiken / offene Fragen
+- Performance?
+- Race Conditions?
+- Event-Überlappung?
+- FMOD Parameter-Typ (discrete vs continuous)?
+
+---
+
+## 6. Erweiterungsmöglichkeiten
+Was könnte später darauf aufbauen?
+
+---
+
+## 7. TODO
+- [ ] Konzept validieren
+- [ ] Architektur skizzieren (PlantUML)
+- [ ] Prototype implementieren
+- [ ] Testfälle definieren
