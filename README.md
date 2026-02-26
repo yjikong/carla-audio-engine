@@ -37,7 +37,7 @@ as a proof of concept or starting point for further development.
 ## How to run
 ```mermaid
 flowchart TD
-  A[Download all dependencies](#dependencies) --> B[Checkout Code into IDE]
+  A[Download all dependencies] --> B[Checkout Code into IDE]
   B --> C[Create Carla Client Venv]
   C --> D[Create Carla Code Venv]
   D --> E[Create FMOD Code Venv]
