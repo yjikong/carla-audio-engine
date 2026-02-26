@@ -372,10 +372,46 @@ by the CarlaClient’s retrieve_data method.</p>
 <dt class="sig sig-object py" id="src.CARLA.Classes.Weather.Weather">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Weather</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/Weather.html#Weather"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.Weather.Weather" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A graphical user interface for real-time CARLA weather manipulation.</p>
+<p>This class creates a Tkinter-based window with sliders to dynamically
+adjust environmental parameters in the simulation. It maps UI inputs
+directly to the control methods of a provided CARLA client.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CARLA.Classes.Weather.Weather.client">
+<span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#src.CARLA.Classes.Weather.Weather.client" title="Link to this definition"></a></dt>
+<dd><p>An instance of the CARLA client (e.g., CarlaClient)
+responsible for executing weather updates.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.CARLA.Classes.Weather.Weather.root">
+<span class="sig-name descname"><span class="pre">root</span></span><a class="headerlink" href="#src.CARLA.Classes.Weather.Weather.root" title="Link to this definition"></a></dt>
+<dd><p>The main Tkinter window instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.CARLA.Classes.Weather.Weather.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/Weather.html#Weather.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.Weather.Weather.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the Weather UI with a reference to the simulation client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>client</strong> – The client object containing <cite>set_rain</cite> and <cite>set_wind</cite>
+methods to be controlled via the UI sliders.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="src.CARLA.Classes.Weather.Weather.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/CARLA/Classes/Weather.html#Weather.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.CARLA.Classes.Weather.Weather.run" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Starts the Tkinter event loop to display the weather control window.</p>
+<p>This method blocks execution until the window is closed.</p>
+</dd></dl>
 
 </dd></dl>
 
