@@ -1,3 +1,18 @@
+"""
+SoundCARLA Master Launcher
+
+Dieses Modul stellt eine grafische Benutzeroberfläche (Tkinter) zur Steuerung der 
+gesamten SoundCARLA-Simulationsumgebung bereit. Es fungiert als Orchestrator, 
+der den CARLA-Simulator, Client-Skripte, die FMOD-Audio-Engine und Traffic-Manager 
+in ihren jeweiligen virtuellen Umgebungen startet.
+
+Hauptfunktionen:
+    * Konfigurationsmanagement über 'sim_config.json'.
+    * Dynamische Pfadauswahl für verschiedene Python-Interpreten (venvs).
+    * Automatisierte Startsequenz mit Port-Bereinigung und Server-Health-Checks.
+    * Unterstützung für Rendering-Optionen (z. B. DirectX 11).
+"""
+
 import subprocess
 import os
 import json
@@ -8,12 +23,32 @@ from tkinter import *
 from tkinter import ttk, filedialog
 
 class SimulatorGUI:
+    """
+    GUI class for managing and launching simulation processes.
+
+    This class encapsulates the entire process management logic for the SoundCARLA 
+    environment. It ensures the CARLA server is fully initialized and reachable 
+    before triggering dependent clients, such as the FMOD audio engine or 
+    manual control scripts.
+
+    Attributes:
+        config_path (Path): Path to the JSON configuration file ('sim_config.json').
+        paths (dict): Dictionary containing all configured absolute paths to 
+            executables and scripts.
+        processes (list): List of currently active subprocess.Popen objects for 
+            lifecycle management.
+        dx11_var (BooleanVar): Tkinter variable tracking the DirectX 11 
+            rendering preference. If True, the '-dx11' flag is appended to 
+            the CARLA launch command.
+    """
     def __init__(self):
+        """
+        Initializes the GUI window, loads saved paths from config, and 
+        constructs the interface components.
+        """
         base_dir = Path(__file__).resolve().parent
         self.config_path = base_dir / "sim_config.json"
         
-        # Initialisiere Pfade und Optionen
-        # Added "USE_DX11" to the default config
         self.paths = self.load_config({
             "CARLA_SIM": "",
             "SIM_VENV_PYTHON": "",
@@ -28,9 +63,8 @@ class SimulatorGUI:
 
         self.root = Tk()
         self.root.title("SoundCARLA Master Launcher")
-        self.root.geometry("550x600") # Increased height slightly for the checkbox
+        self.root.geometry("550x600")
         
-        # Tkinter variable for the checkbox
         self.dx11_var = BooleanVar(value=self.paths.get("USE_DX11", True))
         
         self.processes = []
@@ -142,6 +176,17 @@ class SimulatorGUI:
         thread.start()
 
     def _run_launch_sequence(self):
+        """
+        Executes the critical launch sequence in a background thread.
+        
+        The sequence follows these stages:
+            1. Port Cleanup: Terminates any existing processes on port 2000.
+            2. Simulator Start: Launches CARLA with the optional -dx11 flag.
+            3. Health Check: Polls the CARLA server until a world connection 
+               is established.
+            4. Orchestration: Sequentially starts Manual Control, the CARLA 
+               Client (cmain.py), FMOD Engine, and Traffic Manager.
+        """
         self.status_var.set("Bereinige Ports...")
         self.kill_process_on_port(2000)
         
