@@ -81,7 +81,9 @@ class SoundModel:
         audio-simulation synchronicity.
         """    
         old_data = self.client_data.copy()
-        self.client_data = self._decode()
+        new_data = self._decode()
+        if new_data is not None:
+            self.client_data = new_data.copy()
 
         diff = self._calculate_diff(self.client_data, old_data)
 
