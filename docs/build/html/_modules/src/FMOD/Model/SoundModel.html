@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -111,19 +116,63 @@
 <div class="viewcode-block" id="SoundModel">
 <a class="viewcode-back" href="../../../../src.FMOD.Model.html#src.FMOD.Model.SoundModel.SoundModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SoundModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Network listener and data dispatcher for the audio engine.</span>
+
+<span class="sd">    This class operates as the primary data gateway. It listens for incoming </span>
+<span class="sd">    UDP packets containing simulation state data (in JSON format), decodes them, </span>
+<span class="sd">    and identifies changes between consecutive data frames. Significant changes </span>
+<span class="sd">    are then published to the :class:`EventBus` to notify registered adapters.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        bus (EventBus): The central communication hub for publishing simulation updates.</span>
+<span class="sd">        sock (socket.socket): The UDP socket used for receiving simulation data.</span>
+<span class="sd">        client_data (dict): A local cache of the most recent data frame received </span>
+<span class="sd">            from the simulation client.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SoundModel.__init__">
+<a class="viewcode-back" href="../../../../src.FMOD.Model.html#src.FMOD.Model.SoundModel.SoundModel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_bus</span><span class="p">:</span> <span class="n">EventBus</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the network socket and binds it to the local UDP endpoint.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event_bus (EventBus): The bus instance where simulation data </span>
+<span class="sd">                will be dispatched.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bus</span> <span class="o">=</span> <span class="n">event_bus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">UDP_IP</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_decode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Receives and deserializes the incoming UDP data packet.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict[str, object]: A dictionary representation of the received JSON data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
         <span class="c1"># JSON-String to dictionary</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span> <span class="n">old_values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">DataKey</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compares the new data frame with the previous state to detect changes.</span>
+
+<span class="sd">        This method performs a delta-check to ensure that only modified values </span>
+<span class="sd">        are published. It also converts string keys from the JSON packet into </span>
+<span class="sd">        formal :class:`DataKey` enum members.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            new_values (dict): The data frame just received.</span>
+<span class="sd">            old_values (dict): The data frame from the previous tick.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict[DataKey, object]: A dictionary of modified keys and their new values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">diff</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">DataKey</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key_str</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">new_values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">old_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key_str</span><span class="p">)</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
@@ -136,7 +185,15 @@
 
 <div class="viewcode-block" id="SoundModel.on_tick">
 <a class="viewcode-back" href="../../../../src.FMOD.Model.html#src.FMOD.Model.SoundModel.SoundModel.on_tick">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">on_tick</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>      
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_tick</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main execution loop for the network listener.</span>
+
+<span class="sd">        Captures a new data frame, identifies changed attributes, and </span>
+<span class="sd">        publishes the differences to the EventBus. This should be called </span>
+<span class="sd">        frequently (typically within the main program loop) to ensure </span>
+<span class="sd">        audio-simulation synchronicity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
         <span class="n">old_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">()</span>
 

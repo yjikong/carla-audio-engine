@@ -7,7 +7,28 @@ UDP_IP = "127.0.0.1"
 UDP_PORT = 5005
 
 class SoundModel:
+    """
+    Network listener and data dispatcher for the audio engine.
+
+    This class operates as the primary data gateway. It listens for incoming 
+    UDP packets containing simulation state data (in JSON format), decodes them, 
+    and identifies changes between consecutive data frames. Significant changes 
+    are then published to the :class:`EventBus` to notify registered adapters.
+
+    Attributes:
+        bus (EventBus): The central communication hub for publishing simulation updates.
+        sock (socket.socket): The UDP socket used for receiving simulation data.
+        client_data (dict): A local cache of the most recent data frame received 
+            from the simulation client.
+    """
     def __init__(self, event_bus: EventBus):
+        """
+        Initializes the network socket and binds it to the local UDP endpoint.
+
+        Args:
+            event_bus (EventBus): The bus instance where simulation data 
+                will be dispatched.
+        """
         self.bus = event_bus
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((UDP_IP, UDP_PORT))
@@ -15,11 +36,31 @@ class SoundModel:
         self.client_data: dict[str, object] = {}
 
     def _decode(self) -> dict[str, object]:
+        """
+        Receives and deserializes the incoming UDP data packet.
+
+        Returns:
+            dict[str, object]: A dictionary representation of the received JSON data.
+        """
         data, _ = self.sock.recvfrom(2048)
         # JSON-String to dictionary
         return json.loads(data.decode())
     
     def _calculate_diff(self, new_values: dict[str, object], old_values: dict[str, object]) -> dict[DataKey, object]:
+        """
+        Compares the new data frame with the previous state to detect changes.
+
+        This method performs a delta-check to ensure that only modified values 
+        are published. It also converts string keys from the JSON packet into 
+        formal :class:`DataKey` enum members.
+
+        Args:
+            new_values (dict): The data frame just received.
+            old_values (dict): The data frame from the previous tick.
+
+        Returns:
+            dict[DataKey, object]: A dictionary of modified keys and their new values.
+        """
         diff: dict[DataKey, object] = {}
         for key_str, value in new_values.items():
             if old_values.get(key_str) != value:
@@ -30,7 +71,15 @@ class SoundModel:
                     print(f"Unknown key received: {key_str}")
         return diff
 
-    def on_tick(self) -> None:      
+    def on_tick(self) -> None:
+        """
+        Main execution loop for the network listener.
+
+        Captures a new data frame, identifies changed attributes, and 
+        publishes the differences to the EventBus. This should be called 
+        frequently (typically within the main program loop) to ensure 
+        audio-simulation synchronicity.
+        """    
         old_data = self.client_data.copy()
         self.client_data = self._decode()
 
