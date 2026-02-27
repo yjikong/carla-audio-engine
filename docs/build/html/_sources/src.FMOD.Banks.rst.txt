@@ -1,45 +1,34 @@
-src.FMOD.Banks package
-======================
+Banks
+=====
 
-Submodules
-----------
-
-src.FMOD.Banks.EnvironmentBank module
--------------------------------------
+EnvironmentBank
+---------------
 
 .. automodule:: src.FMOD.Banks.EnvironmentBank
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Banks.ExampleBank module
----------------------------------
+ExampleBank
+-----------
 
 .. automodule:: src.FMOD.Banks.ExampleBank
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Banks.TriggerBank module
----------------------------------
+TriggerBank
+-----------
 
 .. automodule:: src.FMOD.Banks.TriggerBank
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Banks.config module
-----------------------------
+config
+------
 
 .. automodule:: src.FMOD.Banks.config
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.FMOD.Banks
    :members:
    :show-inheritance:
    :undoc-members:

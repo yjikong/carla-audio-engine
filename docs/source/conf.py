@@ -73,6 +73,11 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 add_module_names = False
 
+html_theme_options = {
+    'collapse_navigation': False,
+    'navigation_depth': 4,
+}
+
 # -- Custom Setup Hook -------------------------------------------------------
 def setup(app):
     def skip(app, what, name, obj, skip, options):

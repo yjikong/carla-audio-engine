@@ -1,33 +1,23 @@
-src.FMOD package
-================
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   src.FMOD.Adapters
-   src.FMOD.Banks
-   src.FMOD.Model
-   src.FMOD.Sounds
-   src.FMOD.utils
+FMOD Module
+===========
 
 Submodules
 ----------
 
-src.FMOD.fmain module
----------------------
+.. toctree::
+   :maxdepth: 5
+   :hidden:
+
+   Adapters <src.FMOD.Adapters>
+   Banks <src.FMOD.Banks>
+   Model <src.FMOD.Model>
+   Sounds <src.FMOD.Sounds>
+   utils <src.FMOD.utils>
+
+fmain
+-----
 
 .. automodule:: src.FMOD.fmain
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.FMOD
    :members:
    :show-inheritance:
    :undoc-members:

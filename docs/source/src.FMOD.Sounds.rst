@@ -1,29 +1,18 @@
-src.FMOD.Sounds package
-=======================
+Sounds
+======
 
-Submodules
-----------
-
-src.FMOD.Sounds.EVSoundEngine module
-------------------------------------
+EVSoundEngine
+-------------
 
 .. automodule:: src.FMOD.Sounds.EVSoundEngine
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.Sounds.ReverseBeep module
-----------------------------------
+ReverseBeep
+-----------
 
 .. automodule:: src.FMOD.Sounds.ReverseBeep
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.FMOD.Sounds
    :members:
    :show-inheritance:
    :undoc-members:

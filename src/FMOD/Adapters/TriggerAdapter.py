@@ -18,10 +18,33 @@ das Event nur noch korrekt ein einziges Mal abgespielt
 '''
 
 class TriggerAdapter:
+    """
+    Adapter for managing discrete sound triggers based on simulation events.
+
+    This class handles one-shot audio events such as gear shifts, crashes, 
+    speed warnings, and the vehicle horn. It implements internal debouncing 
+    logic and state tracking (e.g., counters and flags) to ensure sounds are 
+    triggered correctly and only once per event, preventing double-triggering 
+    from the EventBus.
+
+    Attributes:
+        reverse_beep (ReverseBeep): Engine for the rhythmic reverse warning sound.
+        bank (TriggerBank): FMOD bank containing one-shot sound events.
+        honk_counter (int): Counter used to debounce horn events, ensuring the 
+            sound only plays once per key press.
+    """
     GEAR_REVERSE = -1
     SPEED_LIMIT = 100
     HANDBRAKE_SPEED = 40
     def __init__(self, event_bus: EventBus, rev_beep: ReverseBeep, bank: TriggerBank):
+        """
+        Initializes the TriggerAdapter and subscribes to simulation data.
+
+        Args:
+            event_bus (EventBus): The system bus for event subscriptions.
+            rev_beep (ReverseBeep): The sound engine instance for reverse beeps.
+            bank (TriggerBank): The bank containing one-shot audio instances.
+        """
         self.past_gear = None
         self.speed_trigger = False
         self.crash_trigger = False
@@ -40,8 +63,16 @@ class TriggerAdapter:
         event_bus.subscribe(DataKey.HANDBRAKE, self.on_handBrake)
 
     def on_reverse(self, current_gear):
+        """
+        Evaluates gear changes to trigger the reverse beep engine.
+
+        Args:
+            current_gear (int): The current gear value from the simulation.
+            GEAR_REVERSE (int): Constant identifying the reverse gear (-1).
+            SPEED_LIMIT (int): Threshold in km/h for the overspeed warning.
+            HANDBRAKE_SPEED (int): Minimum speed required to trigger handbrake sounds.
+        """
         val = None
-        # Sets reverse sound trigger based on gear changes
         if current_gear == self.GEAR_REVERSE and self.past_gear == None:
             val = True
         elif current_gear == self.GEAR_REVERSE and self.past_gear != self.GEAR_REVERSE:
@@ -53,11 +84,21 @@ class TriggerAdapter:
             self.reverse_beep.play()
 
     def on_tick(self):
+        """
+        Updates the internal sound engine and FMOD system on every frame.
+        """
         self.reverse_beep.update()
         self.bank.update_studio_system()
 
     def on_speed(self, speed=0):
-        """Plays speed warning; resets trigger when finished"""
+        """
+        Triggers an overspeed warning sound if the speed limit is exceeded.
+
+        The trigger is reset only once the warning sound has finished playing.
+
+        Args:
+            speed (float): Current vehicle speed.
+        """
         self.speed = speed
         self.reverse_beep.update()
         if speed > self.SPEED_LIMIT and self.speed_trigger is False:
@@ -67,7 +108,12 @@ class TriggerAdapter:
             self.speed_trigger = False
 
     def on_crash(self, crash):
-        """Plays crash sound once per crash event"""
+        """
+        Triggers the crash sound effect upon impact.
+
+        Args:
+            crash: unused.
+        """
         if self.crash_trigger is False and self.crash_counter >= 1:
             self.bank.play_crash()
             self.crash_trigger = True
@@ -77,7 +123,12 @@ class TriggerAdapter:
             self.crash_counter = self.crash_counter + 1
     
     def on_honk(self, honk):
-        """Plays honk sound on even counts when stopped"""
+        """
+        Triggers the vehicle horn with debouncing logic.
+
+        Uses an internal counter to filter out redundant triggers from 
+        continuous key-press updates.
+        """
         if self.honk_trigger is False and self.honk_counter % 2 == 0:
             self.bank.play_honk()
             self.crash_trigger = True
@@ -86,7 +137,12 @@ class TriggerAdapter:
         self.honk_counter = self.honk_counter + 1
 
     def on_handBrake(self, handBrake):
-        """Plays handbrake sound on alternating calls if available"""
+        """
+        Triggers the handbrake sound effect if the vehicle is moving.
+
+        Args:
+            handBrake: unused.
+        """
         if self.speed > self.HANDBRAKE_SPEED:
             if self.handBrake_trigger is False and self.handBrake_flag:
                 self.bank.play_handBrake()
