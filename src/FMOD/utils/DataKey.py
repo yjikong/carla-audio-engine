@@ -12,37 +12,37 @@ class DataKey(str, Enum):
     """
 
     ACCELERATION = "acceleration"
-    """str: Vehicle acceleration vector or magnitude."""
+    """str: Key for vehicle acceleration."""
 
     BRAKE = "brake"
-    """str: Brake pedal input state ranging from 0.0 to 1.0."""
+    """str: Key for brake pedal input state."""
 
     COLLISION_EVENT = "collision_event"
     """str: Trigger key for vehicle impact detections."""
 
     GEAR = "gear"
-    """str: Current transmission gear index (e.g., -1 for Reverse, 0 for Neutral)."""
+    """str: Key for transmission gear index."""
 
     MESSAGE = "message"
-    """str: General purpose system or debug messages."""
+    """str: Key for general purpose system or debug messages."""
 
     RAIN_INTENSITY = "rain_intensity"
-    """str: Precipitation percentage (0-100) used for ambient sound modulation."""
+    """str: Key for precipitation"""
 
     SPEED = "speed"
-    """str: Current vehicle velocity in km/h."""
+    """str: Key for vehicle velocity."""
 
     SPEED_LIMIT = "speed_limit"
-    """str: Local speed limit for the current road segment in km/h."""
+    """str: Key for local speed limit of the current road segment."""
 
     THROTTLE = "throttle"
-    """str: Throttle pedal input state ranging from 0.0 to 1.0."""
+    """str: Key for throttle pedal input state."""
 
     WIND_INTENSITY = "wind_intensity"
-    """str: Wind speed percentage (0-100) used for ambient sound modulation."""
+    """str: Key for wind speed percentage."""
 
     HONK = "honk"
-    """str: State of the vehicle's horn trigger."""
+    """str: Key for state of the vehicle's horn trigger."""
 
     HANDBRAKE = "handbrake"
-    """str: State of the manual parking brake engagement."""
+    """str: Key for state of the manual parking brake engagement."""
