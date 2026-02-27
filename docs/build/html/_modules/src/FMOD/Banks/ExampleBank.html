@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -118,13 +123,43 @@
 <div class="viewcode-block" id="ExampleBank">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ExampleBank</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base template and controller for FMOD Studio Bank management.</span>
+
+<span class="sd">    This class handles the low-level initialization of the FMOD Studio System, </span>
+<span class="sd">    manages the loading of .bank files, and provides an interface for retrieving </span>
+<span class="sd">    event instances. It serves as a blueprint for specialized banks like </span>
+<span class="sd">    :class:`EnvironmentBank` and :class:`TriggerBank`.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The class explicitly configures &#39;PYFMODEX_DLL_PATH&#39; and </span>
+<span class="sd">        &#39;PYFMODEX_STUDIO_DLL_PATH&#39; to locate the FMOD Engine binaries on Windows.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        studio_system (StudioSystem): The core FMOD Studio System instance </span>
+<span class="sd">            managing audio execution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">EXAMPLE_EVENT_PATH</span> <span class="o">=</span> <span class="s2">&quot;event:/Example&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;EXAMPLE_EVENT_PATH (str): The FMOD project path for the example event.&quot;&quot;&quot;</span>
     
+<div class="viewcode-block" id="ExampleBank.__init__">
+<a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the FMOD Studio System and prepares bank-specific events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__init_studio_system</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__init_events</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_events</span><span class="p">()</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__init_studio_system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bootstraps the FMOD Studio API.</span>
+<span class="sd">        </span>
+<span class="sd">        This private method initializes a temporary core system to ensure </span>
+<span class="sd">        drivers are ready, then instantiates and initializes the StudioSystem </span>
+<span class="sd">        with 512 virtual channels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">core_system</span> <span class="o">=</span> <span class="n">pyfmodex</span><span class="o">.</span><span class="n">System</span><span class="p">()</span>
         <span class="n">core_system</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
         <span class="n">core_system</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
@@ -132,10 +167,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">max_channels</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__init_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bank_path</span><span class="o">=</span><span class="n">EXAMPLE_EVENT_PATH</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Orchestrates the loading of banks and preparation of sound events.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bank_path (str): The path to the specific FMOD bank or event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span><span class="n">bank_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_events</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bank_path</span><span class="o">=</span><span class="n">EXAMPLE_EVENT_PATH</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads FMOD .bank files from the local filesystem into memory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bank_path (str): The filesystem path or event identifier.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># if bank_path is None:</span>
         <span class="c1">#     bank_path = DEFAULT_BANK_PATH</span>
         <span class="c1"># bank_path = os.path.normpath(bank_path)</span>
@@ -159,6 +206,12 @@
         <span class="k">pass</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates instances of FMOD events from the loaded banks.</span>
+<span class="sd">        </span>
+<span class="sd">        This method should be overridden in subclasses to assign specific </span>
+<span class="sd">        event instances to class attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># example_event = self.studio_system.get_event(EXAMPLE_EVENT_PATH)</span>
         <span class="c1"># self.example_sound = example_event.create_instance()</span>
         <span class="k">pass</span>
@@ -166,12 +219,24 @@
 <div class="viewcode-block" id="ExampleBank.update_studio_system">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.update_studio_system">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_studio_system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Advances the FMOD Studio playback engine.</span>
+<span class="sd">        </span>
+<span class="sd">        This must be called once per frame (typically via an Adapter) to </span>
+<span class="sd">        process playback states, parameter changes, and 3D positioning.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="ExampleBank.get_events">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.get_events">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_events</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of available event instances.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A mapping of event names to FMOD EventInstance objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">events</span> <span class="o">=</span> <span class="p">{</span>
             <span class="c1"># See EnvironmentBank for example</span>
         <span class="p">}</span>
@@ -181,6 +246,12 @@
 <div class="viewcode-block" id="ExampleBank.shutdown">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.ExampleBank.ExampleBank.shutdown">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gracefully releases the FMOD Studio System and frees native memory.</span>
+<span class="sd">        </span>
+<span class="sd">        Ensures that all audio handles are invalidated to prevent memory leaks </span>
+<span class="sd">        during simulation shutdown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Releasing Studio System&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>

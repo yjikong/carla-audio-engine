@@ -1,18 +1,41 @@
+"""
+FMOD Project Configuration
+
+This module defines the filesystem paths and event strings required to link 
+the Python engine with FMOD Studio assets. It dynamically resolves the 
+project root to ensure cross-platform compatibility and defines the 
+URI-style paths for specific FMOD events.
+"""
+
 from pathlib import Path
 
+# --- Path Resolution ---
 FILE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = FILE_DIR.parents[2]
 BANKS_DIR = PROJECT_ROOT / "Banks"
 
+#: Absolute path to the Trigger sound banks directory.
 TRIGGER_BANK_PATH = str((BANKS_DIR / "Trigger_Bank").resolve())
+
+#: Absolute path to the Environment sound banks directory.
 ENVIRONMENT_BANK_PATH = str((BANKS_DIR / "Environment_Bank").resolve())
 
-# Environment Bank events
+# --- Environment Bank events ---
+#: FMOD Studio path for the ambient rain loop.
 RAIN_EVENT_PATH = "event:/Rain"
+
+#: FMOD Studio path for the ambient wind loop.
 WIND_EVENT_PATH = "event:/Wind"
 
-# Trigger Bank events
+# --- Trigger Bank events ---
+#: FMOD Studio path for the overspeed warning signal.
 WARNING_EVENT_PATH = "event:/Warning"
+
+#: FMOD Studio path for the vehicle collision impact.
 CRASH_EVENT_PATH = "event:/Crash"
+
+#: FMOD Studio path for the vehicle horn.
 HONK_EVENT_PATH = "event:/Honk"
+
+#: FMOD Studio path for the handbrake engagement sound.
 HANDBRAKE_EVENT_PATH = "event:/HandBrake"

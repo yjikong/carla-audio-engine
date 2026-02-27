@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -117,16 +122,41 @@
 <div class="viewcode-block" id="EnvironmentBank">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EnvironmentBank</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Controller for environmental audio assets and FMOD Studio banks.</span>
+
+<span class="sd">    This class manages the lifecycle of environmental sound banks, including </span>
+<span class="sd">    loading the &#39;Master&#39; and &#39;Environment&#39; banks. It instantiates and maintains </span>
+<span class="sd">    persistent event instances for ambient sounds like rain and wind, allowing </span>
+<span class="sd">    them to be modulated in real-time by the :class:`EnvironmentAdapter`.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        studio_system (StudioSystem): The active FMOD Studio playback engine.</span>
+<span class="sd">        rain_inst (EventInstance): Persistent instance for the rain audio loop.</span>
+<span class="sd">        wind_inst (EventInstance): Persistent instance for the wind audio loop.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">DEFAULT_BANK_PATH</span> <span class="o">=</span> <span class="n">ENVIRONMENT_BANK_PATH</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DEFAULT_BANK_PATH (str): The default filesystem directory containing the .bank files, sourced from the global configuration.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EnvironmentBank.__init__">
+<a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the FMOD system, loads the environment banks, and </span>
+<span class="sd">        immediately starts the ambient sound instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rain_inst</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wind_inst</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__init_studio_system</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__init_events</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__start_events</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__start_events</span><span class="p">()</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__init_studio_system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the FMOD Studio API and ensures core system drivers </span>
+<span class="sd">        are properly bootstrapped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">core_system</span> <span class="o">=</span> <span class="n">pyfmodex</span><span class="o">.</span><span class="n">System</span><span class="p">()</span>
         <span class="n">core_system</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
         <span class="n">core_system</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
@@ -134,10 +164,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">max_channels</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__init_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bank_path</span><span class="o">=</span><span class="n">DEFAULT_BANK_PATH</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Higher-level sequence to load bank files and prepare event instances.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bank_path (str, optional): The directory containing bank files. </span>
+<span class="sd">                Defaults to ENVIRONMENT_BANK_PATH.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span><span class="n">bank_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_events</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bank_path</span><span class="o">=</span><span class="n">DEFAULT_BANK_PATH</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads the Master, Master.strings, and Environment banks into memory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bank_path (str): The normalized path to the bank directory.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            FileNotFoundError: If the directory or any of the required </span>
+<span class="sd">                bank files are missing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">bank_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bank_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_BANK_PATH</span>
         <span class="n">bank_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">bank_path</span><span class="p">)</span>
@@ -162,6 +209,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">load_bank_file</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves event descriptions and creates instances for rain and wind.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rain_event_desc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">get_event</span><span class="p">(</span><span class="n">RAIN_EVENT_PATH</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rain_inst</span> <span class="o">=</span> <span class="n">rain_event_desc</span><span class="o">.</span><span class="n">create_instance</span><span class="p">()</span>
 
@@ -169,18 +219,32 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">wind_inst</span> <span class="o">=</span> <span class="n">wind_event_desc</span><span class="o">.</span><span class="n">create_instance</span><span class="p">()</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">__start_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Begins playback of ambient loops.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rain_inst</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wind_inst</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
 <div class="viewcode-block" id="EnvironmentBank.update_studio_system">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.update_studio_system">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_studio_system</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Synchronizes the FMOD Studio system. Must be called every frame to </span>
+<span class="sd">        apply parameter changes (intensity) to the running instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="EnvironmentBank.get_events">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.get_events">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides access to the active event instances for external adapters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary mapping &quot;rain&quot; and &quot;wind&quot; to their </span>
+<span class="sd">                respective FMOD EventInstances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">events</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;rain&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rain_inst</span><span class="p">,</span>
             <span class="s2">&quot;wind&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">wind_inst</span>
@@ -191,6 +255,9 @@
 <div class="viewcode-block" id="EnvironmentBank.shutdown">
 <a class="viewcode-back" href="../../../../src.FMOD.Banks.html#src.FMOD.Banks.EnvironmentBank.EnvironmentBank.shutdown">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Releases the FMOD Studio System and stops all environmental audio.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Releasing Studio System&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">studio_system</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
