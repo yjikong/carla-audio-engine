@@ -52,8 +52,8 @@ flowchart TD
 >Everything you need to know about what has to be installed and
 > how to set up the project that every thing runs right is explained in
 > this video: https://www.youtube.com/watch?v=hypM038aNzE
-> >[!NOTE]
-> >Video is in German so you might have to use subtitles.
+> **NOTE**  
+> Video is in German so you might have to use subtitles.
 
 First, you need to install FMOD Studio 2.02 and Engine 2.02, Carla version 0.9.15, and Python 3.8 and 3.12.
 Use the following links to download the necessary files:
