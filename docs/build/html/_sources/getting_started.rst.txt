@@ -2,62 +2,117 @@ Installation and Setup
 ======================
 
 .. tip::
-   Everything you need to know about the installation and project setup is explained in this video: `Project Setup Guide <https://www.youtube.com/watch?v=hypM038aNzE>`_.
+   Everything you need to know about what has to be installed and how to set up the project so that everything runs correctly is explained in this video: `Project Setup Guide <https://www.youtube.com/watch?v=hypM038aNzE>`_.
 
    .. note::
-      The video is in German; you may need to enable English subtitles.
+      The video is in German, so you may need to use subtitles.
 
-Core Requirements
------------------
-First, you must install the specific versions of the following software to ensure compatibility:
+First, you need to install FMOD Studio 2.02 and Engine 2.02, CARLA version 0.9.15, and Python versions 3.8 and 3.12. Use the following links to download the necessary files:
 
-* **FMOD Studio 2.02**: `Download <https://www.fmod.com/download#fmodstudio>`_
-* **FMOD Engine 2.02**: `Download <https://www.fmod.com/download#fmodengine>`_
-* **CARLA 0.9.15**: `Download <https://github.com/carla-simulator/carla/releases/tag/0.9.15/>`_
-* **Python 3.8 & 3.12**: `Download <https://www.python.org/downloads/windows/>`_
+Dependencies
+------------
 
-After the installations are complete, clone the repository into your preferred IDE.
++--------------------------------------------------------------------------+----------------+
+| Component                                                                | Version        |
++==========================================================================+================+
+| `FMOD-STUDIO <https://www.fmod.com/download#fmodstudio>`_                | 2.02           |
++--------------------------------------------------------------------------+----------------+
+| `FMOD-ENGINE <https://www.fmod.com/download#fmodengine>`_                | 2.02           |
++--------------------------------------------------------------------------+----------------+
+| `CARLA <https://github.com/carla-simulator/carla/releases/tag/0.9.15/>`_ | 0.9.15         |
++--------------------------------------------------------------------------+----------------+
+| `PYTHON <https://www.python.org/downloads/windows/>`_                    | 3.8 and 3.12   |
++--------------------------------------------------------------------------+----------------+
 
-Virtual Environments (venvs)
-----------------------------
-This project requires three distinct virtual environments to handle different dependencies.
+After the installations are complete, you can **clone** the repository into your IDE. You will now need to create three different virtual environments (venvs) for the project.
 
-1. Carla Client Venv
-~~~~~~~~~~~~~~~~~~~~
-This environment is used to run the Carla simulation client. Navigate to the folder where ``Carla4UE.exe`` is located and enter the ``PythonAPI\examples`` directory:
+1. CARLA Client Venv
+--------------------
+To set up the CARLA Client venv, navigate to the folder where ``Carla4UE.exe`` is located and open a terminal, or navigate there directly via the console.
 
-.. code-block:: powershell
+Move into the ``PythonAPI\examples`` folder:
 
-    cd C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples
+.. code-block:: console
 
-Create a virtual environment using **Python 3.8**:
+    C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor> cd PythonAPI\examples
 
-.. code-block:: powershell
+Create a venv using **Python 3.8**:
 
-    py -3.8 -m venv .venv38
+.. code-block:: console
 
-Activate the environment:
+    C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> py -3.8 -m venv .venv38
 
-.. code-block:: powershell
+Activate the venv:
 
-    .\.venv38\Scripts\activate
+.. code-block:: console
 
-Install the required packages and the Carla library:
+    C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> .\.venv38\Scripts\activate
 
-.. code-block:: powershell
+Install the ``requirements.txt``:
 
-    pip install -r requirements.txt
-    pip install carla
+.. code-block:: console
 
-You can verify the installation with ``pip list`` and then ``deactivate`` the venv.
+    (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install -r requirements.txt
+
+Finally, manually install the CARLA library into the venv:
+
+.. code-block:: console
+
+    (.venv38) C:\Users\user\yourFolderWhereCarlaIs\WindowsNoEditor\PythonAPI\examples> pip install carla
+
+You can check if everything installed correctly using ``pip list``, then ``deactivate`` the venv.
 
 .. important::
-   The following two virtual environments must be created within the internal code structure of the cloned project.
+   The next two venvs must be created within the code structure of the project. Ensure you have cloned the repository before proceeding.
 
-2. Carla Code Venv
-~~~~~~~~~~~~~~~~~~
-*(Details to be added here based on your project requirements)*
+2. CARLA Code Venv
+------------------
+This venv is created in the ``CARLA`` folder of the project. This part of the code connects with CARLA and handles data transmission with the simulator.
+
+Open a terminal in your IDE and navigate to the CARLA folder:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder> cd Code\CARLA
+
+Create a venv with **Python 3.8**:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 -m venv .venv38
+
+Activate it and install the requirements:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder\Code\CARLA> .\.venv38\Scripts\activate
+
+    (.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
+
+Once complete, ``deactivate`` the venv.
 
 3. FMOD Code Venv
-~~~~~~~~~~~~~~~~~
-*(Details to be added here based on your project requirements)*
+-----------------
+This venv is created in the ``FMOD`` folder of the project. This part of the code is responsible for triggering the sounds during the correct simulation events.
+
+Navigate to the FMOD folder:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder> cd Code\FMOD 
+
+Create the venv using **Python 3.12**:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 -m venv .venv38
+
+Activate and install the requirements:
+
+.. code-block:: console
+
+    C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
+
+    (.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
+
+Once complete, ``deactivate`` the venv.
