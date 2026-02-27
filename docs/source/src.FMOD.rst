@@ -6,6 +6,7 @@ Submodules
 
 .. toctree::
    :maxdepth: 5
+   :hidden:
 
    Adapters <src.FMOD.Adapters>
    Banks <src.FMOD.Banks>

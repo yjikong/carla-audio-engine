@@ -3,6 +3,7 @@ CARLA Module
 
 .. toctree::
    :maxdepth: 4
+   :hidden:
 
    Classes <src.CARLA.Classes>
 

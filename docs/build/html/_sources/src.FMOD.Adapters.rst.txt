@@ -8,6 +8,7 @@ EngineAdapter
    :members:
    :show-inheritance:
    :undoc-members:
+   :hidden:
 
 
 EnvironmentAdapter

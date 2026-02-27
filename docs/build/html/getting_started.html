@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation and Setup &mdash; SoundCARLA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Source Code" href="src.html" />
+    <link rel="prev" title="SoundCARLA Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SoundCARLA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-requirements">Core Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-environments-venvs">Virtual Environments (venvs)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#carla-client-venv">1. Carla Client Venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#carla-code-venv">2. Carla Code Venv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fmod-code-venv">3. FMOD Code Venv</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Source Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.html#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.CARLA.html">CARLA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.Classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.cmain">cmain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.generate_traffic">generate traffic Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.CARLA.html#module-src.CARLA.manual_control_sw">manual control Script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.FMOD.html">FMOD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.FMOD.html#module-src.FMOD.fmain">fmain</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.refresh_ui"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.refresh_ui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.kill_process_on_port()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.launch_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.launch_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.stop_all"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.stop_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.html#src.RunOhmUXSim.SimulatorGUI.run"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SoundCARLA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation and Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation-and-setup">
+<h1>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading"></a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Everything you need to know about the installation and project setup is explained in this video: <a class="reference external" href="https://www.youtube.com/watch?v=hypM038aNzE">Project Setup Guide</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The video is in German; you may need to enable English subtitles.</p>
+</div>
+</div>
+<section id="core-requirements">
+<h2>Core Requirements<a class="headerlink" href="#core-requirements" title="Link to this heading"></a></h2>
+<p>First, you must install the specific versions of the following software to ensure compatibility:</p>
+<ul class="simple">
+<li><p><strong>FMOD Studio 2.02</strong>: <a class="reference external" href="https://www.fmod.com/download#fmodstudio">Download</a></p></li>
+<li><p><strong>FMOD Engine 2.02</strong>: <a class="reference external" href="https://www.fmod.com/download#fmodengine">Download</a></p></li>
+<li><p><strong>CARLA 0.9.15</strong>: <a class="reference external" href="https://github.com/carla-simulator/carla/releases/tag/0.9.15/">Download</a></p></li>
+<li><p><strong>Python 3.8 &amp; 3.12</strong>: <a class="reference external" href="https://www.python.org/downloads/windows/">Download</a></p></li>
+</ul>
+<p>After the installations are complete, clone the repository into your preferred IDE.</p>
+</section>
+<section id="virtual-environments-venvs">
+<h2>Virtual Environments (venvs)<a class="headerlink" href="#virtual-environments-venvs" title="Link to this heading"></a></h2>
+<p>This project requires three distinct virtual environments to handle different dependencies.</p>
+<section id="carla-client-venv">
+<h3>1. Carla Client Venv<a class="headerlink" href="#carla-client-venv" title="Link to this heading"></a></h3>
+<p>This environment is used to run the Carla simulation client. Navigate to the folder where <code class="docutils literal notranslate"><span class="pre">Carla4UE.exe</span></code> is located and enter the <code class="docutils literal notranslate"><span class="pre">PythonAPI\examples</span></code> directory:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">user</span><span class="p">\</span><span class="n">yourFolderWhereCarlaIs</span><span class="p">\</span><span class="n">WindowsNoEditor</span><span class="p">\</span><span class="n">PythonAPI</span><span class="p">\</span><span class="n">examples</span>
+</pre></div>
+</div>
+<p>Create a virtual environment using <strong>Python 3.8</strong>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">py</span> <span class="p">-</span><span class="n">3</span><span class="p">.</span><span class="n">8</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv38</span>
+</pre></div>
+</div>
+<p>Activate the environment:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\.</span><span class="n">venv38</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>Install the required packages and the Carla library:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">-r</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">carla</span>
+</pre></div>
+</div>
+<p>You can verify the installation with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code> and then <code class="docutils literal notranslate"><span class="pre">deactivate</span></code> the venv.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following two virtual environments must be created within the internal code structure of the cloned project.</p>
+</div>
+</section>
+<section id="carla-code-venv">
+<h3>2. Carla Code Venv<a class="headerlink" href="#carla-code-venv" title="Link to this heading"></a></h3>
+<p><em>(Details to be added here based on your project requirements)</em></p>
+</section>
+<section id="fmod-code-venv">
+<h3>3. FMOD Code Venv<a class="headerlink" href="#fmod-code-venv" title="Link to this heading"></a></h3>
+<p><em>(Details to be added here based on your project requirements)</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="SoundCARLA Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.html" class="btn btn-neutral float-right" title="Source Code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

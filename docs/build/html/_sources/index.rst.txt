@@ -3,7 +3,13 @@ SoundCARLA Documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Guide:
+
+   getting_started
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference:
 
    src
 
