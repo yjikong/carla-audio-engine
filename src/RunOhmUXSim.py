@@ -1,16 +1,16 @@
 """
 SoundCARLA Master Launcher
 
-Dieses Modul stellt eine grafische Benutzeroberfläche (Tkinter) zur Steuerung der 
-gesamten SoundCARLA-Simulationsumgebung bereit. Es fungiert als Orchestrator, 
-der den CARLA-Simulator, Client-Skripte, die FMOD-Audio-Engine und Traffic-Manager 
-in ihren jeweiligen virtuellen Umgebungen startet.
+This module provides a graphical user interface (Tkinter) to control the 
+entire SoundCARLA simulation environment. It acts as an orchestrator, 
+launching the CARLA simulator, client scripts, the FMOD audio engine, 
+and traffic managers within their respective virtual environments.
 
-Hauptfunktionen:
-    * Konfigurationsmanagement über 'sim_config.json'.
-    * Dynamische Pfadauswahl für verschiedene Python-Interpreten (venvs).
-    * Automatisierte Startsequenz mit Port-Bereinigung und Server-Health-Checks.
-    * Unterstützung für Rendering-Optionen (z. B. DirectX 11).
+Key Features:
+    * Configuration management via 'sim_config.json'.
+    * Dynamic path selection for various Python interpreters (venvs).
+    * Automated startup sequence including port cleanup and server health checks.
+    * Support for rendering options (e.g., DirectX 11).
 """
 
 import subprocess
@@ -159,7 +159,16 @@ class SimulatorGUI:
     def refresh_ui(self):
         self._build_ui()
     
-    def kill_process_on_port(self, port):
+    def kill_process_on_port(self, port=2000):
+        """Kills old CARLA servers which might be blocking the port 2000
+
+        Args:
+            port (int, optional): Specifies the port CARLA server uses. Defaults to 2000.
+        
+        Note:
+            CARLA uses localhost port 2000 by default. If this is to be adjusted, all scripts connecting to the
+            server must be adjusted.
+        """
         try:
             output = subprocess.check_output(f"netstat -ano | findstr :{port}", shell=True).decode('utf-8', errors='ignore')
             for line in output.strip().split('\n'):
@@ -187,12 +196,12 @@ class SimulatorGUI:
             4. Orchestration: Sequentially starts Manual Control, the CARLA 
                Client (cmain.py), FMOD Engine, and Traffic Manager.
         """
-        self.status_var.set("Bereinige Ports...")
+        self.status_var.set("Cleaning Ports...")
         self.kill_process_on_port(2000)
         
         # 1. Start Carla Sim
         if self.paths["CARLA_SIM"]:
-            self.status_var.set("Starte CARLA Simulator...")
+            self.status_var.set("Starting CARLA Simulator...")
             carla_folder = os.path.dirname(self.paths["CARLA_SIM"])
             
             # Build arguments list dynamically
@@ -203,7 +212,7 @@ class SimulatorGUI:
             p0 = subprocess.Popen(cmd, cwd=carla_folder)
             self.processes.append(p0)
             
-            self.status_var.set("Warte auf CARLA Server...")
+            self.status_var.set("Waiting for CARLA Server...")
             connected = False
             max_retries = 12
             check_script = "import carla; client = carla.Client('localhost', 2000); client.set_timeout(5.0); client.get_world()"
@@ -225,33 +234,33 @@ class SimulatorGUI:
 
         # ... (Rest of the manual control, client, and traffic logic remains the same)
         if self.paths["SIM_VENV_PYTHON"] and self.paths["MANUAL_CONTROL_SCRIPT"]:
-            self.status_var.set("Starte Manual Control...")
+            self.status_var.set("Starting Manual Control...")
             p1 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["MANUAL_CONTROL_SCRIPT"]])
             self.processes.append(p1)
             time.sleep(10)
 
         if self.paths["CARLA_CLIENT_VENV_PYTHON"] and self.paths["CARLA_CLIENT_SCRIPT"]:
-            self.status_var.set("Starte Carla Client (cmain.py)...")
+            self.status_var.set("Starting Carla Client (cmain.py)...")
             p2 = subprocess.Popen([self.paths["CARLA_CLIENT_VENV_PYTHON"], self.paths["CARLA_CLIENT_SCRIPT"]])
             self.processes.append(p2)
             time.sleep(5)
 
         if self.paths["FMOD_VENV_PYTHON"] and self.paths["FMOD_SCRIPT"]:
-            self.status_var.set("Starte FMOD Engine...")
+            self.status_var.set("Starting FMOD Engine...")
             p3 = subprocess.Popen([self.paths["FMOD_VENV_PYTHON"], self.paths["FMOD_SCRIPT"]])
             self.processes.append(p3)
             time.sleep(5)
 
         if self.paths["SIM_VENV_PYTHON"] and self.paths["TRAFFIC_SCRIPT"]:
-            self.status_var.set("Generiere Traffic...")
+            self.status_var.set("Generating Traffic...")
             p4 = subprocess.Popen([self.paths["SIM_VENV_PYTHON"], self.paths["TRAFFIC_SCRIPT"]])
             self.processes.append(p4)
 
-        self.status_var.set("Alle Systeme aktiv!")
+        self.status_var.set("All Systemes running!")
         self.start_btn.config(state=NORMAL)
 
     def stop_all(self):
-        self.status_var.set("Stoppe alle Prozesse...")
+        self.status_var.set("Stopping all processes...")
         for p in self.processes:
             try:
                 p.terminate()
