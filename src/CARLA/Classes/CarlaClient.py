@@ -177,7 +177,7 @@ class CarlaClient:
                 self.handbrake_trigger = False
                 return data_packet
             except(AttributeError):
-                print("Dont change the vehicle too fast please")
+                print("Dont change the vehicle too fast please. Restart!")
 
     
     def set_rain(self, in_rain_intensity):
