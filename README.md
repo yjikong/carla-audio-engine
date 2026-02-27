@@ -193,7 +193,7 @@ Provide a robust and easily extensible interface between the Carla simulation an
 ### 2. FMOD
 The __FMOD part__ handles the actual __sound logic and audio playback__. It receives data packets sent by the Carla client (UDP/JSON),
 detects changes (diffing), and translates these changes into __FMOD event triggers__, __parameter updates__, or __procedurally generated sounds__. The structure is loosely
-based on an __MVC-style__ split: _Model_ (data receiving/processing), _Adapters_ (reacting to changes), and _Banks/Sounds_ (audio resources and playback).
+based on an __MVC-style__ split: _Model_ (data receiving/processing), _Adapters_ (logic), and _Banks/Sounds_ (audio resources and playback).
 
 #### Folder structure
 - `fmain.py`
