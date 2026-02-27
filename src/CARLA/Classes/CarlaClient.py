@@ -176,8 +176,13 @@ class CarlaClient:
                 self.crash_impulse = False
                 self.handbrake_trigger = False
                 return data_packet
-            except(AttributeError):
-                print("Dont change the vehicle too fast please. Restart!")
+            except (AttributeError, RuntimeError) as e:
+                        # Catching RuntimeError as well, as CARLA often throws this if the actor is destroyed
+                        print(f"Vehicle reference lost or switching: {e}")
+                        self.vehicle_found = False
+                        self.vehicle = None
+                        return None # Return None so the caller knows data is currently unavailable
+
 
     
     def set_rain(self, in_rain_intensity):

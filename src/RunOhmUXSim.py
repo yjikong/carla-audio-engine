@@ -268,7 +268,7 @@ class SimulatorGUI:
                 pass
         self.processes = []
         print("Ready")
-        self.status_var.set("Bereit")
+        self.status_var.set("Ready")
         self.start_btn.config(state=NORMAL)
 
     def run(self):
