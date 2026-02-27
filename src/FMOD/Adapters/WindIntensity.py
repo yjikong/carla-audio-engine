@@ -9,12 +9,10 @@ class WindIntensity(RangeLevel):
     the inclusive lower bound, the exclusive upper bound, and the 
     corresponding FMOD parameter value used by the :class:`EnvironmentAdapter` 
     to control 'Windstaerke'.
-
-    Attributes:
-        NONE (tuple): Range (0, 10) mapped to FMOD value 0.
-        LOW (tuple): Range (10, 55) mapped to FMOD value 1.
-        HIGH (tuple): Range (55, 100) mapped to FMOD value 2.
     """
     NONE = (0, 10, 0)
+    """NONE (tuple): Range (0, 10) mapped to FMOD value 0."""
     LOW = (10, 55, 1)
+    """LOW (tuple): Range (10, 55) mapped to FMOD value 1."""
     HIGH = (55, 100, 2)
+    """HIGH (tuple): Range (55, 100) mapped to FMOD value 2."""

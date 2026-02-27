@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -105,9 +110,21 @@
 <div class="viewcode-block" id="WindIntensity">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.WindIntensity.WindIntensity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WindIntensity</span><span class="p">(</span><span class="n">RangeLevel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum-style class defining wind intensity ranges for FMOD parameter mapping.</span>
+
+<span class="sd">    This class categorizes raw wind intensity percentages (0-100) into </span>
+<span class="sd">    three discrete levels. Each level is defined by a tuple containing </span>
+<span class="sd">    the inclusive lower bound, the exclusive upper bound, and the </span>
+<span class="sd">    corresponding FMOD parameter value used by the :class:`EnvironmentAdapter` </span>
+<span class="sd">    to control &#39;Windstaerke&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">NONE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;NONE (tuple): Range (0, 10) mapped to FMOD value 0.&quot;&quot;&quot;</span>
     <span class="n">LOW</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">HIGH</span> <span class="o">=</span> <span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LOW (tuple): Range (10, 55) mapped to FMOD value 1.&quot;&quot;&quot;</span>
+    <span class="n">HIGH</span> <span class="o">=</span> <span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;HIGH (tuple): Range (55, 100) mapped to FMOD value 2.&quot;&quot;&quot;</span></div>
 
 </pre></div>
 

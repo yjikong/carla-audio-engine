@@ -28,9 +28,6 @@ class TriggerAdapter:
     from the EventBus.
 
     Attributes:
-        GEAR_REVERSE (int): Constant identifying the reverse gear (-1).
-        SPEED_LIMIT (int): Threshold in km/h for the overspeed warning.
-        HANDBRAKE_SPEED (int): Minimum speed required to trigger handbrake sounds.
         reverse_beep (ReverseBeep): Engine for the rhythmic reverse warning sound.
         bank (TriggerBank): FMOD bank containing one-shot sound events.
         honk_counter (int): Counter used to debounce horn events, ensuring the 
@@ -71,6 +68,9 @@ class TriggerAdapter:
 
         Args:
             current_gear (int): The current gear value from the simulation.
+            GEAR_REVERSE (int): Constant identifying the reverse gear (-1).
+            SPEED_LIMIT (int): Threshold in km/h for the overspeed warning.
+            HANDBRAKE_SPEED (int): Minimum speed required to trigger handbrake sounds.
         """
         val = None
         if current_gear == self.GEAR_REVERSE and self.past_gear == None:
@@ -112,7 +112,7 @@ class TriggerAdapter:
         Triggers the crash sound effect upon impact.
 
         Args:
-            crash: Collision data from the EventBus.
+            crash: unused.
         """
         if self.crash_trigger is False and self.crash_counter >= 1:
             self.bank.play_crash()
@@ -123,7 +123,7 @@ class TriggerAdapter:
             self.crash_counter = self.crash_counter + 1
     
     def on_honk(self, honk):
-        """"
+        """
         Triggers the vehicle horn with debouncing logic.
 
         Uses an internal counter to filter out redundant triggers from 
@@ -141,7 +141,7 @@ class TriggerAdapter:
         Triggers the handbrake sound effect if the vehicle is moving.
 
         Args:
-            handBrake: Handbrake state data from the simulation.
+            handBrake: unused.
         """
         if self.speed > self.HANDBRAKE_SPEED:
             if self.handBrake_trigger is False and self.handBrake_flag:

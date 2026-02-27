@@ -59,6 +59,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.html#module-src.RunOhmUXSim">RunOhmUXSim</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.config_path"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.config_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.paths"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.processes"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.dx11_var"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.dx11_var</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.__init__"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.load_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.load_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.save_config"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.save_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.html#src.RunOhmUXSim.SimulatorGUI.browse_file"><code class="docutils literal notranslate"><span class="pre">SimulatorGUI.browse_file()</span></code></a></li>
@@ -115,7 +120,29 @@
 <div class="viewcode-block" id="EnvironmentAdapter">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EnvironmentAdapter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adapter responsible for mapping environmental simulation data to FMOD sound events.</span>
+
+<span class="sd">    This class monitors environmental factors like rain and wind intensity from the </span>
+<span class="sd">    EventBus. It translates these raw simulation values into discrete levels </span>
+<span class="sd">    (defined by :class:`RainIntensity` and :class:`WindIntensity`) and updates </span>
+<span class="sd">    the corresponding FMOD Studio parameters to modulate the ambient audio.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        bank (EnvironmentBank): The sound bank containing environmental audio events.</span>
+<span class="sd">        rain_event (EventInstance): The FMOD event instance controlling rain audio.</span>
+<span class="sd">        wind_event (EventInstance): The FMOD event instance controlling wind audio.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EnvironmentAdapter.__init__">
+<a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_bus</span><span class="p">:</span> <span class="n">EventBus</span><span class="p">,</span> <span class="n">bank</span><span class="p">:</span> <span class="n">EnvironmentBank</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the EnvironmentAdapter and binds event listeners.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event_bus (EventBus): The system bus for subscribing to intensity data.</span>
+<span class="sd">            bank (EnvironmentBank): The bank instance providing access to FMOD events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bank</span> <span class="o">=</span> <span class="n">bank</span>
         <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bank</span><span class="o">.</span><span class="n">get_events</span><span class="p">()</span>
         
@@ -123,11 +150,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">wind_event</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;wind&quot;</span><span class="p">]</span>
 
         <span class="n">event_bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">RAIN_INTENSITY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_rain</span><span class="p">)</span>
-        <span class="n">event_bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">WIND_INTENSITY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_wind</span><span class="p">)</span>
+        <span class="n">event_bus</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">DataKey</span><span class="o">.</span><span class="n">WIND_INTENSITY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_wind</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="EnvironmentAdapter.on_rain">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_rain">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">on_rain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback triggered by rain intensity updates from the simulation.</span>
+
+<span class="sd">        Maps the float intensity to a discrete FMOD parameter &#39;regenstaerke&#39;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            intensity (float): The raw rain intensity value from the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">rain_level</span> <span class="o">=</span> <span class="n">RainIntensity</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">rain_level</span><span class="p">:</span>
@@ -142,7 +178,15 @@
 
 <div class="viewcode-block" id="EnvironmentAdapter.on_wind">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EnvironmentAdapter.EnvironmentAdapter.on_wind">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">on_wind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>    
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_wind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback triggered by wind intensity updates from the simulation.</span>
+
+<span class="sd">        Maps the float intensity to a discrete FMOD parameter &#39;Windstaerke&#39;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            intensity (float): The raw wind intensity value from the simulation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">wind_level</span> <span class="o">=</span> <span class="n">WindIntensity</span><span class="o">.</span><span class="n">from_value</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">wind_level</span><span class="p">:</span>
