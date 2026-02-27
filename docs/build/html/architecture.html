@@ -52,17 +52,17 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#carla-subsystem">1. Carla Subsystem</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#folder-structure">Folder Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#carla">1. Carla</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#folder-structure">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow">Data flow</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#fmod-subsystem">2. FMOD Subsystem</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Folder Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-flow-processing">Data Flow &amp; Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fmod">2. FMOD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow-fmod">Data flow</a></li>
 </ul>
 </li>
 </ul>
@@ -175,142 +175,121 @@
              
   <section id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h1>
-<p>The system is designed as a decoupled dual-subsystem environment consisting of <strong>Carla</strong> and <strong>FMOD</strong>.</p>
-<ul class="simple">
-<li><p><strong>Carla Subsystem:</strong> Handles the simulation environment, vehicle physics, and state sensing.</p></li>
-<li><p><strong>FMOD Subsystem:</strong> Manages spatial audio, procedural sound generation, and event-based playback.</p></li>
-</ul>
-<nav class="contents local" id="table-of-contents">
-<p class="topic-title">Table of Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#carla-subsystem" id="id2">1. Carla Subsystem</a></p>
-<ul>
-<li><p><a class="reference internal" href="#folder-structure" id="id3">Folder Structure</a></p></li>
-<li><p><a class="reference internal" href="#data-flow" id="id4">Data Flow</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#fmod-subsystem" id="id5">2. FMOD Subsystem</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id1" id="id6">Folder Structure</a></p></li>
-<li><p><a class="reference internal" href="#data-flow-processing" id="id7">Data Flow &amp; Processing</a></p></li>
-</ul>
-</li>
-</ul>
-</nav>
-<p>—</p>
-<section id="carla-subsystem">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">1. Carla Subsystem</a><a class="headerlink" href="#carla-subsystem" title="Link to this heading"></a></h2>
-<p>The <strong>Carla part</strong> is responsible for connecting to the Carla simulator and providing the simulation data used by the FMOD subsystem. It consists of a lightweight client that monitors the “hero” vehicle and periodically sends state information via UDP as JSON to a local receiver.</p>
+<p>The system is divided into two parts— <a class="reference internal" href="src.CARLA.html"><span class="doc">CARLA Module</span></a> and <a class="reference internal" href="src.FMOD.html"><span class="doc">FMOD Module</span></a>. The Carla part essentially handles the setup of and communication with the Carla simulator. The FMOD part handles sound playback.</p>
+<section id="carla">
+<h2>1. Carla<a class="headerlink" href="#carla" title="Link to this heading"></a></h2>
+<p>The <strong>CARLA part</strong> is responsible for connecting to the Carla simulator and providing the <strong>simulation data</strong> that is later used by the FMOD subsystem for audio playback. Technically, it consists of a lightweight client that connects to the running Carla server, locates/monitors the “hero” vehicle reads relevant state information, and <strong>periodically sends it via UDP as JSON</strong> to a local receiver.</p>
 <section id="folder-structure">
-<h3><a class="toc-backref" href="#id3" role="doc-backlink">Folder Structure</a><a class="headerlink" href="#folder-structure" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 25.0%" />
-<col style="width: 75.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>File/Folder</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cmain.py</span></code></p></td>
-<td><p>Entry point. Starts the data loop and the weather adjustment UI.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Classes/</span></code></p></td>
-<td><p>Core logic for connectivity, sensing, and data transport.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Classes/CarlaClient.py</span></code></p></td>
-<td><p>Manages server connection, “hero” vehicle tracking, and data polling.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Classes/CollisionSensor.py</span></code></p></td>
-<td><p>Monitors impact intensity and counts to trigger crash events.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Classes/Socket.py</span></code></p></td>
-<td><p>UDP wrapper for local JSON transmission (127.0.0.1).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Classes/Weather.py</span></code></p></td>
-<td><p>Tkinter-based GUI for real-time rain and wind manipulation.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generate_traffic.py</span></code></p></td>
-<td><p>Utility script to populate the simulation with NPC vehicles.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></td>
-<td><p>Python dependencies for the Carla environment.</p></td>
-</tr>
-</tbody>
-</table>
+<h3>Folder structure<a class="headerlink" href="#folder-structure" title="Link to this heading"></a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmain.py</span></code>: Entry point for the Carla client. Starts the data loop (polling simulation values) and sends data packets at a fixed interval. It also launches a small weather UI to adjust weather parameters during runtim.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Classes/</span></code>: Contains the cor calsses for connecting, sensing, data transport, and UI:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>: Exposes the main classes as package imports.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CarlaClient.py</span></code>: Encapsulates the Carla server connection, retrieves the <code class="docutils literal notranslate"><span class="pre">world</span></code>, searches for a vehicle, and continuously reads vehicle and environment data. It also attaches a collision sensor and produces a compact data packet (relevant for the sound logic).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CollisionSensor.py</span></code>: Implements a Carla collision sensor that counts collisions and measures their intensity, used to trigger crash events.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Socket.py</span></code>: Minimal UDP wrapper for sending JSON data (locally to 127.0.0.1 on a fix port)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Weather.py</span></code>: Small Tkinter GUI used to set rain and wind intensity in the running simulation.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_traffic.py</span></code>: Script to generate traffic in the simulator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>: Python dependencies that are required for the Carla client (will be installed into a venv).</p></li>
+</ul>
 </section>
 <section id="data-flow">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink">Data Flow</a><a class="headerlink" href="#data-flow" title="Link to this heading"></a></h3>
+<span id="data-flow-carla"></span><h3>Data flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p><strong>Initialization:</strong> <code class="docutils literal notranslate"><span class="pre">cmain.py</span></code> initializes the client and the sender loop.</p></li>
-<li><p><strong>Detection:</strong> <code class="docutils literal notranslate"><span class="pre">CarlaClient</span></code> locates the ego vehicle and attaches the <code class="docutils literal notranslate"><span class="pre">CollisionSensor</span></code>.</p></li>
-<li><p><strong>Polling:</strong> The system reads vehicle motion, speed limits, weather, and discrete events (honks/crashes).</p></li>
-<li><p><strong>Transmission:</strong> <code class="docutils literal notranslate"><span class="pre">Socket</span></code> serializes the state into JSON and broadcasts it via UDP.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmain.py</span></code> starts the client and the sender loop.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CarlaClient</span></code> connects to the simulator, finds the ego/hero vehicle, and attaches a <code class="docutils literal notranslate"><span class="pre">CollisionSensor</span></code>.</p></li>
+<li><p>At short intervals, it reads relevant states (vehicle motion/control, speed/speed limit, wheather, events like collisions/honk)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Socket</span></code> serializes the values as JSON and sends them via UDP to the local receiver (<a class="reference internal" href="src.FMOD.utils.html"><span class="doc">utils</span></a>).</p></li>
 </ol>
+<p><strong>Goal of this module:</strong>
+Provide a robust and easily extensible interface between the Carla simulation and the sound system, without embedding sound logic directly inside the Carla side.</p>
 <p>—</p>
 </section>
 </section>
-<section id="fmod-subsystem">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">2. FMOD Subsystem</a><a class="headerlink" href="#fmod-subsystem" title="Link to this heading"></a></h2>
-<p>The <strong>FMOD part</strong> handles audio logic. It utilizes an <strong>MVC-style</strong> split: <strong>Model</strong> (data receiving/diffing), <strong>Adapters</strong> (logic/controllers), and <strong>Banks/Sounds</strong> (audio resources).</p>
+<section id="fmod">
+<span id="fmod-subsystem"></span><h2>2. FMOD<a class="headerlink" href="#fmod" title="Link to this heading"></a></h2>
+<p>The <strong>FMOD part</strong> handles the actual <strong>sound logic and audio playback</strong>. It receives data packets sent by the Carla client (UDP/JSON), detects changes (diffing), and translates these changes into <strong>FMOD event triggers</strong>, <strong>parameter updates</strong>, or <strong>procedurally generated sounds</strong>. The structure is loosely based on an <strong>MVC-style</strong> split: <em>Model</em> (data receiving/processing), <em>Adapters</em> (logic), and <em>Banks/Sounds</em> (audio resources and playback).</p>
 <section id="id1">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink">Folder Structure</a><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 25.0%" />
-<col style="width: 75.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>File/Folder</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fmain.py</span></code></p></td>
-<td><p>Subsystem entry point. Initializes the EventBus, Banks, and SoundModel.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Model/SoundModel.py</span></code></p></td>
-<td><p>Receives UDP packets and computes the <strong>difference</strong> (diffing) between states.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">utils/</span></code></p></td>
-<td><p>Infrastructure tools: <code class="docutils literal notranslate"><span class="pre">EventBus</span></code> (Pub/Sub), <code class="docutils literal notranslate"><span class="pre">DataKey</span></code> (Enums), and <code class="docutils literal notranslate"><span class="pre">RangeLevel</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Adapters/</span></code></p></td>
-<td><p>Translation layer. Subscribes to <code class="docutils literal notranslate"><span class="pre">DataKeys</span></code> to trigger audio actions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Banks/</span></code></p></td>
-<td><p>Interface for loading <code class="docutils literal notranslate"><span class="pre">.bank</span></code> files and managing FMOD Studio events.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Sounds/</span></code></p></td>
-<td><p>Procedural audio generators (EV motor synthesis and reverse beeps).</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="data-flow-processing">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">Data Flow &amp; Processing</a><a class="headerlink" href="#data-flow-processing" title="Link to this heading"></a></h3>
-<p>The FMOD subsystem operates on a reactive “diffing” principle to optimize performance:</p>
-<ol class="arabic simple">
-<li><p><strong>Bootstrapping:</strong> <code class="docutils literal notranslate"><span class="pre">fmain.py</span></code> creates the <code class="docutils literal notranslate"><span class="pre">EventBus</span></code> and loads FMOD Banks.</p></li>
-<li><p><strong>Ingestion:</strong> <code class="docutils literal notranslate"><span class="pre">SoundModel</span></code> listens for JSON packets.</p></li>
-<li><p><strong>Diffing:</strong> To reduce overhead, the model compares the new packet to the previous state. <strong>Only changed values</strong> are published to the <code class="docutils literal notranslate"><span class="pre">EventBus</span></code>.</p></li>
-<li><dl class="simple">
-<dt><strong>Reaction:</strong></dt><dd><ul class="simple">
-<li><p><strong>Continuous Values:</strong> (e.g., Speed) updated as FMOD parameters or DSP frequencies.</p></li>
-<li><p><strong>Trigger Values:</strong> (e.g., Collision) handled via gating logic to prevent double-triggering.</p></li>
+<h3>Folder structure<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fmain.py</span></code>: Entry point of the FMOD subsystem. Initializes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the central <code class="docutils literal notranslate"><span class="pre">EventBus</span></code> (publisher-subscriber),</p></li>
+<li><p>FMOD <code class="docutils literal notranslate"><span class="pre">Banks</span></code> (loading/initializing FMOD Studio events),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adapters</span></code> (sound logic reacting to data changes),</p></li>
+<li><p>and the <code class="docutils literal notranslate"><span class="pre">SoundModel</span></code> (UDP receive &amp; diffing).</p></li>
 </ul>
-</dd>
-</dl>
+<p>Then it runs a loop that regularly processes new data and ticks trigger/one-shot logic.</p>
+</div></blockquote>
 </li>
-<li><p><strong>Update Loop:</strong> The main loop ticks the FMOD Studio engine to keep audio in sync with the simulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Model/</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SoundModel.py</span></code>: <strong>Receives</strong> Carla data via UDP, <strong>decodes</strong> the JSON, and computes the <strong>difference</strong> to the previous state. Only changed values are published via the <code class="docutils literal notranslate"><span class="pre">EventBus</span></code>. This reduces unnecessary sound updates and cleanly separates data handling from sound logic.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utils/</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EventBus.py</span></code>: Lightweight event bus enabling loose coupling between publishers (model) and subscribers (adapters).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataKey.py</span></code>: Central definition of all data keys (Enum). Ensures consistent keys, avoids typos, and supports easy extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RangeLevel.py</span></code>: Utility for mapping continuous values (e.g., intensities) to discrete levels.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adapters/</span></code> (controller/adaper layer): Components that <strong>subscribe</strong> to specific <code class="docutils literal notranslate"><span class="pre">DataKeys</span></code> and translate changes into audio actions.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EnvironmentAdapter.py</span></code>: Updates environment parameters (e.g., rain/wind) as FMOD parameters on continuously running events. Includes mapping from continuous intensities to levels (<code class="docutils literal notranslate"><span class="pre">RainIntensity</span></code>/<code class="docutils literal notranslate"><span class="pre">WindIntensity</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MotorAdapter.py</span></code>: Handles engine/vehicle sounds. Instead of relying only on FMOD Studio events, it controls a procedural EV sound generator (parameters: speed/throttle → estimated “torque”).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TriggerAdapter.py</span></code>: Handles one-shot/trigger sounds such as crash, honk, handbrake, and reverse warning. Contains simple gating/state logic to prevent double-triggering in noisy input scenarios.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RainIntensity.py</span></code>/<code class="docutils literal notranslate"><span class="pre">WindIntensity.py</span></code>: Define intensity ranges as discrete levels (NONE/LOW/MEDIUM/HIGH) that are mapped to parameter values.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Banks/</span></code> (FMOD Studio interface): Encapsulates <strong>loading FMOD bank files</strong>, creating event instances, and calling <code class="docutils literal notranslate"><span class="pre">studio_system.update()</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EnvironmentBank.py</span></code>: Initializes FMOD Studio, loads the relevant bank, and provides instances for rain/wind (including parameter control).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TriggerBank.py</span></code>: Loads the trigger bank and exposes methods like <code class="docutils literal notranslate"><span class="pre">play_*()</span></code> for warning/crash/honk/handbrake.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MotorBank.py</span></code>: Placeholder/design stub for a dedicated motor bank (the motor sound is currently handled mainly via <code class="docutils literal notranslate"><span class="pre">Sounds/EVSund.py</span></code>).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sounds/</span></code> (procedural audio)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EVSund.py</span></code>: Generates EV/vehicle sounds procedurally using DSP oscillators, filters, and parameterized volume/frequency control based on speed and load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ReverseBeep.py</span></code>: Procedurally generated reverse beep (short tone/pattern) as an alternative or supplement to FMOD Studio events.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>: Python dependencies that are required for the Carla client (will be installed into a venv).</p></li>
+</ul>
+</section>
+<section id="data-flow-fmod">
+<span id="id2"></span><h3>Data flow<a class="headerlink" href="#data-flow-fmod" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>``fmain.py`` boots the FMOD subsystem</strong>: It creates the central <code class="docutils literal notranslate"><span class="pre">EventBus</span></code>, initializes the required FMOD components (<code class="docutils literal notranslate"><span class="pre">Banks</span></code> and procedural <code class="docutils literal notranslate"><span class="pre">Sounds</span></code>), instantiates the <code class="docutils literal notranslate"><span class="pre">Adapters</span></code> that subscribe to data changes, and finally starts the <code class="docutils literal notranslate"><span class="pre">SoundModel</span></code> (UDP receiver).</p></li>
+<li><p><strong>``SoundModel`` receives Carla data via UDP</strong>: The model listens on a local UDP socket, decodes incoming JSON packets, and keeps the previous packet as a reference state.</p></li>
+<li><p><strong>Diffing: only changes are published</strong>: For each new packet, the model computes a diff against the last state. Only changed values are converted to <code class="docutils literal notranslate"><span class="pre">DataKeys</span></code> and published on the <code class="docutils literal notranslate"><span class="pre">EventBus</span></code>.</p></li>
+<li><p><strong>Adapters react to published updates</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Continuous values</strong> (e.g., speed, throttle, rain/wind intensity) are translated into parameter updates (FMOD parameters or DSP/procedural sound parameters).</p></li>
+<li><p><strong>Trigger-like values</strong> (e.g., collision, honk, reverse gear, handbrake) are handled with gating/state logic to avoid duplicate triggers and then played as one-shot sounds.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>FMOD engine is kept alive via regular updates</strong>: Within the main loop in <code class="docutils literal notranslate"><span class="pre">fmain.py</span></code>, the system processes model updates (publishing changes) and ticks adapter/bank update functions so FMOD event playback and procedural audio remain responsive and in sync.</p></li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The procedural EV motor sound is handled primarily via <code class="docutils literal notranslate"><span class="pre">Sounds/EVSound.py</span></code> rather than a static bank to allow for dynamic frequency shifts based on simulated torque.</p>
-</div>
-<p>—</p>
 </section>
 </section>
 </section>
