@@ -6,7 +6,26 @@ import time
 from pyfmodex.enums import DSP_TYPE
 
 class ReverseBeep:
+    """
+    Procedural audio generator for vehicle reverse warning signals.
+
+    This class synthesizes a rhythmic "beep" sound using a DSP signal chain 
+    instead of audio files. It uses a high-frequency sine oscillator processed 
+    through a distortion unit to create the characteristic industrial warning 
+    tone. The timing logic (on/off cycles) is managed via the internal state.
+
+    Attributes:
+        system (pyfmodex.System): The dedicated FMOD Core system for reverse sounds.
+        is_playing (bool): Tracks whether a beep pulse is currently active.
+        start_time (float): Timestamp of when the current beep pulse started.
+        grundton (DSP): Sine wave oscillator (1500Hz).
+        verzerrung (DSP): Distortion unit for harmonic grit.
+        fader (DSP): Final gain stage for the signal chain.
+    """
     def __init__(self):
+        """
+        Initializes the audio system and constructs the DSP signal chain.
+        """
         self.system = pyfmodex.System()
         self.system.init()
         self.lautstaerke_regler = self.system.master_channel_group
@@ -21,6 +40,12 @@ class ReverseBeep:
         self.dynamisch_Beep_erstellen()
     
     def dynamisch_Beep_erstellen(self):
+        """
+        Constructs the DSP signal chain: Oscillator -> Distortion -> Fader.
+        
+        Configures a Sine wave at 1500.0Hz and applies full distortion (level 1.0) 
+        to create the sharp, piercing warning tone.
+        """
         if self.grundton is None:
             # 1. Oszillator erstellen
             self.grundton = self.system.create_dsp_by_type(DSP_TYPE.OSCILLATOR)
@@ -45,7 +70,13 @@ class ReverseBeep:
             self.verzerrung.active = True
             self.fader.active = True
 
-    def play(self):        
+    def play(self):
+        """
+        Initiates a single beep pulse.
+
+        Starts the DSP chain on a new channel and records the start time 
+        to facilitate the 400ms duration limit.
+        """   
         if not self.is_playing:
             # Wir starten jetzt ganz normal
             self.channel = self.system.play_dsp(self.grundton)
@@ -56,6 +87,12 @@ class ReverseBeep:
             self.is_playing = True
 
     def update(self):
+        """
+        Handles the lifecycle and timing of the beep pulse.
+
+        If a beep has been active for more than 0.4 seconds (400ms), 
+        the channel is stopped. Also advances the FMOD system clock.
+        """
         if self.is_playing and self.channel:
             if time.time() - self.start_time >= 0.4:
                 self.channel.stop()
@@ -64,6 +101,9 @@ class ReverseBeep:
             self.system.update()
 
     def shutdown(self):
+        """
+        Releases FMOD resources and shuts down the reverse beep audio system.
+        """
         if self.system:
             print(f'Räume den Reverse Beep auf')
             self.system.release()

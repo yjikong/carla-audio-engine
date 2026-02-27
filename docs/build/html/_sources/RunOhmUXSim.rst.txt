@@ -1,7 +1,0 @@
-RunOhmUXSim module
-==================
-
-.. automodule:: RunOhmUXSim
-   :members:
-   :show-inheritance:
-   :undoc-members:

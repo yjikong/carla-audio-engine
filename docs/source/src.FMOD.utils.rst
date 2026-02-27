@@ -1,37 +1,26 @@
-src.FMOD.utils package
-======================
+utils
+=====
 
-Submodules
-----------
-
-src.FMOD.utils.DataKey module
------------------------------
+DataKey
+-------
 
 .. automodule:: src.FMOD.utils.DataKey
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.utils.EventBus module
-------------------------------
+EventBus
+--------
 
 .. automodule:: src.FMOD.utils.EventBus
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.FMOD.utils.RangeLevel module
---------------------------------
+RangeLevel
+----------
 
 .. automodule:: src.FMOD.utils.RangeLevel
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.FMOD.utils
    :members:
    :show-inheritance:
    :undoc-members:

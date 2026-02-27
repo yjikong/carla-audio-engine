@@ -1,3 +1,11 @@
+"""
+FMOD Integration Main Entry Point
+
+This module orchestrates the FMOD audio system by initializing the global 
+EventBus, loading sound banks, and connecting simulation adapters to their 
+respective sound engines. It manages the high-level execution loop for 
+audio parameter updates.
+"""
 import sys
 from pathlib import Path
 
@@ -13,7 +21,18 @@ from src.FMOD.Sounds.ReverseBeep import *
 
 import sys
 
-if __name__ == '__main__':
+def main():
+    """
+    Bootstraps the audio engine components and enters the main update loop.
+    
+    The initialization sequence follows these steps:
+
+        1. Initialize the global :class:`EventBus` for inter-module communication.
+        2. Load environmental and trigger-based :class:`Banks`.
+        3. Instantiate sound engines (EV and Reverse Beep).
+        4. Bind :class:`Adapters` to bridge the EventBus and Sound Engines.
+        5. Execute a continuous tick loop at approximately 20Hz (0.05s interval).
+    """
     bus = EventBus()
 
     env_bank = EnvironmentBank()
@@ -35,4 +54,7 @@ if __name__ == '__main__':
 
         time.sleep(0.05)
 
+
+if __name__ == '__main__':
+    main()
     

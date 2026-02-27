@@ -1,45 +1,34 @@
-src.CARLA.Classes package
-=========================
+Classes
+=======
 
-Submodules
-----------
-
-src.CARLA.Classes.CarlaClient module
-------------------------------------
+CarlaClient
+-----------
 
 .. automodule:: src.CARLA.Classes.CarlaClient
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.CARLA.Classes.CollisionSensor module
-----------------------------------------
+CollisionSensor
+---------------
 
 .. automodule:: src.CARLA.Classes.CollisionSensor
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.CARLA.Classes.Socket module
--------------------------------
+Socket
+------
 
 .. automodule:: src.CARLA.Classes.Socket
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.CARLA.Classes.Weather module
---------------------------------
+Weather
+-------
 
 .. automodule:: src.CARLA.Classes.Weather
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.CARLA.Classes
    :members:
    :show-inheritance:
    :undoc-members:

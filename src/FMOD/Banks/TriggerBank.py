@@ -13,8 +13,26 @@ from pyfmodex.exceptions import FmodError
 from .config import *
 
 class TriggerBank:
+    """
+    Controller for discrete, one-shot audio assets within FMOD Studio.
+
+    This class manages the loading and playback of trigger-based sound events, 
+    such as collisions, horns, and warnings. It maintains specific event 
+    instances and provides public methods to initiate playback, which are 
+    typically invoked by the :class:`TriggerAdapter`.
+
+    Attributes:
+        warning_sound (EventInstance): Instance for the overspeed warning audio.
+        crash_sound (EventInstance): Instance for the vehicle collision audio.
+        honk_sound (EventInstance): Instance for the vehicle horn audio.
+        handBrake_sound (EventInstance): Instance for the handbrake engagement audio.
+    """
     DEFAULT_BANK_PATH = TRIGGER_BANK_PATH
+    """DEFAULT_BANK_PATH (str): Default directory for trigger .bank files, defined in the system configuration."""
     def __init__(self):
+        """
+        Initializes the FMOD system and prepares one-shot event instances.
+        """
         self.warning_sound = None
         self.crash_sound = None
         self.honk_sound = None
@@ -23,6 +41,9 @@ class TriggerBank:
         self.__init_events()
 
     def __init_studio_system(self):
+        """
+        Initializes the FMOD Studio API and bootstraps core drivers.
+        """
         core_system = pyfmodex.System()
         core_system.init()
         core_system.release()
@@ -30,10 +51,26 @@ class TriggerBank:
         self.studio_system.initialize(max_channels=512)
 
     def __init_events(self, bank_path=DEFAULT_BANK_PATH):
+        """
+        Orchestrates the loading of banks and the preparation of event instances.
+
+        Args:
+            bank_path (str, optional): The path to the bank directory. 
+                Defaults to TRIGGER_BANK_PATH.
+        """
         self._load(bank_path)
         self._prepare_events()
 
     def _load(self, bank_path=DEFAULT_BANK_PATH):
+        """
+        Loads the Master and Trigger-specific bank files into memory.
+
+        Args:
+            bank_path (str): Normalized path to the bank directory.
+
+        Raises:
+            FileNotFoundError: If the specified directory cannot be located.
+        """
         if bank_path is None:
             bank_path = self.DEFAULT_BANK_PATH
         bank_path = os.path.normpath(bank_path)
@@ -57,6 +94,9 @@ class TriggerBank:
                 self.studio_system.load_bank_file(full_path)
 
     def _prepare_events(self):
+        """
+        Maps FMOD project paths to local event instances for playback control.
+        """
         temp_warning_event = self.studio_system.get_event(WARNING_EVENT_PATH)
         temp_crash_event = self.studio_system.get_event(CRASH_EVENT_PATH)
         temp_honk_event = self.studio_system.get_event(HONK_EVENT_PATH)
@@ -82,12 +122,19 @@ class TriggerBank:
         self.studio_system.update()
 
     def get_events():
+        """
+        Returns a dictionary of event instances. Currently returning an empty 
+        map as playback is managed through explicit class methods.
+        """
         events = {
 
         }
         return events
 
     def shutdown(self):
+        """
+        Gracefully releases the FMOD Studio System and stops all active sounds.
+        """
         try:
             print(f'Releasing Studio System')
             self.studio_system.release()

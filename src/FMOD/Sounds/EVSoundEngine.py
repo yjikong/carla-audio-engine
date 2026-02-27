@@ -10,7 +10,31 @@ import pyfmodex
 from pyfmodex.enums import DSP_TYPE
 
 class EVSoundEngine:
+    """
+    Procedural Audio Engine for Electric Vehicle (EV) sound synthesis.
+
+    This engine utilizes the FMOD Core API to synthesize vehicle sounds in 
+    real-time using oscillators and noise generators. It simulates three 
+    primary acoustic components:
+    
+    1. **Inverter/Motor**: Sine-wave synthesis with harmonic overtones.
+    2. **Road/Tire Noise**: Filtered white noise modulated by speed.
+    3. **Aerodynamic Hiss**: High-frequency wind noise appearing at higher velocities.
+
+    Attributes:
+        system (pyfmodex.System): The FMOD Core system instance.
+        is_running (bool): Tracks the active state of the audio emitters.
+        engine_group (ChannelGroup): Audio bus for motor-related DSPs.
+        road_group (ChannelGroup): Audio bus for tire and wind-related DSPs.
+    """
     def __init__(self):
+        """
+        Initializes the FMOD Core system and constructs the DSP signal chain.
+        
+        Sets up sine oscillators for the motor, noise generators for the road, 
+        and a filtering pipeline (low-pass and resonance) to simulate cabin 
+        insulation and tire resonance.
+        """
         self.system = pyfmodex.System()
         self.system.init(maxchannels=32)
         
@@ -48,7 +72,12 @@ class EVSoundEngine:
         self.is_running = False
 
     def start(self):
-
+        """
+        Activates the DSP chain and begins audio playback.
+        
+        Assigns DSPs to their respective channel groups and establishes 
+        the hierarchical routing from road and engine groups to the master group.
+        """
         # 1. Grundwelle starten
         self.engine_ch = self.system.play_dsp(self.engine_dsp)
         self.engine_ch.channel_group = self.engine_group
@@ -79,6 +108,17 @@ class EVSoundEngine:
         self.is_running = True
 
     def update_params(self, speed_kmh, torque, road_roughness=0.01):
+        """
+        Modulates the synthesized sound based on real-time vehicle dynamics.
+
+        Args:
+            speed_kmh (float): Current vehicle speed. Affects pitch of the 
+                motor and volume/frequency of road and wind noise.
+            torque (float): Engine load. Directly modulates the volume of 
+                the motor oscillators to simulate power delivery.
+            road_roughness (float, optional): Multiplier for tire noise volume. 
+                Defaults to 0.01.
+        """
         if not self.is_running: return
         
         # MOTOR FREQUENZ
@@ -108,5 +148,8 @@ class EVSoundEngine:
         self.hiss_ch.volume = hiss_vol * 0.2
 
     def stop(self):
+        """
+        Gracefully releases the FMOD Core system resources.
+        """
         if self.system:
             self.system.release()
