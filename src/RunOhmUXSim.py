@@ -166,7 +166,7 @@ class SimulatorGUI:
             port (int, optional): Specifies the port CARLA server uses. Defaults to 2000.
         
         Note:
-            CARLA uses localhost port 2000 by default. If this is to be adjusted, all scripts connecting to the
+            CARLA uses localhost port 2000 by default. If this is to be modified, all scripts connecting to the
             server must be adjusted.
         """
         try:
