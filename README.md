@@ -41,7 +41,9 @@ flowchart TD
   B --> C[Create Carla Client Venv]
   C --> D[Create Carla Code Venv]
   D --> E[Create FMOD Code Venv]
-  E --> F[Run `RunOhmUXSim.py`]
+  E --> F[Run RunOhmUXSim.py]
+  F --> G[Select Files]
+  G --> H[Start]
 ```
 
 ## Installation and Setup
