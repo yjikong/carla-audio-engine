@@ -1,9 +1,6 @@
 FMOD Module
 ===========
 
-Submodules
-----------
-
 .. toctree::
    :maxdepth: 5
    :hidden:
