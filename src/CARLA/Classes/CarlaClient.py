@@ -20,7 +20,7 @@ class CarlaClient:
         crash_counter (int): Counter to track the number of collisions.
         honk_trigger (bool): State tracker for the horn input logic.
     """
-    _COLLISION_INTENSITY = 100
+    _MIN_COLLISION_INTENSITY = 100
     _MS_IN_KMH = 3.6
 
     def __init__(self, ip,port,timeout):
@@ -36,6 +36,8 @@ class CarlaClient:
         self.crash_counter = 0
         self.crash_impulse = False
         self.honk_trigger = False
+        self.old_handbrake_state = False
+        self.handbrake_trigger = False
 
         self.__connect()
         
@@ -142,13 +144,17 @@ class CarlaClient:
                 acceleration = self.vehicle.get_acceleration()
                 speed_limit = self.vehicle.get_speed_limit()
                 v = self.vehicle.get_velocity()
-                kmh = 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
+                kmh = self._MS_IN_KMH * math.sqrt(v.x**2 + v.y**2 + v.z**2)
                 control = self.vehicle.get_control()
                 gear = control.gear
                 handbrake = control.hand_brake
                 steer = control.steer
 
-                if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > 100:
+                if self.old_handbrake_state is False and handbrake is True:
+                    self.handbrake_trigger = True
+                self.old_handbrake_state = self.handbrake_trigger
+
+                if self.collision_sensor.collision_counter > self.crash_counter and self.collision_sensor.intensity > self._MIN_COLLISION_INTENSITY:
                     self.crash_impulse = True
                     self.crash_counter = self.collision_sensor.collision_counter
 
@@ -165,9 +171,10 @@ class CarlaClient:
                         "wind_intensity" : wind_intensity,
                         "acceleration" : acceleration.y,
                         "honk" : honk,
-                        "handbrake" : handbrake
+                        "handbrake" : self.handbrake_trigger
                     }
                 self.crash_impulse = False
+                self.handbrake_trigger = False
                 return data_packet
             except(AttributeError):
                 print("Dont change the vehicle too fast please")

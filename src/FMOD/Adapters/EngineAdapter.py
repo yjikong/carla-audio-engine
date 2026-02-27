@@ -59,12 +59,11 @@ class EngineAdapter:
         self.throttle = throttle
         self.update()
 
-    def calculate_torque(self, speed, throttle):
+    def calculate_torque(self, throttle):
         """
         Calculates a simplified torque value used for sound modulation.
 
         Args:
-            speed (float): Current vehicle speed.
             throttle (float): Current throttle position.
 
         Returns:
@@ -84,5 +83,5 @@ class EngineAdapter:
         """
         if self.ev.is_running is False:
             self.ev.start()
-        self.ev.update_params(self.speed, self.calculate_torque(self.speed, self.throttle))
+        self.ev.update_params(self.speed, self.calculate_torque(self.throttle))
         self.ev.system.update()
