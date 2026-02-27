@@ -9,6 +9,12 @@ SoundCARLA Documentation
 
 .. toctree::
    :maxdepth: 2
+   :caption: Architecture
+
+   architecture   
+
+.. toctree::
+   :maxdepth: 2
    :caption: Reference:
 
    src
