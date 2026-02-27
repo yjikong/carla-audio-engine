@@ -255,11 +255,8 @@ For each new packet, the model computes a diff against the last state. Only chan
 Within the main loop in `fmain.py`, the system processes model updates (publishing changes) and ticks adapter/bank update functions so FMOD event playback and procedural audio remain responsive and in sync.
 
 
-## Acknowledgments
+## Third-Party Licenses
 
-This project uses the following third-party library:
-
-- [__PYFMODEX__](https://github.com/tyrylu/pyfmodex)  
-  Licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+This project uses [CARLA Simulator](https://github.com/carla-simulator/carla) and [PYFMODEX](https://github.com/tyrylu/pyfmodex) under the [MIT License](https://opensource.org/licenses/MIT). 
 
 Please ensure you comply with the MIT license terms when using or modifying this project.
