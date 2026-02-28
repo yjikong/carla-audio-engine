@@ -49,6 +49,22 @@
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#carla">1. Carla</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#folder-structure">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow">Data flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#fmod">2. FMOD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#id1">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow-fmod">Data flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../src.html">Modules</a><ul>
@@ -229,12 +245,11 @@
 
 <div class="viewcode-block" id="EngineAdapter.calculate_torque">
 <a class="viewcode-back" href="../../../../src.FMOD.Adapters.html#src.FMOD.Adapters.EngineAdapter.EngineAdapter.calculate_torque">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">throttle</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">throttle</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates a simplified torque value used for sound modulation.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            speed (float): Current vehicle speed.</span>
 <span class="sd">            throttle (float): Current throttle position.</span>
 
 <span class="sd">        Returns:</span>
@@ -257,7 +272,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">is_running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">update_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">update_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_torque</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">throttle</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 </div>
 

@@ -45,6 +45,16 @@ Provide a robust and easily extensible interface between the Carla simulation an
 
 The **FMOD part** handles the actual **sound logic and audio playback**. It receives data packets sent by the Carla client (UDP/JSON), detects changes (diffing), and translates these changes into **FMOD event triggers**, **parameter updates**, or **procedurally generated sounds**. The structure is loosely based on an **MVC-style** split: *Model* (data receiving/processing), *Adapters* (logic), and *Banks/Sounds* (audio resources and playback).
 
+.. figure:: ./diagrams/fmod_class_diagramm.png
+    :align: center
+    :alt: FMOD class diagramm
+
+    Figure 1: FMOD module class diagramm
+
+.. note:: 
+    Adapter classes receive bank and sound class instances via their constructors.
+
+
 Folder structure
 ~~~~~~~~~~~~~~~~
 

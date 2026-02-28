@@ -201,16 +201,16 @@
 <section id="module-src.RunOhmUXSim">
 <span id="runohmuxsim"></span><h1>RunOhmUXSim<a class="headerlink" href="#module-src.RunOhmUXSim" title="Link to this heading"></a></h1>
 <p>SoundCARLA Master Launcher</p>
-<p>Dieses Modul stellt eine grafische Benutzeroberfläche (Tkinter) zur Steuerung der
-gesamten SoundCARLA-Simulationsumgebung bereit. Es fungiert als Orchestrator,
-der den CARLA-Simulator, Client-Skripte, die FMOD-Audio-Engine und Traffic-Manager
-in ihren jeweiligen virtuellen Umgebungen startet.</p>
+<p>This module provides a graphical user interface (Tkinter) to control the
+entire SoundCARLA simulation environment. It acts as an orchestrator,
+launching the CARLA simulator, client scripts, the FMOD audio engine,
+and traffic managers within their respective virtual environments.</p>
 <dl class="simple">
-<dt>Hauptfunktionen:</dt><dd><ul class="simple">
-<li><p>Konfigurationsmanagement über ‘sim_config.json’.</p></li>
-<li><p>Dynamische Pfadauswahl für verschiedene Python-Interpreten (venvs).</p></li>
-<li><p>Automatisierte Startsequenz mit Port-Bereinigung und Server-Health-Checks.</p></li>
-<li><p>Unterstützung für Rendering-Optionen (z. B. DirectX 11).</p></li>
+<dt>Key Features:</dt><dd><ul class="simple">
+<li><p>Configuration management via ‘sim_config.json’.</p></li>
+<li><p>Dynamic path selection for various Python interpreters (venvs).</p></li>
+<li><p>Automated startup sequence including port cleanup and server health checks.</p></li>
+<li><p>Support for rendering options (e.g., DirectX 11).</p></li>
 </ul>
 </dd>
 </dl>
@@ -300,8 +300,19 @@ constructs the interface components.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.RunOhmUXSim.SimulatorGUI.kill_process_on_port">
-<span class="sig-name descname"><span class="pre">kill_process_on_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/RunOhmUXSim.html#SimulatorGUI.kill_process_on_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">kill_process_on_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/RunOhmUXSim.html#SimulatorGUI.kill_process_on_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.RunOhmUXSim.SimulatorGUI.kill_process_on_port" title="Link to this definition"></a></dt>
+<dd><p>Kills old CARLA servers which might be blocking the port 2000</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Specifies the port CARLA server uses. Defaults to 2000.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CARLA uses localhost port 2000 by default. If this is to be modified, all scripts connecting to the
+server must be adjusted.</p>
+</div>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.RunOhmUXSim.SimulatorGUI.launch_all">

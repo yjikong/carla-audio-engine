@@ -49,6 +49,22 @@
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#carla">1. Carla</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#folder-structure">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow">Data flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#fmod">2. FMOD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#id1">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow-fmod">Data flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../src.html">Modules</a><ul>
@@ -72,7 +88,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.FMOD.html">FMOD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.FMOD.Adapters.html">Adapters</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#engineadapter">EngineAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EngineAdapter">EngineAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EnvironmentAdapter">EnvironmentAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.RainIntensity">RainIntensity</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.TriggerAdapter">TriggerAdapter</a></li>
@@ -245,7 +261,9 @@
 <span class="sd">        audio-simulation synchronicity.</span>
 <span class="sd">        &quot;&quot;&quot;</span>    
         <span class="n">old_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">()</span>
+        <span class="n">new_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">new_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">client_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
         <span class="n">diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_data</span><span class="p">,</span> <span class="n">old_data</span><span class="p">)</span>
 

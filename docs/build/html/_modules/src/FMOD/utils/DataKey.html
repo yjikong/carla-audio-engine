@@ -49,6 +49,22 @@
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#carla">1. Carla</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#folder-structure">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow">Data flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#fmod">2. FMOD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#id1">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow-fmod">Data flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../src.html">Modules</a><ul>
@@ -72,7 +88,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.FMOD.html">FMOD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.FMOD.Adapters.html">Adapters</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#engineadapter">EngineAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EngineAdapter">EngineAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EnvironmentAdapter">EnvironmentAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.RainIntensity">RainIntensity</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.TriggerAdapter">TriggerAdapter</a></li>
@@ -171,40 +187,40 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ACCELERATION</span> <span class="o">=</span> <span class="s2">&quot;acceleration&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Vehicle acceleration vector or magnitude.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for vehicle acceleration.&quot;&quot;&quot;</span>
 
     <span class="n">BRAKE</span> <span class="o">=</span> <span class="s2">&quot;brake&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Brake pedal input state ranging from 0.0 to 1.0.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for brake pedal input state.&quot;&quot;&quot;</span>
 
     <span class="n">COLLISION_EVENT</span> <span class="o">=</span> <span class="s2">&quot;collision_event&quot;</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Trigger key for vehicle impact detections.&quot;&quot;&quot;</span>
 
     <span class="n">GEAR</span> <span class="o">=</span> <span class="s2">&quot;gear&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Current transmission gear index (e.g., -1 for Reverse, 0 for Neutral).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for transmission gear index.&quot;&quot;&quot;</span>
 
     <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: General purpose system or debug messages.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for general purpose system or debug messages.&quot;&quot;&quot;</span>
 
     <span class="n">RAIN_INTENSITY</span> <span class="o">=</span> <span class="s2">&quot;rain_intensity&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Precipitation percentage (0-100) used for ambient sound modulation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for precipitation&quot;&quot;&quot;</span>
 
     <span class="n">SPEED</span> <span class="o">=</span> <span class="s2">&quot;speed&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Current vehicle velocity in km/h.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for vehicle velocity.&quot;&quot;&quot;</span>
 
     <span class="n">SPEED_LIMIT</span> <span class="o">=</span> <span class="s2">&quot;speed_limit&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Local speed limit for the current road segment in km/h.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for local speed limit of the current road segment.&quot;&quot;&quot;</span>
 
     <span class="n">THROTTLE</span> <span class="o">=</span> <span class="s2">&quot;throttle&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Throttle pedal input state ranging from 0.0 to 1.0.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for throttle pedal input state.&quot;&quot;&quot;</span>
 
     <span class="n">WIND_INTENSITY</span> <span class="o">=</span> <span class="s2">&quot;wind_intensity&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Wind speed percentage (0-100) used for ambient sound modulation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for wind speed percentage.&quot;&quot;&quot;</span>
 
     <span class="n">HONK</span> <span class="o">=</span> <span class="s2">&quot;honk&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: State of the vehicle&#39;s horn trigger.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for state of the vehicle&#39;s horn trigger.&quot;&quot;&quot;</span>
 
     <span class="n">HANDBRAKE</span> <span class="o">=</span> <span class="s2">&quot;handbrake&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: State of the manual parking brake engagement.&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;str: Key for state of the manual parking brake engagement.&quot;&quot;&quot;</span></div>
 
 </pre></div>
 

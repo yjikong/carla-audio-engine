@@ -49,6 +49,22 @@
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#carla">1. Carla</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#folder-structure">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow">Data flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../architecture.html#fmod">2. FMOD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#id1">Folder structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../architecture.html#data-flow-fmod">Data flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Reference:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../src.html">Modules</a><ul>
@@ -72,7 +88,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../src.FMOD.html">FMOD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../src.FMOD.Adapters.html">Adapters</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#engineadapter">EngineAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EngineAdapter">EngineAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.EnvironmentAdapter">EnvironmentAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.RainIntensity">RainIntensity</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../src.FMOD.Adapters.html#module-src.FMOD.Adapters.TriggerAdapter">TriggerAdapter</a></li>
@@ -179,7 +195,7 @@
 <span class="sd">        crash_counter (int): Counter to track the number of collisions.</span>
 <span class="sd">        honk_trigger (bool): State tracker for the horn input logic.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_COLLISION_INTENSITY</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">_MIN_COLLISION_INTENSITY</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">_MS_IN_KMH</span> <span class="o">=</span> <span class="mf">3.6</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">timeout</span><span class="p">):</span>
@@ -195,6 +211,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">crash_counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crash_impulse</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">honk_trigger</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_handbrake_state</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handbrake_trigger</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__connect</span><span class="p">()</span>
         
@@ -303,13 +321,17 @@
                 <span class="n">acceleration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">()</span>
                 <span class="n">speed_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_speed_limit</span><span class="p">()</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">()</span>
-                <span class="n">kmh</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">kmh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_MS_IN_KMH</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
                 <span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicle</span><span class="o">.</span><span class="n">get_control</span><span class="p">()</span>
                 <span class="n">gear</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">gear</span>
                 <span class="n">handbrake</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">hand_brake</span>
                 <span class="n">steer</span> <span class="o">=</span> <span class="n">control</span><span class="o">.</span><span class="n">steer</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_sensor</span><span class="o">.</span><span class="n">collision_counter</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">crash_counter</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_sensor</span><span class="o">.</span><span class="n">intensity</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_handbrake_state</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">handbrake</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">handbrake_trigger</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">old_handbrake_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handbrake_trigger</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_sensor</span><span class="o">.</span><span class="n">collision_counter</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">crash_counter</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_sensor</span><span class="o">.</span><span class="n">intensity</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_MIN_COLLISION_INTENSITY</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">crash_impulse</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">crash_counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_sensor</span><span class="o">.</span><span class="n">collision_counter</span>
 
@@ -326,12 +348,18 @@
                         <span class="s2">&quot;wind_intensity&quot;</span> <span class="p">:</span> <span class="n">wind_intensity</span><span class="p">,</span>
                         <span class="s2">&quot;acceleration&quot;</span> <span class="p">:</span> <span class="n">acceleration</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
                         <span class="s2">&quot;honk&quot;</span> <span class="p">:</span> <span class="n">honk</span><span class="p">,</span>
-                        <span class="s2">&quot;handbrake&quot;</span> <span class="p">:</span> <span class="n">handbrake</span>
+                        <span class="s2">&quot;handbrake&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handbrake_trigger</span>
                     <span class="p">}</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">crash_impulse</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handbrake_trigger</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">return</span> <span class="n">data_packet</span>
-            <span class="k">except</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dont change the vehicle too fast please&quot;</span><span class="p">)</span></div>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="c1"># Catching RuntimeError as well, as CARLA often throws this if the actor is destroyed</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vehicle reference lost or switching: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">vehicle_found</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">vehicle</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">return</span> <span class="kc">None</span> <span class="c1"># Return None so the caller knows data is currently unavailable</span></div>
+
 
 
     
