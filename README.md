@@ -68,7 +68,7 @@ Use the following links to download the necessary files:
 |[PYTHON](https://www.python.org/downloads/windows/)|3.8 and 3.12|
 
 After the installations are complete you can _clone_ the repository into your own IDE. 
-Know you have to creat three different venvs for the project.
+Now you have to creat three different venvs for the project.
 
 ### 1. Carla Client Venv
 For the Carla Client Venv you have to go into the Carla folder where the _Carla4UE.exe_ lies and start 
