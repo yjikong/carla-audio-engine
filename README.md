@@ -1,7 +1,7 @@
 # Sound Implementation for CARLA
 
 This repository contains the implementation of basic sound functionaliy 
-for the CARLA simulator. The project was developed as part of an academic assignment and aims 
+for the CARLA simulator. The project was developed as part of an academic assignment, at the University of Technology Nuremberg - Georg Simon Ohm, and aims 
 to enhance the realism of the simulation environment.
 
 CARLA, widely used in research for autonomous driving and user experience (UX) 
