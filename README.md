@@ -168,6 +168,9 @@ In the launcher you have to select the files for:
 >[!TIP]
 >The image provides example paths that should be similar to yours.
 
+>[!NOTE]
+>The field `Use DircetX 11 (-dx11)` has to be selected if your GPU isn´t from NVIDIA or has less then 8GB VRam.
+
 
 ## Architecture
 The system is divided into two parts—Carla and FMOD. The Carla part essentially handles the setup of 
