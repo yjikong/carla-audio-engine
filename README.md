@@ -34,6 +34,10 @@ The following sounds are implemented:
 They were not professionally designed and may vary in quality. This implementation is primarily intended 
 as a proof of concept or starting point for further development.
 
+>[!CAUTION]
+>The sounds are created or edited with FMOD Studio 2.02 and Engine 2.02.
+>The FMOD license we use is not for commercial use.
+
 ## How to run
 ```mermaid
 flowchart TD
@@ -109,20 +113,20 @@ This venv has to be created in the _CARLA_ folder of our project. This part of t
 and sends/receives data from the simulator.  
 To create this venv you have to open a terminal in your IDE and direct to the Carla folder.
 ````Console
-C:\Users\user\yourProjectFolder> cd Code\CARLA
+C:\Users\user\yourProjectFolder> cd src\CARLA
 ````
 
 Here you must now create a venv with __Python 3.8__, as for the Carla simulator.
 ````Console
-C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 venv .venv38
+C:\Users\user\yourProjectFolder\src\CARLA> py -3.8 -m venv .venv38
 ````
 
 And as with the venv for the simulator we have to activate it and install the _requirements.txt_.
 ````Console
-C:\Users\user\yourProjectFolder\Code\CARLA> .\.venv38\Scripts\activate
+C:\Users\user\yourProjectFolder\src\CARLA> .\.venv38\Scripts\activate
 ````
 ````Console
-(.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
+(.venv38) C:\Users\user\yourProjectFolder\src\CARLA> pip install -r requirements.txt
 ````
 
 
@@ -134,21 +138,35 @@ for playing the sounds in the right events.
 To creat it you have to follow the same steps a befor:
 - direct to the right folder
 ````Console
-C:\Users\user\yourProjectFolder> cd Code\FMOD 
+C:\Users\user\yourProjectFolder> cd src\FMOD 
 ````
 - create the venv with __Python 3.12__
 ````Console
-C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 venv .venv38
+C:\Users\user\yourProjectFolder\src\FMOD> py -3.12 -m venv .venv
 ````
 - activate it
 ````Console
-C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
+C:\Users\user\yourProjectFolder\src\FMOD> .\.venv38\Scripts\activate
 ````
 - install the requirements.txt
 ````Console
-(.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
+(.venv38) C:\Users\user\yourProjectFolder\src\FMOD> pip install -r requirements.txt
 ````
 - `deactivate` it
+
+### Launcher
+After all venvs are created you can launch the project by running the `RunOhmUXSim.py` file.
+Starting the script opens a launcher.
+
+![Launcher](docs/source/diagrams/View_Launcher.png)
+
+In the launcher you have to select the files for:
+1. the Carla client.
+2. the venvs: here you have to select the python.exe files.
+3. and the scripts for control, traffic generation and our scripts for the carla and fmod code.
+
+>[!TIP]
+>The image provides example paths that should be similar to yours.
 
 
 ## Architecture
