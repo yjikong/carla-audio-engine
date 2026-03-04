@@ -63,7 +63,7 @@ Finally, manually install the CARLA library into the venv:
 You can check if everything installed correctly using ``pip list``, then ``deactivate`` the venv.
 
 .. important::
-   The next two venvs must be created within the code structure of the project. Ensure you have cloned the repository before proceeding.
+   The next two venvs must be created within the src folder. Ensure you have cloned the repository before proceeding.
 
 2. CARLA Code Venv
 ------------------
@@ -73,21 +73,21 @@ Open a terminal in your IDE and navigate to the CARLA folder:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder> cd Code\CARLA
+    C:\Users\user\yourProjectFolder> cd src\CARLA
 
 Create a venv with **Python 3.8**:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder\Code\CARLA> py -3.8 -m venv .venv38
+    C:\Users\user\yourProjectFolder\src\CARLA> py -3.8 -m venv .venv38
 
 Activate it and install the requirements:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder\Code\CARLA> .\.venv38\Scripts\activate
+    C:\Users\user\yourProjectFolder\src\CARLA> .\.venv38\Scripts\activate
 
-    (.venv38) C:\Users\user\yourProjectFolder\Code\CARLA> pip install -r requirements.txt
+    (.venv38) C:\Users\user\yourProjectFolder\src\CARLA> pip install -r requirements.txt
 
 Once complete, ``deactivate`` the venv.
 
@@ -99,20 +99,43 @@ Navigate to the FMOD folder:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder> cd Code\FMOD 
+    C:\Users\user\yourProjectFolder> cd src\FMOD 
 
 Create the venv using **Python 3.12**:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder\Code\FMOD> py -3.12 -m venv .venv38
+    C:\Users\user\yourProjectFolder\src\FMOD> py -3.12 -m venv .venv38
 
 Activate and install the requirements:
 
 .. code-block:: console
 
-    C:\Users\user\yourProjectFolder\Code\FMOD> .\.venv38\Scripts\activate
+    C:\Users\user\yourProjectFolder\src\FMOD> .\.venv38\Scripts\activate
 
-    (.venv38) C:\Users\user\yourProjectFolder\Code\FMOD> pip install -r requirements.txt
+    (.venv38) C:\Users\user\yourProjectFolder\src\FMOD> pip install -r requirements.txt
 
 Once complete, ``deactivate`` the venv.
+
+Launcher
+========
+
+After all virtual environments (venvs) are created, you can launch the project by executing the ``RunOhmUXSim.py`` file. Initializing this script opens the Master Launcher interface.
+
+.. figure:: /docs/source/diagrams/View_Launcher.png
+   :alt: SoundCARLA Master Launcher Interface
+   :align: center
+
+   SoundCARLA Master Launcher Interface
+
+In the launcher, you must specify the absolute paths for:
+
+1. **The CARLA Simulator:** The main simulator executable.
+2. **The Python Interpreters:** Select the specific ``python.exe`` files located within your respective venvs.
+3. **Scripts:** Define the locations for manual control, traffic generation, and the core SoundCARLA/FMOD integration scripts.
+
+.. tip::
+   The image above provides example paths that should be structurally similar to your local setup.
+
+.. note::
+   The **Use DirectX 11 (-dx11)** option should be enabled if your GPU is not an NVIDIA model or if it possesses less than 8GB of VRAM to ensure simulation stability.

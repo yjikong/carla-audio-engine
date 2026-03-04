@@ -107,7 +107,7 @@ After that you can check with the command `pip list` if everything is installed 
 
 
 >[!IMPORTANT]
-> The next two venvs have to be created in the code structure of the project. So you have to clone the project into your IDE if not already done.
+> The next two venvs have to be created in the src folder. So you have to clone the project into your IDE if not already done.
 ### 2. Carla Code Venv:
 This venv has to be created in the _CARLA_ folder of our project. This part of the code connects with Carla 
 and sends/receives data from the simulator.  
