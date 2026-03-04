@@ -22,6 +22,70 @@ from pathlib import Path
 from tkinter import *
 from tkinter import ttk, filedialog
 
+class SplashScreen:
+    """
+    A borderless, centered top-level window used for FMOD branding.
+
+    This class displays the FMOD logo during the application startup sequence. 
+    It is a prerequisite for using the FMOD backend in SoundCARLA. The window 
+    remains visible for a fixed duration before automatically destroying itself 
+    and triggering the main GUI.
+
+    Attributes:
+        parent (Tk): The root window to which this splash screen belongs.
+        callback (callable): Function to execute show_main_ui() once 
+        the splash duration expires.
+        splash (Toplevel): borderless window instance.
+        photo (PhotoImage): FMOD logo from the official website.
+    """
+    def __init__(self, parent, callback):
+        """
+        Initializes the splash screen, loads the logo, and centers the window.
+
+        Args:
+            parent (Tk): The root Tkinter window.
+            callback (callable): The method to call after the splash screen finishes.
+        """
+        self.parent = parent
+        self.callback = callback 
+
+        self.splash = Toplevel(parent)
+        # We removed overrideredirect(True) to keep the Titlebar consistent
+        self.splash.title("SoundCARLA Master Launcher")
+        self.splash.attributes("-topmost", True)    
+        self.splash.configure(bg='white')
+
+        # Match exact dimensions of the main UI
+        width, height = 550, 600
+        screen_width = self.splash.winfo_screenwidth()
+        screen_height = self.splash.winfo_screenheight()
+        x = (screen_width // 2) - (width // 2)
+        y = (screen_height // 2) - (height // 2)
+        self.splash.geometry(f'{width}x{height}+{x}+{y}')
+        self.splash.resizable(False, False)
+
+        # 1. Load the PNG
+        logo_path = Path(__file__).resolve().parents[1] / "docs" / "source" / "diagrams" / "fmod_logo.png"
+        try:
+            self.photo = PhotoImage(file=str(logo_path))
+            lbl = Label(self.splash, image=self.photo, bg='white')
+            # Pack with expand=True to keep it centered in the 600px height
+            lbl.pack(expand=True, fill=BOTH)
+        except Exception as e:
+            print(f"Logo error: {e}")
+            Label(self.splash, text="SOUNDCARLA\nFMOD AUDIO ENGINE",
+                  font=("Inter", 16, "bold"), bg='white').pack(expand=True)
+
+        # 2. Prevent user from closing splash prematurely
+        self.splash.protocol("WM_DELETE_WINDOW", lambda: None)
+
+        # 3. Timing: 3 seconds branding, then transform
+        self.splash.after(3000, self.finish)
+
+    def finish(self):
+        """Signals the main UI to take over the existing space."""
+        self.callback(self.splash)
+
 class SimulatorGUI:
     """
     GUI class for managing and launching simulation processes.
@@ -58,17 +122,51 @@ class SimulatorGUI:
             "TRAFFIC_SCRIPT": "",
             "CARLA_CLIENT_SCRIPT": "",
             "FMOD_SCRIPT": "",
-            "USE_DX11": True  # Default value
+            "USE_DX11": True
         })
 
         self.root = Tk()
+        self.root.withdraw() # Start hidden
         self.root.title("SoundCARLA Master Launcher")
         self.root.geometry("550x600")
+        self.root.resizable(False, False)
         
         self.dx11_var = BooleanVar(value=self.paths.get("USE_DX11", True))
-        
         self.processes = []
+
+        # Start synchronized Splash Screen
+        SplashScreen(self.root, self.show_main_ui)
+
+    def show_main_ui(self, splash_window):
+        """
+        Transitions from Splash to Main UI seamlessly by syncing 
+        the geometry before destroying the splash.
+        """
         self._build_ui()
+        
+        # Match coordinates of the splash exactly
+        width, height = 550, 600
+        x = (self.root.winfo_screenwidth() // 2) - (width // 2)
+        y = (self.root.winfo_screenheight() // 2) - (height // 2)
+        self.root.geometry(f'{width}x{height}+{x}+{y}')
+        
+        # Prepare for fade
+        self.root.attributes("-alpha", 0.0)
+        self.root.deiconify()
+        
+        # The key to "no plop": Destroy splash only after deiconify
+        splash_window.destroy()
+        self._fade_in(0.0)
+
+    def _fade_in(self, current_alpha):
+        """Smoothly transitions alpha from 0 to 1."""
+        if current_alpha < 1.0:
+            current_alpha += 0.1 
+            self.root.attributes("-alpha", current_alpha)
+            self.root.after(15, lambda: self._fade_in(current_alpha))
+        else:
+            self.root.attributes("-alpha", 1.0)
+            self.root.attributes("-topmost", False)
 
     def load_config(self, defaults):
         if os.path.exists(self.config_path):
