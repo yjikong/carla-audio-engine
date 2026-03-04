@@ -65,55 +65,49 @@ class SimulatorGUI:
         self.root = Tk()
         self.root.title("SoundCARLA Master Launcher")
         
-        # Center window and lock dimensions
+        # Set geometry immediately so it is visible and centered from start
         width, height = 550, 600
         x = (self.root.winfo_screenwidth() // 2) - (width // 2)
         y = (self.root.winfo_screenheight() // 2) - (height // 2)
-        self.root.geometry(f"{width}x{height}+{x}+{y}")
+        self.root.geometry(f'{width}x{height}+{x}+{y}')
         self.root.resizable(False, False)
         
         self.dx11_var = BooleanVar(value=self.paths.get("USE_DX11", True))
         self.processes = []
 
-        # State-based UI initialization: Start with branding
-        self._show_branding()
+        # Start with branding inside the root window
+        self._show_initial_branding()
 
-    def _show_branding(self):
-        """
-        Displays FMOD branding in the primary window buffer.
-        """
+    def _show_initial_branding(self):
+        """Displays FMOD branding inside the root window before UI initialization."""
         self.root.configure(bg='white')
-        
-        # Path resolution relative to source root
         logo_path = Path(__file__).resolve().parents[1] / "docs" / "source" / "diagrams" / "fmod_logo.png"
         
         try:
-            self.splash_img = PhotoImage(file=str(logo_path))
-            lbl = Label(self.root, image=self.splash_img, bg='white')
-            lbl.pack(expand=True)
-        except Exception as e:
-            # Fallback for missing assets or unsupported formats
-            Label(self.root, text="SOUNDCARLA\nFMOD AUDIO ENGINE",
-                  font=("Inter", 16, "bold"), bg='white').pack(expand=True)
+            self.photo = PhotoImage(file=str(logo_path))
+            self.brand_lbl = Label(self.root, image=self.photo, bg='white')
+            self.brand_lbl.pack(expand=True, fill=BOTH)
+        except Exception:
+            self.brand_lbl = Label(self.root, text="SOUNDCARLA\nFMOD AUDIO ENGINE",
+                                   font=("Inter", 16, "bold"), bg='white')
+            self.brand_lbl.pack(expand=True, fill=BOTH)
 
-        # Trigger transition to functional UI after branding requirements met
+        # Schedule the transition to the main UI
         self.root.after(3000, self.show_main_ui)
 
-    def show_main_ui(self, splash_window=None):
+    def show_main_ui(self):
         """
-        Transitions from Splash to Main UI seamlessly by syncing 
-        the geometry and waiting for the main window to be ready.
+        Transitions from branding to Main UI seamlessly within the same window handle.
         """
-        # Flush branding widgets from the buffer
-        for widget in self.root.winfo_children():
-            widget.destroy()
-
-        self.root.configure(bg='#f0f0f0') 
+        if hasattr(self, 'brand_lbl'):
+            self.brand_lbl.destroy()
+            
+        self.root.configure(bg='#f0f0f0') # Match your standard UI background
         self._build_ui()
         
-        # Ensure transition is seamless by forcing a draw cycle before exposure
+        # Optional: Start with a 0 alpha and fade in to keep your fade effect
         self.root.attributes("-alpha", 0.0)
-        self.root.after(10, lambda: self._fade_in(0.0))
+        self._fade_in(0.0)
 
     def _fade_in(self, current_alpha):
         """Smoothly transitions alpha from 0 to 1."""
