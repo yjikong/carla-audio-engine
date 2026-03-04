@@ -120,6 +120,19 @@ class SimulatorGUI:
             self.root.attributes("-topmost", False)
 
     def load_config(self, defaults):
+        """
+        Loads the simulation configuration from a local JSON file.
+
+        Attempts to read 'sim_config.json' and merge its contents with the provided 
+        default values. If the file does not exist or a parsing error occurs, 
+        the method falls back to the defaults to ensure system stability.
+
+        Args:
+            defaults (dict): A dictionary containing the fallback paths and settings.
+
+        Returns:
+            dict: The merged configuration dictionary containing valid paths and flags.
+        """
         if os.path.exists(self.config_path):
             try:
                 with open(self.config_path, "r") as f:
@@ -131,11 +144,28 @@ class SimulatorGUI:
         return defaults
 
     def save_config(self):
+        """
+        Serializes the current application state to the configuration file.
+
+        Synchronizes the GUI's interactive variables (e.g., DirectX 11 preference) 
+        with the internal path dictionary before performing an atomic write 
+        to 'sim_config.json'.
+        """
         self.paths["USE_DX11"] = self.dx11_var.get()
         with open(self.config_path, "w") as f:
             json.dump(self.paths, f, indent=4)
 
     def browse_file(self, key):
+        """
+        Opens a system file dialog to update and persist configuration paths.
+
+        This method handles the selection of executables or scripts, updates the 
+        internal path dictionary, synchronizes the changes to the 'sim_config.json' 
+        file, and triggers a UI refresh to reflect the new selection.
+
+        Args:
+            key (str): The configuration key in self.paths to be updated (e.g., 'CARLA_SIM').
+        """
         filename = filedialog.askopenfilename(title=f"Select {key}")
         if filename:
             self.paths[key] = filename
@@ -195,7 +225,7 @@ class SimulatorGUI:
               font=("Inter", 9, "italic bold"), fg="#d35400", pady=10).grid(column=0, row=row_idx, columnspan=3, sticky=S)
 
     def refresh_ui(self):
-        # Full UI rebuild to maintain state synchronization
+        """Full UI rebuild to maintain state synchronization"""
         for widget in self.root.winfo_children():
             widget.destroy()
         self._build_ui()
@@ -221,6 +251,16 @@ class SimulatorGUI:
             pass
 
     def launch_all(self):
+        """Starts main Thread and calls _run_launch_sequence()
+
+        The sequence follows these stages:
+            1. Port Cleanup: Terminates any existing processes on port 2000.
+            2. Simulator Start: Launches CARLA with the optional -dx11 flag.
+            3. Health Check: Polls the CARLA server until a world connection 
+               is established.
+            4. Orchestration: Sequentially starts Manual Control, the CARLA 
+               Client (cmain.py), FMOD Engine, and Traffic Manager.
+        """
         self.start_btn.config(state=DISABLED)
         threading.Thread(target=self._run_launch_sequence, daemon=True).start()
 
@@ -285,6 +325,8 @@ class SimulatorGUI:
         self.start_btn.config(state=NORMAL)
 
     def stop_all(self):
+        """Terminates all python processes. The Carla simulator has to be closes manually or will be destroyed automatically by restarting.
+        """
         self.status_var.set("Stopping all processes...")
         for p in self.processes:
             try: p.terminate()
