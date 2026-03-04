@@ -36,7 +36,7 @@ as a proof of concept or starting point for further development.
 
 >[!CAUTION]
 >The sounds are created or edited with FMOD Studio 2.02 and Engine 2.02.
->The FMOD license we use is not for commercial use.
+>To use FMOD commercially, please contact the FMOD Licensing department.
 
 ## How to run
 ```mermaid
@@ -278,6 +278,7 @@ Within the main loop in `fmain.py`, the system processes model updates (publishi
 
 ## Third-Party Licenses
 
-This project uses [CARLA Simulator](https://github.com/carla-simulator/carla) and [PYFMODEX](https://github.com/tyrylu/pyfmodex) under the [MIT License](https://opensource.org/licenses/MIT). 
+Made using FMOD Studio by Firelight Technologies Pty Ltd.
+Additionally this project uses [CARLA Simulator](https://github.com/carla-simulator/carla) and [PYFMODEX](https://github.com/tyrylu/pyfmodex) under the [MIT License](https://opensource.org/licenses/MIT).
 
 Please ensure you comply with the MIT license terms when using or modifying this project.
