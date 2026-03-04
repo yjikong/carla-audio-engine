@@ -41,6 +41,7 @@ class SimulatorGUI:
             rendering preference. If True, the '-dx11' flag is appended to 
             the CARLA launch command.
     """
+    MAX_RETRIES = 10
     def __init__(self):
         """
         Initializes the GUI window, loads saved paths from config, and 
@@ -257,14 +258,14 @@ class SimulatorGUI:
             connected = False
             check_script = "import carla; client = carla.Client('localhost', 2000); client.set_timeout(5.0); client.get_world()"
             
-            for i in range(12):
+            for i in range(self.MAX_RETRIES):
                 try:
                     subprocess.run([self.paths["SIM_VENV_PYTHON"], "-c", check_script], 
                                    check=True, capture_output=True, timeout=10)
                     connected = True
                     break
                 except Exception:
-                    self.status_var.set(f"Server-Check {i+1}/12...")
+                    self.status_var.set(f"Server-Check {i+1}/{self.MAX_RETRIES}...")
                     time.sleep(10)
 
             if not connected:
