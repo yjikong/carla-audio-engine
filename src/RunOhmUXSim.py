@@ -42,6 +42,7 @@ class SimulatorGUI:
             the CARLA launch command.
     """
     MAX_RETRIES = 10
+    """Defines how often the programm retries to connect to the CARLA Simulator"""
     def __init__(self):
         """
         Initializes the GUI window, loads saved paths from config, and 
