@@ -122,7 +122,7 @@ Launcher
 
 After all virtual environments (venvs) are created, you can launch the project by executing the ``RunOhmUXSim.py`` file. Initializing this script opens the Master Launcher interface.
 
-.. figure:: /docs/source/diagrams/View_Launcher.png
+.. figure:: ./diagrams/View_Launcher.png
    :alt: SoundCARLA Master Launcher Interface
    :align: center
 
