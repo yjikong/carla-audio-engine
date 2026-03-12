@@ -104,20 +104,20 @@ def setup(app):
  # -- Override dynamic paths for documentation --------------------------------
 
 try:
+    import sys
     import src.FMOD.Banks.config as fmod_config
     from src.FMOD.Banks.EnvironmentBank import EnvironmentBank
-
-    fmod_config.TRIGGER_BANK_PATH = 'Trigger_Bank'
-    fmod_config.ENVIRONMENT_BANK_PATH = 'Environment_Bank'
     
-    EnvironmentBank.DEFAULT_BANK_PATH = 'Environment_Bank'
+    fmod_config.TRIGGER_BANK_PATH = 'path/to/trigger_bank'
+    fmod_config.ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
+    EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
     
-    import sys
     if 'src.FMOD.Banks.config' in sys.modules:
-        sys.modules['src.FMOD.Banks.config'].TRIGGER_BANK_PATH = 'Trigger_Bank'
-        sys.modules['src.FMOD.Banks.config'].ENVIRONMENT_BANK_PATH = 'Environment_Bank'
+        sys.modules['src.FMOD.Banks.config'].TRIGGER_BANK_PATH = 'path/to/trigger_bank'
+        sys.modules['src.FMOD.Banks.config'].ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
 
-    print("[Sphinx Custom] Pfade erfolgreich auf Original-Naming gesetzt.")
+    if 'src.FMOD.Banks.EnvironmentBank' in sys.modules:
+        sys.modules['src.FMOD.Banks.EnvironmentBank'].EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
     
 except Exception as e:
-    print(f"[Sphinx Custom] Fehler beim Überschreiben: {e}")
+    pass
