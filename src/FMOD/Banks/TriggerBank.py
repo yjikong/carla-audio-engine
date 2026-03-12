@@ -123,8 +123,7 @@ class TriggerBank:
 
     def get_events():
         """
-        Returns a dictionary of event instances. Currently returning an empty 
-        map as playback is managed through explicit class methods.
+        Returns a dictionary of event instances.
         """
         events = {
 
@@ -133,7 +132,7 @@ class TriggerBank:
 
     def shutdown(self):
         """
-        Gracefully releases the FMOD Studio System and stops all active sounds.
+        Releases the FMOD Studio System and stops all active sounds.
         """
         try:
             print(f'Releasing Studio System')
