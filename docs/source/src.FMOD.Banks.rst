@@ -5,7 +5,6 @@ EnvironmentBank
 ---------------
 
 .. automodule:: src.FMOD.Banks.EnvironmentBank
-   :annotation: = 'path/to/banks'
    :members:
    :show-inheritance:
    :undoc-members:

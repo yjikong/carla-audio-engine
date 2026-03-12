@@ -100,3 +100,17 @@ def setup(app):
         return skip
 
     app.connect("autodoc-skip-member", skip)
+
+    # -- Override dynamic paths for documentation --------------------------------
+
+try:    
+    from src.FMOD.Banks.EnvironmentBank import EnvironmentBank
+    from src.FMOD.Banks.config import *
+    
+    # Hier setzen wir den Wert auf einen sauberen Platzhalter
+    EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
+    TRIGGER_BANK_PATH = 'path/to/trigger_bank'
+    ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
+    
+except Exception as e:
+    print(f"[Sphinx Custom] Konnte DEFAULT_BANK_PATH nicht überschreiben: {e}")
