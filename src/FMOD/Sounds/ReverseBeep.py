@@ -1,3 +1,11 @@
+# Copyright (c) 2026 Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong, Sven Winkelmann
+#
+# SPDX-License-Identifier: MIT
+#
+# Licensed under the MIT License. 
+# See LICENSE file in the project root for full license information.
+# Also consult our README to comply with Third-Party Licenses.
+
 import os
 os.environ["PYFMODEX_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
 os.environ["PYFMODEX_STUDIO_DLL_PATH"] = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"

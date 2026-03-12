@@ -1,3 +1,11 @@
+# Copyright (c) 2026 Kai Braun, Ozan Miguel Gündogdu, Yeri Jikong, Sven Winkelmann
+#
+# SPDX-License-Identifier: MIT
+#
+# Licensed under the MIT License. 
+# See LICENSE file in the project root for full license information.
+# Also consult our README to comply with Third-Party Licenses.
+
 from src.FMOD.Banks import EnvironmentBank
 from src.FMOD.utils import DataKey  
 from src.FMOD.utils.DataKey import DataKey
