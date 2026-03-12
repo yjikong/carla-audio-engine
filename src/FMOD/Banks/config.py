@@ -14,6 +14,12 @@ FILE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = FILE_DIR.parents[2]
 BANKS_DIR = PROJECT_ROOT / "Banks"
 
+#: Absolute path to FMOD Core dll
+FMOD_CORE_DLL = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64\fmod.dll"
+
+#: Absolute path to FMOD Studio dll
+FMOD_STUDIO_DLL = r"C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib\x64\fmodstudio.dll"
+
 #: Absolute path to the Trigger sound banks directory.
 TRIGGER_BANK_PATH = str((BANKS_DIR / "Trigger_Bank").resolve())
 
