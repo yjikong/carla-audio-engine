@@ -15,8 +15,6 @@ from .config import *
 
 class ExampleBank:
     """
-    Base template and controller for FMOD Studio Bank management.
-
     This class handles the low-level initialization of the FMOD Studio System, 
     manages the loading of .bank files, and provides an interface for retrieving 
     event instances. It serves as a blueprint for specialized banks like 
@@ -108,7 +106,7 @@ class ExampleBank:
         """
         Advances the FMOD Studio playback engine.
         
-        This must be called once per frame (typically via an Adapter) to 
+        This must be called in the main loop to 
         process playback states, parameter changes, and 3D positioning.
         """
         self.studio_system.update()

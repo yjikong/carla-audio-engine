@@ -115,7 +115,7 @@ class EnvironmentBank:
 
     def update_studio_system(self):
         """
-        Synchronizes the FMOD Studio system. Must be called every frame to 
+        Synchronizes the FMOD Studio system. Must be called in main loop to 
         apply parameter changes (intensity) to the running instances.
         """
         self.studio_system.update()
