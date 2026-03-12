@@ -26,7 +26,7 @@ class EnvironmentAdapter:
     """
     def __init__(self, event_bus: EventBus, bank: EnvironmentBank):
         """
-        Initializes the EnvironmentAdapter and binds event listeners.
+        Initializes the EnvironmentAdapter and subscribes to relevant data keys.
 
         Args:
             event_bus (EventBus): The system bus for subscribing to intensity data.

@@ -32,6 +32,11 @@ class TriggerAdapter:
         bank (TriggerBank): FMOD bank containing one-shot sound events.
         honk_counter (int): Counter used to debounce horn events, ensuring the 
             sound only plays once per key press.
+    
+    Constants:
+        GEAR_REVERSE (int) = -1 : Value CARLA Simulator returnes when reverse gear is selected
+        SPEED_LIMIT (int) = 100 : Sets Value for speed warning if vehicle exceeds this limit
+        HANDBRAKE_SPEED (int) = 40 : Minimum speed for the handbrake sound to play
     """
     GEAR_REVERSE = -1
     SPEED_LIMIT = 100
@@ -41,7 +46,7 @@ class TriggerAdapter:
         Initializes the TriggerAdapter and subscribes to simulation data.
 
         Args:
-            event_bus (EventBus): The system bus for event subscriptions.
+            event_bus (EventBus): The system bus used for data subscription.
             rev_beep (ReverseBeep): The sound engine instance for reverse beeps.
             bank (TriggerBank): The bank containing one-shot audio instances.
         """
@@ -68,9 +73,6 @@ class TriggerAdapter:
 
         Args:
             current_gear (int): The current gear value from the simulation.
-            GEAR_REVERSE (int): Constant identifying the reverse gear (-1).
-            SPEED_LIMIT (int): Threshold in km/h for the overspeed warning.
-            HANDBRAKE_SPEED (int): Minimum speed required to trigger handbrake sounds.
         """
         val = None
         if current_gear == self.GEAR_REVERSE and self.past_gear == None:
@@ -85,7 +87,7 @@ class TriggerAdapter:
 
     def on_tick(self):
         """
-        Updates the internal sound engine and FMOD system on every frame.
+        Updates the internal sound engine and FMOD system.
         """
         self.reverse_beep.update()
         self.bank.update_studio_system()
@@ -112,7 +114,7 @@ class TriggerAdapter:
         Triggers the crash sound effect upon impact.
 
         Args:
-            crash: unused.
+            crash: unused. Necesarry due to the event bus design
         """
         if self.crash_trigger is False and self.crash_counter >= 1:
             self.bank.play_crash()
@@ -128,6 +130,9 @@ class TriggerAdapter:
 
         Uses an internal counter to filter out redundant triggers from 
         continuous key-press updates.
+
+        Args:
+            honk: unused. Necesarry due to the event bus design
         """
         if self.honk_trigger is False and self.honk_counter % 2 == 0:
             self.bank.play_honk()
@@ -141,7 +146,7 @@ class TriggerAdapter:
         Triggers the handbrake sound effect if the vehicle is moving.
 
         Args:
-            handBrake: unused.
+            handBrake: unused. Necesarry due to the event bus design
         """
         if self.speed > self.HANDBRAKE_SPEED:
             if self.handBrake_trigger is False and self.handBrake_flag:

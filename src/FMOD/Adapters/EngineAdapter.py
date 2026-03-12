@@ -22,7 +22,7 @@ class EngineAdapter:
     Attributes:
         ev (EVSoundEngine): The engine responsible for generating electric 
             vehicle sounds.
-        speed (float): The current velocity of the vehicle, typically in km/h.
+        speed (float): The current velocity of the vehicle in km/h.
         throttle (float): The current throttle input, ranging from 0.0 to 1.0.
     """
     def __init__(self, bus: EventBus, ev: EVSoundEngine):
@@ -30,7 +30,7 @@ class EngineAdapter:
         Initializes the EngineAdapter and subscribes to relevant data keys.
 
         Args:
-            bus (EventBus): The global system bus used for data subscription.
+            bus (EventBus): The system bus used for data subscription.
             ev (EVSoundEngine): The sound engine instance to be controlled.
         """
         self.ev = ev
