@@ -27,7 +27,9 @@ class EnvironmentBank:
         wind_inst (EventInstance): Persistent instance for the wind audio loop.
     """
     DEFAULT_BANK_PATH = ENVIRONMENT_BANK_PATH
-    """DEFAULT_BANK_PATH (str): The default filesystem directory containing the .bank files, sourced from the global configuration."""
+    """DEFAULT_BANK_PATH (str): The default filesystem directory containing the .bank files, sourced from the global configuration.
+        :meta hide-value
+    """
     def __init__(self):
         """
         Initializes the FMOD system, loads the environment banks, and 
