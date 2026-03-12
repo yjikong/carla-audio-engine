@@ -14,7 +14,7 @@ from .config import *
 
 class TriggerBank:
     """
-    Controller for discrete, one-shot audio assets within FMOD Studio.
+    Interface for discrete, one-shot audio assets within FMOD Studio.
 
     This class manages the loading and playback of trigger-based sound events, 
     such as collisions, horns, and warnings. It maintains specific event 

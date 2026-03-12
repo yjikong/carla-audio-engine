@@ -32,18 +32,16 @@ class TriggerAdapter:
         bank (TriggerBank): FMOD bank containing one-shot sound events.
         honk_counter (int): Counter used to debounce horn events, ensuring the 
             sound only plays once per key press.
-    
-    Constants:
-        GEAR_REVERSE (int) = -1 : Value CARLA Simulator returnes when reverse gear is selected
-        SPEED_LIMIT (int) = 100 : Sets Value for speed warning if vehicle exceeds this limit
-        HANDBRAKE_SPEED (int) = 40 : Minimum speed for the handbrake sound to play
     """
     GEAR_REVERSE = -1
+    """GEAR_REVERSE (int) = -1 : Value CARLA Simulator returnes when reverse gear is selected"""
     SPEED_LIMIT = 100
+    """SPEED_LIMIT (int) = 100 : Sets Value for speed warning if vehicle exceeds this limit"""
     HANDBRAKE_SPEED = 40
+    """HANDBRAKE_SPEED (int) = 40 : Minimum speed for the handbrake sound to play"""
     def __init__(self, event_bus: EventBus, rev_beep: ReverseBeep, bank: TriggerBank):
         """
-        Initializes the TriggerAdapter and subscribes to simulation data.
+        Initializes the TriggerAdapter and subscribes to relevant data keys.
 
         Args:
             event_bus (EventBus): The system bus used for data subscription.

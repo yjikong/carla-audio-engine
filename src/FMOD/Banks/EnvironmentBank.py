@@ -14,7 +14,7 @@ from .config import *
 
 class EnvironmentBank:
     """
-    Controller for environmental audio assets and FMOD Studio banks.
+    Interface for environmental audio assets and FMOD Studio banks.
 
     This class manages the lifecycle of environmental sound banks, including 
     loading the 'Master' and 'Environment' banks. It instantiates and maintains 
