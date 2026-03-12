@@ -105,12 +105,12 @@ def setup(app):
 
 try:    
     from src.FMOD.Banks.EnvironmentBank import EnvironmentBank
-    from src.FMOD.Banks.config import *
+    import src.FMOD.Banks.config as fmod_config
     
     # Hier setzen wir den Wert auf einen sauberen Platzhalter
     EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
-    TRIGGER_BANK_PATH = 'path/to/trigger_bank'
-    ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
+    fmod_config.TRIGGER_BANK_PATH = 'path/to/trigger_bank'
+    fmod_config.ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
     
 except Exception as e:
     print(f"[Sphinx Custom] Konnte DEFAULT_BANK_PATH nicht überschreiben: {e}")
