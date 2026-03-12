@@ -107,10 +107,12 @@ try:
     import sys
     import src.FMOD.Banks.config as fmod_config
     from src.FMOD.Banks.EnvironmentBank import EnvironmentBank
+    from src.FMOD.Banks.TriggerBank import TriggerBank
     
     fmod_config.TRIGGER_BANK_PATH = 'path/to/trigger_bank'
     fmod_config.ENVIRONMENT_BANK_PATH = 'path/to/environment_bank'
     EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
+    TriggerBank.DEFAULT_BANK_PATH = 'path/to/trigger_bank'
     
     if 'src.FMOD.Banks.config' in sys.modules:
         sys.modules['src.FMOD.Banks.config'].TRIGGER_BANK_PATH = 'path/to/trigger_bank'
@@ -118,6 +120,7 @@ try:
 
     if 'src.FMOD.Banks.EnvironmentBank' in sys.modules:
         sys.modules['src.FMOD.Banks.EnvironmentBank'].EnvironmentBank.DEFAULT_BANK_PATH = 'path/to/environment_bank'
+        sys.modules['src.FMOD.Banks.TriggerBank'].TriggerBank.DEFAULT_BANK_PATH = 'path/to/trigger_bank'
     
 except Exception as e:
     pass
